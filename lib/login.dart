@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:project/registration.dart';
 import 'package:project/UI/homepage_1.dart';
+import 'package:http/http.dart' as http;
 
 
 class LogIn extends StatefulWidget {
@@ -23,6 +26,29 @@ class _LogInState extends State<LogIn> {
     _Password.dispose();
     super.dispose();
   }
+
+  void Login() async
+  {
+    try
+    {
+      Map data =
+      {
+        "email" : _mail.text,
+        "password" : _Password.text,
+      };
+      var response = await http.post(Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/user_login"),
+        body: jsonEncode(data),
+        headers:
+        {'Content-Type':"application/json; charset=UTF-8" },
+      );
+      print(response.body);
+    }
+    catch(e)
+    {
+      print(e);
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -91,6 +117,7 @@ class _LogInState extends State<LogIn> {
                       padding: const EdgeInsets.all(30),
                       child: ElevatedButton(child: const Text("Log In"),
                           onPressed: (){
+                            Login();
                             setState(() {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => MyHomePage(),

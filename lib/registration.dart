@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:project/login.dart';
 import 'package:flutter/material.dart';
 import 'package:project/UI/homepage_1.dart';
+import 'package:http/http.dart' as http;
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
@@ -29,6 +32,33 @@ class _RegistrationState extends State<Registration> {
     _confirmPassword.dispose();
     super.dispose();
   }
+
+  void Register() async {
+    // final url = Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/user_registration");
+    try
+    {
+      Map data =
+      {
+        "name" : _name.text,
+        "mobile_no" : _number.text ,
+        "email" : _mail.text,
+        "password" : _Password.text,
+      };
+      var response = await http.post(
+        Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/user_registration"),
+        body: jsonEncode(data),
+        headers: {
+          'Content-Type':"application/json; charset=UTF-8"
+        },
+      );
+      print(response.body);
+    }
+    catch(e)
+    {
+      print(e);
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -185,6 +215,7 @@ class _RegistrationState extends State<Registration> {
                     child: ElevatedButton(
                       child: const Text("Register"),
                       onPressed: () {
+                        Register();
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => MyHomePage(),
                         ));
