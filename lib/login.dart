@@ -18,19 +18,22 @@ class _LogInState extends State<LogIn> {
   bool _passVisible = false;
   final TextEditingController _mail = TextEditingController();
   final TextEditingController _Password = TextEditingController();
+  bool _isButtonDisabled = true;
 
   @override
-  void dispose()
-  {
-    _mail.dispose();
-    _Password.dispose();
-    super.dispose();
-  }
-
-  void Login() async
+  void Login(BuildContext context) async
   {
     try
     {
+      if (_mail.text.isEmpty || _Password.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please fill the all fields'),
+          ),
+        );
+        return;
+      }
+
       Map data =
       {
         "email" : _mail.text,
@@ -41,7 +44,11 @@ class _LogInState extends State<LogIn> {
         headers:
         {'Content-Type':"application/json; charset=UTF-8" },
       );
-      print(response.body);
+      if (response.statusCode == 200) {
+        print(response.body);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Registration()));
+      }
     }
     catch(e)
     {
@@ -59,6 +66,11 @@ class _LogInState extends State<LogIn> {
           child: Padding(
             padding: const EdgeInsets.all(35),
             child: Form(key: _formKey,
+                onChanged: () {
+                  setState(() {
+                    _isButtonDisabled = !_formKey.currentState!.validate();
+                  });
+                },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -79,7 +91,19 @@ class _LogInState extends State<LogIn> {
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: (String? value) {
-                        return (!value!.contains("@") || !value.contains(".")) ? "Please enter proper e-mail address" : null;
+                        if (value == null || value.isEmpty)
+                        {
+                          return 'Please enter an email address';
+                        }
+                        else if(!value!.contains("@") || !value.contains("."))
+                        {
+                          return "Format of abc123@gmail.com";
+                        }
+                        else if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value))
+                        {
+                          return 'Format of abc123@gmail.com';
+                        }
+                        return null;
                       },
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
@@ -104,34 +128,45 @@ class _LogInState extends State<LogIn> {
                           },
                         ),
                       ),
-                      validator: (String? value)
-                      {
+                      validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return 'Password is required';
                         }
-                        return (value.length < 6 && value.contains(RegExp(r'[a-zA-z0-9!@#%^&*]'))) ? 'Password must be at least 6 characters long' : null;
+                        // Regular expression pattern to validate password format
+                        if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$').hasMatch(value)) {
+                          return 'Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long';
+                        }
+                        return null;
                       },
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(30),
                       child: ElevatedButton(child: const Text("Log In"),
-                          onPressed: (){
-                            Login();
-                            setState(() {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => MyHomePage(),
-                              ));
-                            });
-                          }),
+                        onPressed: _isButtonDisabled ? null : () => Login(context),
+                        // onPressed: (){
+                        //   setState(() {
+                        //     Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (context) => MyHomePage(),
+                        //     ));
+                        //   });
+                        // }
+                      ),
                     ),
                     const Text("Are you new user?"),
-                    TextButton(child: const Text("Register Here"),onPressed: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const Registration(),
-                      )
-                      );
-                    }
+                    TextButton(child: const Text("Register Here"),
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const Registration(),
+                          )
+                          );
+                        }
+                    ),
+                    TextButton(
+                      child: Text("Forgot Password"),
+                      onPressed: (){
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ForgotPass(),));
+                      },
                     ),
                   ],
                 )

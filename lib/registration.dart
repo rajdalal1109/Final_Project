@@ -21,6 +21,7 @@ class _RegistrationState extends State<Registration> {
   final TextEditingController _mail = TextEditingController();
   final TextEditingController _Password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
+  bool _isButtonDisabled = true;
 
   @override
   void dispose()
@@ -33,8 +34,23 @@ class _RegistrationState extends State<Registration> {
     super.dispose();
   }
 
-  void Register() async {
+  void Register(BuildContext context) async {
     // final url = Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/user_registration");
+
+    if (_name.text.isEmpty ||
+        _number.text.isEmpty ||
+        _mail.text.isEmpty ||
+        _Password.text.isEmpty ||
+        _confirmPassword.text.isEmpty) {
+      // Display snackbar if any field is empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('All fields are compulsory'),
+        ),
+      );
+      return;
+    }
+
     try
     {
       Map data =
@@ -72,6 +88,11 @@ class _RegistrationState extends State<Registration> {
             padding: const EdgeInsets.all(30),
             child: Form(
               key: _formKey,
+              onChanged: () {
+                setState(() {
+                  _isButtonDisabled = !_formKey.currentState!.validate();
+                });
+              },
               child: Column(
                 children: [
                   const SizedBox(height: 5,),
@@ -94,7 +115,7 @@ class _RegistrationState extends State<Registration> {
                       if (value == null || value.isEmpty) {
                         return 'Name is required';
                       }
-                      return (value.contains(RegExp(r'[0-9!@#%^&*]'))) ? 'Please enter characters only' : null;
+                      return (RegExp(r'[!@#%^&*0-9]').hasMatch(value)) ? 'Please enter alphabets only' : null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
@@ -110,12 +131,11 @@ class _RegistrationState extends State<Registration> {
                         prefixIcon: Icon(Icons.call, color: Colors.blue)),
                     maxLength: 10,
                     keyboardType: TextInputType.phone,
-                    validator: (String? value)
-                    {
+                    validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Number is required';
                       }
-                      return (value.contains(RegExp(r'[a-zA-z!@#%^&*]'))) ? 'Enter only numbers' : null;
+                      return (RegExp(r'[!@#%^&*a-zA-Z]').hasMatch(value)) ? 'Enter only numbers' : null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
@@ -136,7 +156,7 @@ class _RegistrationState extends State<Registration> {
                       {
                         return 'Please enter an email address';
                       }
-                      else if (!RegExp(r'^[\w-]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value))
+                      else if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value))
                       {
                         return 'Format of abc123@gmail.com';
                       }
@@ -166,13 +186,15 @@ class _RegistrationState extends State<Registration> {
                         },
                       ),
                     ),
-                    validator: (String? value)
-                    {
-                      if (value == null || value.isEmpty)
-                      {
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
                         return 'Password is required';
                       }
-                      return (value.length < 6 && value.contains(RegExp(r'[a-zA-z0-9!@#%^&*]'))) ? 'Password must be at least 6 characters long' : null;
+                      // Regular expression pattern to validate password format
+                      if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$').hasMatch(value)) {
+                        return 'Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long';
+                      }
+                      return null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
@@ -214,12 +236,13 @@ class _RegistrationState extends State<Registration> {
                     padding: const EdgeInsets.all(25),
                     child: ElevatedButton(
                       child: const Text("Register"),
-                      onPressed: () {
-                        Register();
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MyHomePage(),
-                        ));
-                      },
+                      onPressed: _isButtonDisabled ? null : () => Register(context),
+                      // onPressed: () {
+                      //
+                      //   // Navigator.of(context).push(MaterialPageRoute(
+                      //   //   builder: (context) => MyHomePage(),
+                      //   // ));
+                      // },
                     ),
                   ),
 
@@ -241,7 +264,7 @@ class _RegistrationState extends State<Registration> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        Text("By Clicking on Register, you are agree to "
+                        Text("By Clicking on Register, you are agree to "'\n'
                             "Privacy Policy and "
                             "Terms & Conditions !!",style: TextStyle(color: Colors.red)),
                       ],
