@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:apidemo/forgot_pass.dart';
-import 'package:apidemo/login.dart';
-import 'package:apidemo/newpass.dart';
+//import 'package:apidemo/forgot_pass.dart';
+//import 'package:apidemo/login.dart';
+//import 'package:apidemo/newpass.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:project/Auth/forgot_pass.dart';
+import 'package:project/Auth/newpass.dart';
 
 class VerifyOtp extends StatefulWidget {
   final String email;

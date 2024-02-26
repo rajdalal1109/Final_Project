@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:apidemo/forgot_pass.dart';
-import 'package:apidemo/successful.dart';
+//import 'package:apidemo/forgot_pass.dart';
+//import 'package:apidemo/successful.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:project/Auth/successful.dart';
 
 
 

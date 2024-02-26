@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:project/Auth/forgot_pass.dart';
 import 'package:project/registration.dart';
 import 'package:project/UI/homepage_1.dart';
 import 'package:http/http.dart' as http;
@@ -165,7 +166,8 @@ class _LogInState extends State<LogIn> {
                     TextButton(
                       child: Text("Forgot Password"),
                       onPressed: (){
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ForgotPass(),));
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const ForgotPass(),));
+                        // Naviga
                       },
                     ),
                   ],

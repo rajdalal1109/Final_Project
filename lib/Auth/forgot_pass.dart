@@ -1,12 +1,14 @@
 import 'dart:convert';
 
-import 'package:apidemo/Provider/auth_provider.dart';
-import 'package:apidemo/registration.dart';
-import 'package:apidemo/verify_otp.dart';
+//import 'package:apidemo/registration.dart';
+//import 'package:apidemo/verify_otp.dart';
+import 'package:project/Provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
+import 'package:project/Auth/verify_otp.dart';
+
 
 
 class ForgotPass extends StatefulWidget {
