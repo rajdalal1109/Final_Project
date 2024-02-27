@@ -1,19 +1,20 @@
 import 'dart:convert';
 
-//import 'package:apidemo/forgot_pass.dart';
-//import 'package:apidemo/successful.dart';
+// import 'package:apidemo/forgot_pass.dart';
+// import 'package:apidemo/successful.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/Auth/successful.dart';
 
-
-
 class NewPass extends StatefulWidget {
-  final String Pass;
-  final String comPass;
+
+  final String email;
 
   // const NewPass({super.key, required this.Pass, required this.comPass});
-  const NewPass({Key? key, required this.Pass, required this.comPass}) : super(key: key);
+  const NewPass(
+      {Key? key,
+        required this.email})
+      : super(key: key);
 
   @override
   State<NewPass> createState() => _NewPassState();
@@ -26,13 +27,13 @@ class _NewPassState extends State<NewPass> {
   TextEditingController _Pass = TextEditingController();
   TextEditingController _comPass = TextEditingController();
 
-  void ConfirmPass() async
-  {
-    try
-    {
-      var response = await http.post(Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/newpwd.php"),
+  void ConfirmPass() async {
+    try {
+      var response = await http.post(
+          Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/newpwd"),
           body: jsonEncode({
-            "Pass" : widget.Pass.toString(),
+            'email': widget.email.toString(),
+            "password": _Pass.text
           }),
           headers: {'content-type': 'application/json; charset=UTF-8'});
       if (response.statusCode == 200) {
@@ -40,17 +41,14 @@ class _NewPassState extends State<NewPass> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Done()));
       }
-    }
-    catch(e)
-    {
+    } catch (e) {
       print(e);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.Pass);
-    print(widget.comPass);
+    print(widget.email);
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
       //background: rgba(255, 98, 96, 1);
@@ -77,10 +75,9 @@ class _NewPassState extends State<NewPass> {
                         style: TextStyle(fontSize: 35),
                       ),
                       const SizedBox(height: 20),
-                      const Text("Set the new password for account so you can login and access all  features."),
+                      const Text(
+                          "Set the new password for account so you can login and access all  features."),
                       //const Text("OTP will expire soon",style: TextStyle(color: Colors.redAccent),),
-
-
 
                       const SizedBox(height: 20),
                       TextFormField(
@@ -95,7 +92,9 @@ class _NewPassState extends State<NewPass> {
                           hintText: 'Password',
                           prefixIcon: const Icon(Icons.password),
                           suffixIcon: IconButton(
-                            icon: Icon(_passVisible ? Icons.visibility : Icons.visibility_off),
+                            icon: Icon(_passVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off),
                             onPressed: () {
                               setState(() {
                                 _passVisible = !_passVisible;
@@ -103,13 +102,14 @@ class _NewPassState extends State<NewPass> {
                             },
                           ),
                         ),
-                        validator: (String? value)
-                        {
-                          if (value == null || value.isEmpty)
-                          {
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
                             return 'Password is required';
                           }
-                          return (value.length < 6 && value.contains(RegExp(r'[a-zA-z0-9!@#%^&*]'))) ? 'Password must be at least 6 characters long' : null;
+                          return (value.length < 6 &&
+                              value.contains(RegExp(r'[a-zA-z0-9!@#%^&*]')))
+                              ? 'Password must be at least 6 characters long'
+                              : null;
                         },
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
@@ -127,7 +127,9 @@ class _NewPassState extends State<NewPass> {
                           hintText: 'Confirm Password',
                           prefixIcon: const Icon(Icons.password),
                           suffixIcon: IconButton(
-                            icon: Icon(_CpassVisible ? Icons.visibility : Icons.visibility_off),
+                            icon: Icon(_CpassVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off),
                             onPressed: () {
                               setState(() {
                                 _CpassVisible = !_CpassVisible;

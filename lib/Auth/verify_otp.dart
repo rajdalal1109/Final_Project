@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-//import 'package:apidemo/forgot_pass.dart';
-//import 'package:apidemo/login.dart';
-//import 'package:apidemo/newpass.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -37,7 +34,10 @@ class _VerifyOtpState extends State<VerifyOtp> {
     if (res.statusCode == 200) {
       print(res.body);
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => NewPass(Pass: '', comPass: '',)));
+          context, MaterialPageRoute(builder: (context) => NewPass(email: widget.email.toString(),)));
+    }
+    else{
+      return;
     }
   }
 
