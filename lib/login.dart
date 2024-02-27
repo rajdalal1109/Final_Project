@@ -22,6 +22,14 @@ class _LogInState extends State<LogIn> {
   bool _isButtonDisabled = true;
 
   @override
+  void dispose()
+  {
+    _mail.dispose();
+    _Password.dispose();
+    super.dispose();
+  }
+
+  @override
   void Login(BuildContext context) async
   {
     try
@@ -167,7 +175,6 @@ class _LogInState extends State<LogIn> {
                       child: Text("Forgot Password"),
                       onPressed: (){
                         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> const ForgotPass(),));
-                        // Naviga
                       },
                     ),
                   ],

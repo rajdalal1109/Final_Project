@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-//import 'package:apidemo/registration.dart';
-//import 'package:apidemo/verify_otp.dart';
 import 'package:project/Provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
