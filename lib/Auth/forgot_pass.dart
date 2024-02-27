@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:project/Provider/auth_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/Auth/verify_otp.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/auth_provider.dart';
 
 
 
@@ -85,67 +86,64 @@ class _ForgotPassState extends State<ForgotPass> {
         surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);,
       ),
       backgroundColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
-      body: Consumer<AuthProvider>(
-        builder: (BuildContext context, AuthProvider value, Widget? child)
-        => Center(
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Container(
-                    height: 400,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Forgot Password",
-                            style: TextStyle(fontSize: 35),
-                          ),
-                          const SizedBox(height: 20),
-                          const Text(
-                              "Enter Your email for the verification process, we will send a 4-digit code to your email."),
-                          const SizedBox(height: 20),
-                          Center(
-                            child: TextFormField(
-                              controller: _mail,
-                              decoration: const InputDecoration(
-                                labelText: "E-Mail*",
-                                hintText: "Enter Your E-mail ID",
-                                prefixIcon: Icon(Icons.mail, color: Colors.blue),
-                                border: OutlineInputBorder(),
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              onChanged: (value) {
-                                setState(() {
-                                  _isEmailValid = value.contains('@') && value.contains('.');
-                                });
-                              },
-                              validator: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Email is required';
-                                }
-                                return _isEmailValid ? null : "Please enter a valid email address";
-                              },
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Container(
+                  height: 400,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Forgot Password",
+                          style: TextStyle(fontSize: 35),
+                        ),
+                        const SizedBox(height: 20),
+                        const Text(
+                            "Enter Your email for the verification process, we will send a 4-digit code to your email."),
+                        const SizedBox(height: 20),
+                        Center(
+                          child: TextFormField(
+                            controller: _mail,
+                            decoration: const InputDecoration(
+                              labelText: "E-Mail*",
+                              hintText: "Enter Your E-mail ID",
+                              prefixIcon: Icon(Icons.mail, color: Colors.blue),
+                              border: OutlineInputBorder(),
                             ),
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              setState(() {
+                                _isEmailValid = value.contains('@') && value.contains('.');
+                              });
+                            },
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Email is required';
+                              }
+                              return _isEmailValid ? null : "Please enter a valid email address";
+                            },
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                           ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                            onPressed:ForgotPass,
-                            child: const Center(child: Text("CONTINUE")),
-                          ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                          onPressed:ForgotPass,
+                          child: const Center(child: Text("CONTINUE")),
+                        ),
+                      ],
                     ),
                   ),
                 ),
