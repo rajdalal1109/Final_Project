@@ -3,15 +3,15 @@ import 'package:project/UI/find_bus.dart';
 import 'package:project/UI/ticket.dart';
 import 'package:project/UI/wallet.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<HomePage> {
   int currentPageIndex = 0;
 
   // void _onItemTapped(int index) {

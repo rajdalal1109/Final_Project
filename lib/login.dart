@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:project/Auth/forgot_pass.dart';
+import 'package:project/UI/bottombar.dart';
 import 'package:project/registration.dart';
-import 'package:project/UI/homepage_1.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -29,7 +29,6 @@ class _LogInState extends State<LogIn> {
     super.dispose();
   }
 
-  @override
   void Login(BuildContext context) async
   {
     try
@@ -56,7 +55,7 @@ class _LogInState extends State<LogIn> {
       if (response.statusCode == 200) {
         print(response.body);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Registration()));
+            context, MaterialPageRoute(builder: (context) => BottoBar()));
       }
     }
     catch(e)
@@ -104,7 +103,7 @@ class _LogInState extends State<LogIn> {
                         {
                           return 'Please enter an email address';
                         }
-                        else if(!value!.contains("@") || !value.contains("."))
+                        else if(!value.contains("@") || !value.contains("."))
                         {
                           return "Format of abc123@gmail.com";
                         }
