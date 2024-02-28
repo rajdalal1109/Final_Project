@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/UI/find_bus.dart';
-import 'package:project/UI/ticket.dart';
-import 'package:project/UI/wallet.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,12 +26,6 @@ class _MyHomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
         surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),//Color.fromRGBO(255, 98, 96, 1);
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: Image(image: AssetImage("assets/images/girldp.png"),),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -446,76 +438,6 @@ class _MyHomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
-      // bottomNavigationBar: NavigationBar(
-      //   onDestinationSelected: (int index) {
-      //     setState(() {
-      //       currentPageIndex = index;
-      //     });
-      //   },
-      //   indicatorColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
-      //   selectedIndex: currentPageIndex,
-      //   destinations: const <Widget>[
-      //     NavigationDestination(
-      //       selectedIcon: Icon(Icons.home),
-      //       icon: Icon(Icons.home_outlined),
-      //       label: 'Home',
-      //     ),
-      //     NavigationDestination(
-      //       icon: Icon(Icons.airplane_ticket_outlined),
-      //       label: 'Tickets',
-      //     ),
-      //     NavigationDestination(
-      //       icon: Icon(Icons.account_balance_wallet_outlined),
-      //       label: 'Wallet',
-      //     ),
-      //     NavigationDestination(
-      //       icon: Icon(Icons.settings_outlined),
-      //       label: 'Setting',
-      //     ),
-      //   ],
-      // ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        iconSize: 24,
-        currentIndex: currentPageIndex,
-        onTap:  (value) {
-          setState(() {
-            currentPageIndex = value;
-          });
-        },
-        selectedItemColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
-        selectedFontSize: 16,
-        unselectedItemColor: Colors.black,
-        unselectedFontSize: 12,
-        items: [
-          const BottomNavigationBarItem(icon: Icon(Icons.home_outlined),label: "Home",),
-
-          BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Tickets(),));
-                  },
-                  child: const Icon(Icons.airplane_ticket_outlined)
-              ), label: "Tickets"
-          ),
-
-          BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Wallet(),));
-                  },
-                  child: const Icon(Icons.account_balance_wallet_outlined)
-              ),label: "Wallets"
-          ),
-
-          BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {},
-                  child: const Icon(Icons.settings_outlined)
-              ),label: "Setting"
-          ),
-        ],
       ),
     );
   }

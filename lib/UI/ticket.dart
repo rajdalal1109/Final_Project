@@ -15,9 +15,6 @@ class _TicketsState extends State<Tickets> {
         backgroundColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
         surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
         title: const Text("My Tickets",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.white)),
-        actions: [
-          Image.asset("assets/images/girldp.png",height: 45,width: 45),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),

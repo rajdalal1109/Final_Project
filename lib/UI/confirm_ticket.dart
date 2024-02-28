@@ -40,7 +40,7 @@ class _TicketsState extends State<ConfirmTickets> {
                 Text("We have send you the ticket copy on your E-mail",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.white)),
                 Text("abc@gmail.com",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.white)),
 
-                SizedBox(height: 10),
+                SizedBox(height: 40),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Container(
@@ -165,7 +165,7 @@ class _TicketsState extends State<ConfirmTickets> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
                   },
                   child: Container(
-                      margin: const EdgeInsets.only(top: 150),
+                      margin: const EdgeInsets.only(top: 210),
                       width: 305,
                       decoration: BoxDecoration
                         (

@@ -1,5 +1,5 @@
  import 'package:flutter/material.dart';
-import 'package:project/UI/ticket.dart';
+import 'package:project/UI/confirm_ticket.dart';
 
 int selectoption = 1;
 
@@ -188,7 +188,7 @@ class _PassDeatilsState extends State<PassDeatils> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Tickets(),));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConfirmTickets(),));
                 },
                 child: Container(
                     margin: const EdgeInsets.only(top: 200,left: 35,right: 35),
