@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'UI/splash_screen.dart';
 
-void main()  {
+void main() {
   runApp(const MyApp());
 }
 
@@ -10,10 +10,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
+      theme:  ThemeData(
+        fontFamily: 'Ubuntu'
+
+      ),
       title: 'Bus Booking System',
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: "Bus booking System"),
+      home: MyHomePage(
+        title: "Bus booking System",
+      ),
     );
   }
 }
@@ -28,11 +34,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body : UiScreen(),
+      body: UiScreen(),
     );
   }
 }
