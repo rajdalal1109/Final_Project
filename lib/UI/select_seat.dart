@@ -882,7 +882,7 @@ class SeatSelect extends StatefulWidget {
 
 class _SeatSelectState extends State<SeatSelect> {
   List<SeatSel> seat = [];
-
+var sI=[];
   void _getSeat() async {
     var res = await http.post(
         Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/setas'),
@@ -925,9 +925,10 @@ class _SeatSelectState extends State<SeatSelect> {
             itemCount: seat.length,
             itemBuilder: (context, index) {
               final s = seat[index];
-              final color = s.bookedStatus == true ? Colors.grey : Colors.green;
-              final selcolor =
-              s.userSelected == true ? Colors.orangeAccent : Colors.green;
+              final color = s.bookedStatus == true
+              ? Colors.grey
+                  :s.userSelected==true?Colors.orangeAccent:Colors.green;
+
 
               return Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -937,15 +938,22 @@ class _SeatSelectState extends State<SeatSelect> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        if (s.userSelected == false) {
+                        if (s.userSelected == false && s.bookedStatus==false) {
                           setState(() {
                             s.userSelected = true;
+                            sI.add(s.seatNo.toString());
+                            print(sI);
 
                             print(s.userSelected);
                           });
                         } else if (s.userSelected == true) {
                           setState(() {
                             s.userSelected = false;
+                            sI.remove(s.seatNo.toString());
+                            print(sI);
+
+
+
                             print(s.userSelected);
                           });
                         } else {}
