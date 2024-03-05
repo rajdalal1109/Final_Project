@@ -108,7 +108,7 @@ class _LogInState extends State<LogIn> {
                   const Text("You are just one step away",
                       style:
                       TextStyle(fontWeight: FontWeight.w100, fontSize: 15)),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 25),
                   TextFormField(
                     controller: _mail,
                     decoration: const InputDecoration(
@@ -175,7 +175,7 @@ class _LogInState extends State<LogIn> {
                     children: [
                       TextButton(
                         style: TextButton.styleFrom(
-                            padding: EdgeInsets.only(bottom: 20,right: 1),
+                            padding: EdgeInsets.only(bottom: 15,right: 1),
                             foregroundColor:Color.fromRGBO(255, 98, 96, 1) ,
                             textStyle: TextStyle(fontWeight: FontWeight.bold
                             )
@@ -192,6 +192,7 @@ class _LogInState extends State<LogIn> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 10),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -212,13 +213,13 @@ class _LogInState extends State<LogIn> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Are you new user?"),
+                      Text("Are you new user?",style: TextStyle(fontWeight: FontWeight.w500),),
                       TextButton(
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.all(2),
                           ),
                           child: const Text(
-                            "Register Here",
+                            "\t\tRegister Here",
                             style: TextStyle(
                               color: Color.fromRGBO(255, 98, 96, 1),
                             ),

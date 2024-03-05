@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:project/login.dart';
 import 'package:flutter/material.dart';
-import 'package:project/UI/homepage_1.dart';
 import 'package:http/http.dart' as http;
 
 class Registration extends StatefulWidget {
@@ -156,7 +155,7 @@ class _RegistrationState extends State<Registration> {
                       {
                         return 'Please enter an email address';
                       }
-                      else if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value))
+                      else if (!RegExp(r'^[\w-.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value))
                       {
                         return 'Format of abc123@gmail.com';
                       }
@@ -249,7 +248,7 @@ class _RegistrationState extends State<Registration> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Already Account?"),
+                      const Text("Already Account?",style: TextStyle(fontWeight: FontWeight.w500),),
                       TextButton(child: const Text("LogIn Here"),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -260,13 +259,13 @@ class _RegistrationState extends State<Registration> {
                     ],
                   ),
 
-                  const SingleChildScrollView(
+                  SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
                         Text("By Clicking on Register, you are agree to "'\n'
                             "Privacy Policy and "
-                            "Terms & Conditions !!",style: TextStyle(color: Colors.red)),
+                            "Terms & Conditions !!",style: TextStyle(color: Colors.red.shade500)),
                       ],
                     ),
                   ),
