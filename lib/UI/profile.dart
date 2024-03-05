@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/UI/setting.dart';
 import 'package:project/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   Uint8List? _image;
   File? selectedIMage;
+
 
   void showImagePickerOption(BuildContext context) {
     showModalBottomSheet(
@@ -91,6 +94,33 @@ class _ProfileState extends State<Profile> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    saveImage();
+    loadImage();
+  }
+
+  void saveImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (_image != null) {
+      prefs.setString('image', base64Encode(_image!));
+    }
+  }
+
+  void loadImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? imageData = prefs.getString('image');
+    if (imageData != null) {
+      setState(() {
+        _image = base64Decode(imageData);
+      });
+    }
+  }
+
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -138,16 +168,9 @@ class _ProfileState extends State<Profile> {
                 child: Column(
                   children: [
                     if (_image != null)
-                      CircleAvatar(
-                        radius: 90,
-                        backgroundImage: MemoryImage(_image!),
-                      )
+                      CircleAvatar(radius: 90, backgroundImage: MemoryImage(_image!),)
                     else
-                      const CircleAvatar(
-                        radius: 90,
-                        backgroundImage: AssetImage(
-                            "assets/images/girldp2.png"),
-                      ),
+                      const CircleAvatar(radius: 90, backgroundImage: AssetImage("assets/images/girldp2.png"),),
                     const SizedBox(height: 8),
                     const Text(
                       "Carla Dakota",

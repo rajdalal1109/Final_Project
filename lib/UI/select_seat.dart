@@ -870,11 +870,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/model/seatselect.dart';
 
-class SeatSelect extends StatefulWidget {
-  String? busID;
-  String? date;
+void main() {
+  runApp(const SeatSelect(busID: '', date: '',));
+}
 
-  SeatSelect({this.busID, this.date});
+class SeatSelect extends StatefulWidget {
+  const SeatSelect({super.key, required String busID, required String date});
 
   @override
   State<SeatSelect> createState() => _SeatSelectState();
@@ -882,23 +883,21 @@ class SeatSelect extends StatefulWidget {
 
 class _SeatSelectState extends State<SeatSelect> {
   List<SeatSel> seat = [];
-var sI=[];
+  bool d = true;
+
+  var sI = [];
+
   void _getSeat() async {
     var res = await http.post(
-        Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/setas'),
-        body: jsonEncode({
-          "bus_id": widget.busID.toString(),
-          "date": widget.date.toString()
-        }),
+        Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/setas.php'),
+        body: jsonEncode({"bus_id": 24, "date": "2024/03/11"}),
         headers: {'Content-Type': 'application/json'});
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
       seat = (data['seats'] as List).map((e) => SeatSel.fromJson(e)).toList();
       print(res.body);
-      print(widget.date);
-      print(widget.busID);
       setState(() {});
-    } else {}
+    }
   }
 
   @override
@@ -911,7 +910,18 @@ var sI=[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        actions: [
+          TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: Colors.white
+              ),
+              onPressed: () {
+
+              }, child: Text('Next'))
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(58.0),
         child: Card(
@@ -926,9 +936,10 @@ var sI=[];
             itemBuilder: (context, index) {
               final s = seat[index];
               final color = s.bookedStatus == true
-              ? Colors.grey
+                  ? Colors.grey
                   :s.userSelected==true?Colors.orangeAccent:Colors.green;
-
+              // final selcolor =
+              //     s.userSelected == true ? Colors.orangeAccent : Colors.green;
 
               return Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -937,13 +948,15 @@ var sI=[];
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
+
                       onTap: () {
-                        if (s.userSelected == false && s.bookedStatus==false) {
+
+
+                        if (s.userSelected == false && s.bookedStatus==false && sI.length<5) {
                           setState(() {
                             s.userSelected = true;
                             sI.add(s.seatNo.toString());
                             print(sI);
-
                             print(s.userSelected);
                           });
                         } else if (s.userSelected == true) {
@@ -952,17 +965,25 @@ var sI=[];
                             sI.remove(s.seatNo.toString());
                             print(sI);
 
-
-
                             print(s.userSelected);
                           });
-                        } else {}
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+
+
+                            SnackBar(
+                                backgroundColor: Colors.red,
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+
+                                content: Text('You Can add only 5 seats!')),
+                          );
+                          return null;
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            color: s.userSelected == true
-                                ? Colors.orangeAccent
-                                : color,
+                            color: color,
                             borderRadius: BorderRadius.circular(10)),
                         width: 50,
                         height: 50,
