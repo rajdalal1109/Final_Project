@@ -537,29 +537,24 @@ import 'package:project/UI/select_seat.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/model/dropdown.dart';
 
-class FindBus extends StatefulWidget {
+class FindBus extends StatelessWidget {
   String? source;
   String? destination;
   String? datecontroller;
 
   FindBus({this.source, this.destination, this.datecontroller});
 
-  @override
-  State<FindBus> createState() => _FindBusState();
-}
-
-class _FindBusState extends State<FindBus> {
   Future<List<BusDisplay>> _sendStops() async {
-    print(widget.source);
-    print(widget.destination);
-    print(widget.datecontroller);
+    print(source);
+    print(destination);
+    print(datecontroller);
 
     var res = await http.post(
         Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
         body: jsonEncode({
-          "start": widget.source.toString(),
-          "end": widget.destination.toString(),
-          "date": widget.datecontroller.toString()
+          "start": source.toString(),
+          "end": destination.toString(),
+          "date": datecontroller.toString()
         }),
         headers: {'Content-Type': 'application/json'});
 
@@ -599,12 +594,12 @@ class _FindBusState extends State<FindBus> {
             clipBehavior: Clip.none,
             children: [
               Container(
-                height: 296,
+                height: 313,
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(3),
-                      bottomRight: Radius.circular(3)),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10)),
                   color: Color.fromRGBO(255, 98, 96, 1),
                 ),
                 child: Column(
@@ -621,11 +616,12 @@ class _FindBusState extends State<FindBus> {
                       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          widget.source.toString(),
+                          source.toString(),
                           style: TextStyle(
-                              color: Colors.white,height: 1,
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal),
+                              color: Colors.white,
+                              height: 1,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                         ),
                         IconButton(
                           icon: const Icon(Icons.swap_vert_outlined,
@@ -633,11 +629,11 @@ class _FindBusState extends State<FindBus> {
                           onPressed: () {},
                         ),
                         Text(
-                          widget.destination.toString(),
+                          destination.toString(),
                           style: TextStyle(
                               color: Colors.white,height: 1,
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -652,7 +648,7 @@ class _FindBusState extends State<FindBus> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(238, 238, 238, 1)),),
                         Text(
-                          widget.datecontroller.toString(),
+                          datecontroller.toString(),
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
@@ -705,7 +701,7 @@ class _FindBusState extends State<FindBus> {
                 ),
               ),
               Positioned(
-                top: 261,
+                top: 280,
                 left: 20,
                 right: 20,
                 child: Container(
@@ -748,7 +744,7 @@ class _FindBusState extends State<FindBus> {
                                       MaterialPageRoute(
                                         builder: (context) => select_Seat(
                                           busID: stops.busid.toString(),
-                                          date: widget.datecontroller.toString(),
+                                          date: datecontroller.toString(),
                                         ),
                                       ));
                                   print(stops.busid.toString());
@@ -769,8 +765,6 @@ class _FindBusState extends State<FindBus> {
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w400)),
                                       ),
-
-                                      // Text("A/C Sleeper (2+2)",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w300)),
                                       Row(
                                         children: [
                                           Padding(
@@ -794,7 +788,6 @@ class _FindBusState extends State<FindBus> {
                                           ),
                                         ],
                                       ),
-
                                       Padding(
                                         padding: EdgeInsets.all(5),
                                         child: Text(stops.avSeats.toString(),
