@@ -28,6 +28,7 @@ class _MyHomePageState extends State<HomePage> {
   List<Routes> route = [];
   Routes? source;
   Routes? destination;
+
   void _stop() async {
     var response = await http.get(
       Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/stopsapi.php"),
@@ -36,6 +37,7 @@ class _MyHomePageState extends State<HomePage> {
       var data = jsonDecode(response.body) as List;
       route = data.map((e) => Routes.fromJson(e)).toList();
       print(response.body);
+      setState(() {});
     }
   }
 
@@ -53,6 +55,8 @@ class _MyHomePageState extends State<HomePage> {
     if(res.statusCode==200){
       print(res.body);
       setState(() {});
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Select Source & Destination !!"),),);
     }
   }
 
@@ -100,6 +104,7 @@ class _MyHomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+
               //SERCH DESTIONAATION AND DATES
               Positioned(
                 top: 200,
@@ -126,33 +131,44 @@ class _MyHomePageState extends State<HomePage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
-                          child: TextFormField(
+                          child: DropdownButtonFormField(
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                              hintText: 'Boarding From',
-                              hintStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Color.fromRGBO(181, 160, 232, 1),),
+                              fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);,
                               enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(5)),
+                                  borderRadius: BorderRadius.circular(5)
+                              ),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(5)),
+                                  borderRadius: BorderRadius.circular(5)
+                              ),
                             ),
+                            borderRadius: BorderRadius.circular(5),
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Color.fromRGBO(181, 160, 232, 1),),
+                            value: source,
+                            items: route.map((e) {
+                              return DropdownMenuItem<Routes>(
+                                value: e,
+                                child: Text(e.name.toString()),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                source=value;
+                              });
+                            },
                           ),
                         ),
+
                         Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15, top: 12),
-                          child: TextFormField(
+                          padding: const EdgeInsets.only(left: 15, right: 15,top: 10),
+                          child: DropdownButtonFormField(
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                              hintStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Color.fromRGBO(181, 160, 232, 1),),
-                              hintText: 'Where are you going?',
+                              fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);,
                               enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
@@ -164,8 +180,23 @@ class _MyHomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.circular(5)
                               ),
                             ),
+                            borderRadius: BorderRadius.circular(5),
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Color.fromRGBO(181, 160, 232, 1),),
+                            value: destination,
+                            items: route.map((e) {
+                              return DropdownMenuItem<Routes>(
+                                value: e,
+                                child: Text(e.name.toString()),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                destination=value;
+                              });
+                            },
                           ),
                         ),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -186,7 +217,7 @@ class _MyHomePageState extends State<HomePage> {
                                       );
                                       if (pickedDate != null) {
                                         print(pickedDate);
-                                        String formateDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                        String formateDate = DateFormat('dd-MM-yyyy').format(pickedDate);
                                         print(formateDate);
                                         setState(() {
                                           datecontroller.text = formateDate;
@@ -201,7 +232,7 @@ class _MyHomePageState extends State<HomePage> {
                                     },
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
+                                        borderRadius: BorderRadius.circular(5),
                                       ),
                                       prefixIcon: const Icon(Icons.date_range, color: Colors.black),
                                       labelText: "Day*",
@@ -216,7 +247,7 @@ class _MyHomePageState extends State<HomePage> {
                           width: 300,
                           child: Padding(
                             padding:
-                            const EdgeInsets.only(bottom: 25, top: 15),
+                            const EdgeInsets.only(bottom: 15, top: 15),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
@@ -241,7 +272,7 @@ class _MyHomePageState extends State<HomePage> {
 
               //UPCOMING BUSES TEXT
               const Positioned(
-                top: 510,
+                top: 550,
                 left: 20,
                 child: Text(
                   "Upcoming Journey",
@@ -251,7 +282,7 @@ class _MyHomePageState extends State<HomePage> {
               Positioned(
                 height: 290,
                 width: 360,
-                top: 520,
+                top: 565,
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Container(
