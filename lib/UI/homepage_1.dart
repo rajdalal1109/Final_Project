@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:project/UI/find_bus.dart';
+import 'package:project/model/data.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,12 +15,46 @@ class HomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<HomePage> {
   int currentPageIndex = 0;
+  TextEditingController datecontroller = TextEditingController();
 
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     currentPageIndex = index;
-  //   });
-  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _stop();
+  }
+
+  List<Routes> route = [];
+  Routes? source;
+  Routes? destination;
+  void _stop() async {
+    var response = await http.get(
+      Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/stopsapi.php"),
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body) as List;
+      route = data.map((e) => Routes.fromJson(e)).toList();
+      print(response.body);
+    }
+  }
+
+
+  void searchBuses() async{
+    final res=await http.post(Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
+        body: jsonEncode({
+          "start": source?.name.toString(),
+          "end": destination?.name.toString(),
+          "date": datecontroller.text
+
+        }),
+        headers: {'Content-Type': 'application/json; charset=UTF-8'}
+    );
+    if(res.statusCode==200){
+      print(res.body);
+      setState(() {});
+    }
+  }
+
 
 
   @override
@@ -136,37 +174,6 @@ class _MyHomePageState extends State<HomePage> {
                                 height: 25,
                                 width: 80,
                                 child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.white),
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5)
-                                  ),
-                                  onPressed: () {},
-                                  child: const Text('Today',style: TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.w400)),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15, right: 15, left: 10),
-                              child: SizedBox(
-                                height: 25,
-                                width: 90,
-                                child: OutlinedButton(
-                                    style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.white),
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5)
-                                    ),
-                                    onPressed: () {},
-                                    child: const Text('Tomowrrow', style: TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.w400))
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15, left: 10, right: 15),
-                              child: SizedBox(
-                                height: 25,
-                                width: 80,
-                                child: OutlinedButton(
                                     style: OutlinedButton.styleFrom(
                                       side: const BorderSide(color: Colors.white),
                                       alignment: Alignment.center,
@@ -211,6 +218,7 @@ class _MyHomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+
               //UPCOMING BUSES TEXT
               const Positioned(
                 top: 500,
