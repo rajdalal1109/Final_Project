@@ -97,8 +97,6 @@ class _ProfileState extends State<Profile> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    saveImage();
-    loadImage();
   }
 
   void saveImage() async {
@@ -117,8 +115,6 @@ class _ProfileState extends State<Profile> {
       });
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
