@@ -260,7 +260,15 @@ class _MyHomePageState extends State<HomePage> {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => FindBus(),));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => FindBus(
+                                        source: source!.name.toString(),
+                                        desti: desti!.name.toString(),
+                                        dateInput: dateInput.text,
+                                      ),
+                                    ));
                               },
                               child: const Text('Find Buses', style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400),),
                             ),
