@@ -539,10 +539,10 @@ import 'package:project/model/dropdown.dart';
 
 class FindBus extends StatefulWidget {
   String? source;
-  String? desti;
-  String? dateInput;
+  String? destination;
+  String? datecontroller;
 
-  FindBus({this.source, this.desti, this.dateInput});
+  FindBus({this.source, this.destination, this.datecontroller});
 
   @override
   State<FindBus> createState() => _FindBusState();
@@ -551,15 +551,15 @@ class FindBus extends StatefulWidget {
 class _FindBusState extends State<FindBus> {
   Future<List<BusDisplay>> _sendStops() async {
     print(widget.source);
-    print(widget.desti);
-    print(widget.dateInput);
+    print(widget.destination);
+    print(widget.datecontroller);
 
     var res = await http.post(
         Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
         body: jsonEncode({
           "start": widget.source.toString(),
-          "end": widget.desti.toString(),
-          "date": widget.dateInput.toString()
+          "end": widget.destination.toString(),
+          "date": widget.datecontroller.toString()
         }),
         headers: {'Content-Type': 'application/json'});
 
@@ -635,7 +635,7 @@ class _FindBusState extends State<FindBus> {
                           onPressed: () {},
                         ),
                         Text(
-                          widget.desti.toString(),
+                          widget.destination.toString(),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -650,7 +650,7 @@ class _FindBusState extends State<FindBus> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          widget.dateInput.toString(),
+                          widget.datecontroller.toString(),
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
@@ -746,7 +746,7 @@ class _FindBusState extends State<FindBus> {
                                       MaterialPageRoute(
                                         builder: (context) => select_Seat(
                                           busID: stops.busid.toString(),
-                                          date: widget.dateInput.toString(),
+                                          date: widget.datecontroller.toString(),
                                         ),
                                       ));
                                   print(stops.busid.toString());

@@ -265,8 +265,8 @@ class _MyHomePageState extends State<HomePage> {
                                     MaterialPageRoute(
                                       builder: (context) => FindBus(
                                         source: source!.name.toString(),
-                                        desti: desti!.name.toString(),
-                                        dateInput: dateInput.text,
+                                        destination: destination!.name.toString(),
+                                        datecontroller: datecontroller.text,
                                       ),
                                     ));
                               },
