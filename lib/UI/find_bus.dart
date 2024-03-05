@@ -542,7 +542,7 @@ class FindBus extends StatelessWidget {
   String? destination;
   String? datecontroller;
 
-  FindBus({this.source, this.destination, this.datecontroller});
+  FindBus({super.key, this.source, this.destination, this.datecontroller});
 
   Future<List<BusDisplay>> _sendStops() async {
     print(source);
@@ -617,7 +617,7 @@ class FindBus extends StatelessWidget {
                       children: [
                         Text(
                           source.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white,
                               height: 1,
                               fontSize: 20,
@@ -630,7 +630,7 @@ class FindBus extends StatelessWidget {
                         ),
                         Text(
                           destination.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white,height: 1,
                               fontSize: 20,
                               fontWeight: FontWeight.w500),
@@ -643,13 +643,13 @@ class FindBus extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Date:\t\t",style: TextStyle(
+                        const Text("Date:\t\t",style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(238, 238, 238, 1)),),
                         Text(
                           datecontroller.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
                               color: Color.fromRGBO(238, 238, 238, 1)),
@@ -715,15 +715,15 @@ class FindBus extends StatelessWidget {
                           (context, AsyncSnapshot<List<BusDisplay>> snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         } else if (snapshot.hasError) {
                           return Center(
                               child: Text(
                                 'Error:${snapshot.error}',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ));
                         } else if (snapshot.data!.isEmpty) {
-                          return Center(
+                          return const Center(
                               child: Text(
                                 'Bus not Avilable',
                                 style: TextStyle(
@@ -742,7 +742,7 @@ class FindBus extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => select_Seat(
+                                        builder: (context) => SeatSelect(
                                           busID: stops.busid.toString(),
                                           date: datecontroller.toString(),
                                         ),
@@ -761,7 +761,7 @@ class FindBus extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(stops.busname.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w400)),
                                       ),
@@ -771,17 +771,17 @@ class FindBus extends StatelessWidget {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
                                                 stops.arrivalTime.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 12,
                                                     fontWeight:
                                                     FontWeight.w400)),
                                           ),
-                                          Text('-'),
+                                          const Text('-'),
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
                                                 stops.deptTime.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 12,
                                                     fontWeight:
                                                     FontWeight.w400)),
@@ -789,9 +789,9 @@ class FindBus extends StatelessWidget {
                                         ],
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(5),
                                         child: Text(stops.avSeats.toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w300,
                                                 color: Color.fromRGBO(
