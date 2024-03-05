@@ -132,6 +132,7 @@ class _MyHomePageState extends State<HomePage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
                           child: DropdownButtonFormField(
+                            hint: Text("Boarding From"),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);,
@@ -166,6 +167,7 @@ class _MyHomePageState extends State<HomePage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 15,top: 10),
                           child: DropdownButtonFormField(
+                            hint: Text("Where are you going?"),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);,
@@ -201,7 +203,7 @@ class _MyHomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                                padding: const EdgeInsets.only(top: 15, left: 10, right: 15),
+                                padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
                                 child: SizedBox(
                                   height: 45,
                                   width: 250,
