@@ -593,8 +593,6 @@ class _FindBusState extends State<FindBus> {
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-
-        // physics: NeverScrollableScrollPhysics(),
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Stack(
@@ -619,25 +617,25 @@ class _FindBusState extends State<FindBus> {
                           fontWeight: FontWeight.w300),
                     ),
                     const SizedBox(height: 15),
-                    Row(
+                    Column(
                       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
                           widget.source.toString(),
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.white,height: 1,
                               fontSize: 18,
                               fontWeight: FontWeight.normal),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.swap_horiz_outlined,
+                          icon: const Icon(Icons.swap_vert_outlined,
                               color: Colors.white),
                           onPressed: () {},
                         ),
                         Text(
                           widget.destination.toString(),
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.white,height: 1,
                               fontSize: 18,
                               fontWeight: FontWeight.normal),
                         ),
@@ -649,6 +647,10 @@ class _FindBusState extends State<FindBus> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Text("Date:\t\t",style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(238, 238, 238, 1)),),
                         Text(
                           widget.datecontroller.toString(),
                           style: TextStyle(

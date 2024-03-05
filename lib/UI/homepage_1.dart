@@ -219,7 +219,7 @@ class _MyHomePageState extends State<HomePage> {
                                       );
                                       if (pickedDate != null) {
                                         print(pickedDate);
-                                        String formateDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+                                        String formateDate = DateFormat('yyyy-MM-dd').format(pickedDate);
                                         print(formateDate);
                                         setState(() {
                                           datecontroller.text = formateDate;
