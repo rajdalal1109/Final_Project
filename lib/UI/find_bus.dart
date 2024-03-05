@@ -744,9 +744,9 @@ class _FindBusState extends State<FindBus> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => SelectSeat(
-                                          // busID: stops.busid.toString(),
-                                          // date: widget.dateInput.toString(),
+                                        builder: (context) => select_Seat(
+                                          busID: stops.busid.toString(),
+                                          date: widget.dateInput.toString(),
                                         ),
                                       ));
                                   print(stops.busid.toString());
