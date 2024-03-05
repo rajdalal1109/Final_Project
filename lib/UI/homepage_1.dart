@@ -260,7 +260,7 @@ class _MyHomePageState extends State<HomePage> {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FindBus(),));
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => FindBus(),));
                               },
                               child: const Text('Find Buses', style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400),),
                             ),
