@@ -177,13 +177,10 @@ class _LogInState extends State<LogIn> {
                         style: TextButton.styleFrom(
                             padding: EdgeInsets.only(bottom: 15,right: 1),
                             foregroundColor:Color.fromRGBO(255, 98, 96, 1) ,
-                            textStyle: TextStyle(fontWeight: FontWeight.bold
+                            textStyle: TextStyle(fontWeight: FontWeight.w500
                             )
                         ),
-                        child: Text(
-                          "Forgot Password",
-
-                        ),
+                        child: Text("Forgot Password",),
                         onPressed: () {
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => const ForgotPass(),
@@ -222,6 +219,7 @@ class _LogInState extends State<LogIn> {
                             "\t\tRegister Here",
                             style: TextStyle(
                               color: Color.fromRGBO(255, 98, 96, 1),
+                              fontWeight: FontWeight.bold
                             ),
                           ),
                           onPressed: () {

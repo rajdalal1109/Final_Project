@@ -3,6 +3,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:project/UI/setting.dart';
+import 'package:project/login.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -175,7 +177,7 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(height: 5),
                     GestureDetector(
                       onTap: () {
-                        // Navigate to settings screen
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Setting(),));
                       },
                       child: const Card(
                         child: ListTile(
@@ -188,7 +190,7 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(height: 5),
                     GestureDetector(
                       onTap: () {
-                        // Log out logic
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn(),));
                       },
                       child: const Card(
                         child: ListTile(
