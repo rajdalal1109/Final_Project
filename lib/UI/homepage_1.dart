@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:project/UI/find_bus.dart';
 import 'package:project/model/data.dart';
 
@@ -169,27 +170,46 @@ class _MyHomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 15, left: 10, right: 15),
-                              child: SizedBox(
-                                height: 25,
-                                width: 80,
-                                child: OutlinedButton(
-                                    style: OutlinedButton.styleFrom(
-                                      side: const BorderSide(color: Colors.white),
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                                padding: const EdgeInsets.only(top: 15, left: 10, right: 15),
+                                child: SizedBox(
+                                  height: 45,
+                                  width: 250,
+                                  child: TextField(
+                                    // Date Select
+                                    controller: datecontroller,
+                                    onTap: () async {
+                                      final DateTime? pickedDate = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1990),
+                                        lastDate: DateTime(2050),
+                                      );
+                                      if (pickedDate != null) {
+                                        print(pickedDate);
+                                        String formateDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                        print(formateDate);
+                                        setState(() {
+                                          datecontroller.text = formateDate;
+                                        });
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text("Please Select Date !!"),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      prefixIcon: const Icon(Icons.date_range, color: Colors.black),
+                                      labelText: "Day*",
+                                      hintText: "Select Date",
                                     ),
-                                    onPressed: () {},
-                                    child: const Row(
-                                      children: [
-                                        Icon(Icons.calendar_month, size: 18, color: Colors.white,),
-                                        SizedBox(width: 2,),
-                                        Text('Others', style: TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.w400)),
-                                      ],
-                                    )
-                                ),
-                              ),
-                            )
+                                  ),
+                                )
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -221,7 +241,7 @@ class _MyHomePageState extends State<HomePage> {
 
               //UPCOMING BUSES TEXT
               const Positioned(
-                top: 500,
+                top: 510,
                 left: 20,
                 child: Text(
                   "Upcoming Journey",
