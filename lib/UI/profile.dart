@@ -125,6 +125,7 @@ class _ProfileState extends State<Profile> {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
+        surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),
         actions: [
           IconButton(
             onPressed: () {
