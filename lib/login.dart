@@ -30,14 +30,6 @@ class _LogInState extends State<LogIn> {
 
   void Login(BuildContext context) async {
     try {
-      if (_mail.text.isEmpty || _Password.text.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please fill the all fields'),
-          ),
-        );
-        return;
-      }
 
       Map data = {
         "email": _mail.text,
@@ -50,6 +42,7 @@ class _LogInState extends State<LogIn> {
       );
       if (response.statusCode == 200) {
         print(response.body);
+
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => BottoBar()));
       } else {

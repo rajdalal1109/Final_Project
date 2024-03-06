@@ -995,7 +995,7 @@ class _SeatSelectState extends State<SeatSelect> {
               ),
             ),
             Text(
-              'Selected Seats: ${sI.join(", ")}',
+              'Selected Seats : ${sI.join(", ")}',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ],
