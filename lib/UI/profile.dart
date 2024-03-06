@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/UI/setting.dart';
@@ -55,7 +56,7 @@ class _ProfileState extends State<Profile> {
                       child: const SizedBox(
                         child: Column(
                           children: [
-                            Icon(Icons.camera_alt, size: 50,color: Colors.white,),
+                            Icon(CupertinoIcons.camera, size: 50,color: Colors.white,),
                             Text("Camera",style: TextStyle(color: Colors.white),)
                           ],
                         ),
@@ -71,49 +72,57 @@ class _ProfileState extends State<Profile> {
 
 //Gallery
   Future _getGallery() async {
-    final returnImage =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+    final returnImage = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnImage == null) return;
     setState(() {
       selectedIMage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
     });
-    Navigator.of(context).pop(); //close the model sheet
+
+    // Save image to local storage
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('profile_image', base64Encode(_image!));
+    Navigator.of(context).pop();
   }
 
 //Camera
   Future _getCamera() async {
-    final returnImage =
-    await ImagePicker().pickImage(source: ImageSource.camera);
+    final returnImage = await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnImage == null) return;
     setState(() {
       selectedIMage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
     });
+
+    // Save image to local storage
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('profile_image', base64Encode(_image!));
     Navigator.of(context).pop();
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _loadImage();
   }
 
-  void saveImage() async {
+  Future<void> _loadImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (_image != null) {
-      prefs.setString('image', base64Encode(_image!));
-    }
-  }
+    String? profileImageString = prefs.getString('profile_image');
 
-  void loadImage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? imageData = prefs.getString('image');
-    if (imageData != null) {
+    if (profileImageString != null) {
       setState(() {
-        _image = base64Decode(imageData);
+        _image = base64Decode(profileImageString);
       });
     }
+  }
+
+  Future<void> _deleteImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('profile_image');
+    setState(() {
+      _image = null;
+    });
   }
 
   @override
@@ -132,11 +141,22 @@ class _ProfileState extends State<Profile> {
               showImagePickerOption(context);
             },
             icon: const Icon(
-              Icons.add_a_photo_outlined,
+              CupertinoIcons.camera_circle_fill,
+              // Icons.add_a_photo_outlined,
               color: Colors.white,
-              size: 30,
+              size: 35,
             ),
-          )
+          ),
+          IconButton(
+            onPressed: () {
+              _deleteImage();
+            },
+            icon: Icon(
+              CupertinoIcons.delete_solid,
+              color: Colors.white,
+              size: 25,
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -174,6 +194,16 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(
                           fontWeight: FontWeight.w800, fontSize: 25),
                     ),
+                    // IconButton(
+                    //   onPressed: () {
+                    //     _deleteImage();
+                    //   },
+                    //   icon: Icon(
+                    //     Icons.delete,
+                    //     color: Colors.black,
+                    //     size: 30,
+                    //   ),
+                    // ),
                     const SizedBox(height: 30),
                     const Card(
                       child: ListTile(
@@ -181,7 +211,7 @@ class _ProfileState extends State<Profile> {
                             fontWeight: FontWeight.w500)),
                         subtitle: Text("abc@gmail.com", style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w400)),
-                        trailing: Icon(Icons.email_outlined),
+                        trailing: Icon(CupertinoIcons.mail),
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -191,7 +221,7 @@ class _ProfileState extends State<Profile> {
                             fontSize: 16, fontWeight: FontWeight.w500)),
                         subtitle: Text("+91\t1234567890", style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w400)),
-                        trailing: Icon(Icons.local_phone_outlined),
+                        trailing: Icon(CupertinoIcons.phone),
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -203,7 +233,7 @@ class _ProfileState extends State<Profile> {
                         child: ListTile(
                           title: Text("Setting", style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
-                          trailing: Icon(Icons.settings_outlined),
+                          trailing: Icon(CupertinoIcons.gear_alt),
                         ),
                       ),
                     ),
@@ -216,7 +246,7 @@ class _ProfileState extends State<Profile> {
                         child: ListTile(
                           title: Text("Log Out", style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500)),
-                          trailing: Icon(Icons.power_settings_new_outlined),
+                          trailing: Icon(CupertinoIcons.power),
                         ),
                       ),
                     ),
