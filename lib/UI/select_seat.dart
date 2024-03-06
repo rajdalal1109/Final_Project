@@ -864,18 +864,158 @@
 //   }
 // }
 
-import 'dart:convert';
+// import 'dart:convert';
+//
+// import 'package:flutter/material.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:project/model/seatselect.dart';
+//
+// void main() {
+//   runApp(const SeatSelect(busID: '', date: '',));
+// }
+//
+// class SeatSelect extends StatefulWidget {
+//   const SeatSelect({super.key, required String busID, required String date});
+//
+//   @override
+//   State<SeatSelect> createState() => _SeatSelectState();
+// }
+//
+// class _SeatSelectState extends State<SeatSelect> {
+//   List<SeatSel> seat = [];
+//   bool d = true;
+//
+//   var sI = [];
+//
+//   void _getSeat() async {
+//     var res = await http.post(
+//         Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/setas.php'),
+//         body: jsonEncode({"bus_id": 24, "date": "2024/03/11"}),
+//         headers: {'Content-Type': 'application/json'});
+//     if (res.statusCode == 200) {
+//       var data = jsonDecode(res.body);
+//       seat = (data['seats'] as List).map((e) => SeatSel.fromJson(e)).toList();
+//       print(res.body);
+//       setState(() {});
+//     }
+//   }
+//
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//     _getSeat();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Colors.red,
+//         actions: [
+//           TextButton(
+//               style: TextButton.styleFrom(
+//                   foregroundColor: Colors.white
+//               ),
+//               onPressed: () {
+//
+//               }, child: Text('Next'))
+//         ],
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(58.0),
+//         child: Card(
+//           child: GridView.builder(
+//             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//               crossAxisCount: 3,
+//               crossAxisSpacing: 1,
+//               mainAxisSpacing: 1,
+//               // childAspectRatio:1/2
+//             ),
+//             itemCount: seat.length,
+//             itemBuilder: (context, index) {
+//               final s = seat[index];
+//               final color = s.bookedStatus == true
+//                   ? Colors.grey
+//                   :s.userSelected==true?Colors.orangeAccent:Colors.green;
+//               // final selcolor =
+//               //     s.userSelected == true ? Colors.orangeAccent : Colors.green;
+//
+//               return Padding(
+//                 padding: const EdgeInsets.all(10.0),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.center,
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     GestureDetector(
+//                       onTap: () {
+//                         if (s.userSelected == false && s.bookedStatus==false && sI.length<5) {
+//                           setState(() {
+//                             s.userSelected = true;
+//                             sI.add(s.seatNo.toString());
+//                             print(sI);
+//                             print(s.userSelected);
+//                           });
+//                         } else if (s.userSelected == true) {
+//                           setState(() {
+//                             s.userSelected = false;
+//                             sI.remove(s.seatNo.toString());
+//                             print(sI);
+//                             print(s.userSelected);
+//                           });
+//                         } else {
+//                           ScaffoldMessenger.of(context).showSnackBar(
+//                             SnackBar(
+//                                 backgroundColor: Colors.red,
+//                                 behavior: SnackBarBehavior.floating,
+//                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+//                                 content: Text('You Can add only 5 seats!')),
+//                           );
+//                           return null;
+//                         }
+//                       },
+//                       child: Container(
+//                         decoration: BoxDecoration(
+//                           color: color,
+//                           borderRadius: BorderRadius.circular(10),
+//                         ),
+//                         width: 50,
+//                         height: 50,
+//                         alignment: Alignment.center,
+//                         child: Text(
+//                           '${s.seatNo.toString()}',
+//                           style: TextStyle(
+//                             color: s.bookedStatus! ? Colors.white : Colors.black, // Change text color based on seat status
+//                             fontWeight: FontWeight.bold,
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               );
+//             },
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/model/seatselect.dart';
 
 void main() {
-  runApp(const SeatSelect(busID: '', date: '',));
+  runApp(const SeatSelect(busID: '', date: ''));
 }
 
 class SeatSelect extends StatefulWidget {
-  const SeatSelect({super.key, required String busID, required String date});
+  const SeatSelect({Key? key, required this.busID, required this.date}) : super(key: key);
+
+  final String busID;
+  final String date;
 
   @override
   State<SeatSelect> createState() => _SeatSelectState();
@@ -889,9 +1029,10 @@ class _SeatSelectState extends State<SeatSelect> {
 
   void _getSeat() async {
     var res = await http.post(
-        Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/setas.php'),
-        body: jsonEncode({"bus_id": 24, "date": "2024/03/11"}),
-        headers: {'Content-Type': 'application/json'});
+      Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/setas.php'),
+      body: jsonEncode({"bus_id": 24, "date": "2024/03/11"}),
+      headers: {'Content-Type': 'application/json'},
+    );
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
       seat = (data['seats'] as List).map((e) => SeatSel.fromJson(e)).toList();
@@ -902,7 +1043,6 @@ class _SeatSelectState extends State<SeatSelect> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getSeat();
   }
@@ -914,88 +1054,89 @@ class _SeatSelectState extends State<SeatSelect> {
         backgroundColor: Colors.red,
         actions: [
           TextButton(
-              style: TextButton.styleFrom(
-                  foregroundColor: Colors.white
-              ),
-              onPressed: () {
-
-              }, child: Text('Next'))
+            style: TextButton.styleFrom(foregroundColor: Colors.white),
+            onPressed: () {},
+            child: Text('Next'),
+          )
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(58.0),
-        child: Card(
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 1,
-              mainAxisSpacing: 1,
-              // childAspectRatio:1/2
-            ),
-            itemCount: seat.length,
-            itemBuilder: (context, index) {
-              final s = seat[index];
-              final color = s.bookedStatus == true
-                  ? Colors.grey
-                  :s.userSelected==true?Colors.orangeAccent:Colors.green;
-              // final selcolor =
-              //     s.userSelected == true ? Colors.orangeAccent : Colors.green;
+        child: Column(
+          children: [
+            Expanded(
+              child: Card(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 1,
+                    mainAxisSpacing: 1,
+                  ),
+                  itemCount: seat.length,
+                  itemBuilder: (context, index) {
+                    final s = seat[index];
+                    final color = s.bookedStatus == true
+                        ? Colors.grey
+                        : s.userSelected == true
+                        ? Colors.orangeAccent
+                        : Colors.green;
 
-              return Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-
-                      onTap: () {
-
-
-                        if (s.userSelected == false && s.bookedStatus==false && sI.length<5) {
-                          setState(() {
-                            s.userSelected = true;
-                            sI.add(s.seatNo.toString());
-                            print(sI);
-                            print(s.userSelected);
-                          });
-                        } else if (s.userSelected == true) {
-                          setState(() {
-                            s.userSelected = false;
-                            sI.remove(s.seatNo.toString());
-                            print(sI);
-
-                            print(s.userSelected);
-                          });
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-
-
-                            SnackBar(
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          if (s.userSelected == false && s.bookedStatus == false && sI.length < 5) {
+                            setState(() {
+                              s.userSelected = true;
+                              sI.add(s.seatNo.toString());
+                              print(sI);
+                              print(s.userSelected);
+                            });
+                          } else if (s.userSelected == true) {
+                            setState(() {
+                              s.userSelected = false;
+                              sI.remove(s.seatNo.toString());
+                              print(sI);
+                              print(s.userSelected);
+                            });
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
                                 backgroundColor: Colors.red,
                                 behavior: SnackBarBehavior.floating,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-
-                                content: Text('You Can add only 5 seats!')),
-                          );
-                          return null;
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
+                                content: Text('You can only select up to 5 seats!'),
+                              ),
+                            );
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
                             color: color,
-                            borderRadius: BorderRadius.circular(10)),
-                        width: 50,
-                        height: 50,
-                        alignment: Alignment.center,
-                        child: Text('${s.seatNo.toString()}'),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          width: 50,
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: Text(
+                            '${s.seatNo.toString()}',
+                            style: TextStyle(
+                              color: s.bookedStatus! ? Colors.white : Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
-              );
-            },
-          ),
+              ),
+            ),
+            Text(
+              'Selected Seats: ${sI.join(", ")}',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
     );
