@@ -65,16 +65,16 @@ class _ForgotPassState extends State<ForgotPass> {
                 elevation: 10,
                 behavior: SnackBarBehavior.floating,
                 margin: EdgeInsets.only(bottom: 50),
-
               )
           );
           Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtp(email: _mail.text),));
-        }
-      } catch (e) {
-        print(e);
+        }else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter an email address'))); // Snackbar to notify user to add email
       }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter an email address'))); // Snackbar to notify user to add email
+    } catch (e) {
+        print(e.toString());
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.toString()}")));
+      }
     }
   }
 
