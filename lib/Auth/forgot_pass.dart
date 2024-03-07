@@ -4,10 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/Auth/verify_otp.dart';
-import 'package:provider/provider.dart';
-import '../Provider/auth_provider.dart';
-
-
 
 class ForgotPass extends StatefulWidget {
 
@@ -56,6 +52,7 @@ class _ForgotPassState extends State<ForgotPass> {
           headers: {'Content-Type': "application/json; charset=UTF-8"},
         );
         if (response.statusCode == 200) {
+          // print('response --=================${response.body}');
           print(response.body);
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -66,14 +63,11 @@ class _ForgotPassState extends State<ForgotPass> {
                 margin: EdgeInsets.only(bottom: 50),
               )
           );
-          Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtp(email: _mail.text),));
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) => VerifyOtp(email: _mail.text),));
         }
-    }  catch (e) {
-        print(e.toString());
-        if()
-          {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.toString()}")));
-          }
+      } catch (e) {
+        print(e);
       }
     }
   }

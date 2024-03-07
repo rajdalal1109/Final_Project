@@ -528,6 +528,323 @@
 //   }
 // }
 //import 'package:project/UI/select_seat.dart';
+/**/
+// import 'dart:convert';
+//
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:project/UI/select_seat.dart';
+// import 'package:project/model/dropdown.dart';
+//
+// class FindBus extends StatelessWidget {
+//   String? source;
+//   String? destination;
+//   String? datecontroller;
+//
+//   FindBus({super.key, this.source, this.destination, this.datecontroller});
+//
+//   Future<List<BusDisplay>> _sendStops() async {
+//     print(source);
+//     print(destination);
+//     print(datecontroller);
+//
+//     var res = await http.post(
+//         Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
+//         body: jsonEncode({
+//           "start": source.toString(),
+//           "end": destination.toString(),
+//           "date": datecontroller.toString()
+//         }),
+//         headers: {'Content-Type': 'application/json'});
+//
+//     if (res.statusCode == 200) {
+//       var data = jsonDecode(res.body);
+//       print(res.body);
+//
+//       return (data['data'] as List).map((e) => BusDisplay.fromJson(e)).toList();
+//
+//       // return (data['data'] as List).map((e) => BusDisplay.fromJson(e)).toList();
+//     } else {
+//       throw Exception('Failed to load ');
+//     }
+//   }
+//
+//   TextEditingController serch =TextEditingController();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
+//         surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),
+//         actions: [
+//           IconButton(
+//               onPressed: () {
+//                 showDialog(context: context, builder: (context) =>
+//                     Material(
+//                       color: Colors.black45,
+//                       child: Padding(
+//                         padding: EdgeInsets.only(top: 50,left: 10,right: 10),
+//                         child: TextField(
+//                           controller: serch,
+//                           style: TextStyle(color: Colors.white70,),
+//                           decoration: InputDecoration(
+//                             label: Text("Serch Your Bus..."),
+//                             labelStyle: TextStyle(color: Colors.white70),
+//                             hintText: "Serch Bus",
+//                             hintStyle: TextStyle(color: Colors.white70),
+//                             fillColor: Colors.white,
+//                             prefixIcon: Icon(Icons.search_rounded),
+//                             prefixIconColor: Colors.white70,
+//                             border: OutlineInputBorder(
+//                               borderSide: BorderSide(width: 5),
+//                               borderRadius: BorderRadius.circular(20),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                 );
+//               },
+//               icon: const Icon(
+//                 Icons.filter_alt_outlined,
+//                 color: Colors.white,
+//                 size: 25,
+//               ))
+//         ],
+//       ),
+//       body: SingleChildScrollView(
+//         scrollDirection: Axis.vertical,
+//         child: SizedBox(
+//           height: MediaQuery.of(context).size.height,
+//           child: Stack(
+//             clipBehavior: Clip.none,
+//             children: [
+//               Container(
+//                 height: 313,
+//                 width: MediaQuery.of(context).size.width,
+//                 decoration: const BoxDecoration(
+//                   borderRadius: BorderRadius.only(
+//                       bottomLeft: Radius.circular(10),
+//                       bottomRight: Radius.circular(10)),
+//                   color: Color.fromRGBO(255, 98, 96, 1),
+//                 ),
+//                 child: Column(
+//                   children: [
+//                     const Text(
+//                       "Select your bus !",
+//                       style: TextStyle(
+//                           color: Colors.white,
+//                           fontSize: 18,
+//                           fontWeight: FontWeight.w300),
+//                     ),
+//                     const SizedBox(height: 15),
+//                     Column(
+//                       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                       children: [
+//                         Text(
+//                           source.toString(),
+//                           style: const TextStyle(
+//                               color: Colors.white,
+//                               height: 1,
+//                               fontSize: 20,
+//                               fontWeight: FontWeight.w500),
+//                         ),
+//                         IconButton(
+//                           icon: const Icon(Icons.swap_vert_outlined,
+//                               color: Colors.white),
+//                           onPressed: () {},
+//                         ),
+//                         Text(
+//                           destination.toString(),
+//                           style: const TextStyle(
+//                               color: Colors.white,height: 1,
+//                               fontSize: 20,
+//                               fontWeight: FontWeight.w500),
+//                         ),
+//                       ],
+//                     ),
+//                     const SizedBox(
+//                       height: 15,
+//                     ),
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         const Text("Date:\t\t",style: TextStyle(
+//                             fontSize: 18,
+//                             fontWeight: FontWeight.bold,
+//                             color: Color.fromRGBO(238, 238, 238, 1)),),
+//                         Text(
+//                           datecontroller.toString(),
+//                           style: const TextStyle(
+//                               fontSize: 18,
+//                               fontWeight: FontWeight.w400,
+//                               color: Color.fromRGBO(238, 238, 238, 1)),
+//                         ),
+//                         // Text(widget.dateInput.toString(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400,color: Color.fromRGBO(238, 238, 238, 1)),),
+//                       ],
+//                     ),
+//                     // Container(
+//                     //   width: 300,
+//                     //   child: TextField(
+//                     //     controller: dateController,
+//                     //     onTap: () async {
+//                     //       final DateTime? pickedDate = await showDatePicker(
+//                     //         context: context,
+//                     //         initialDate: DateTime.now(),
+//                     //         firstDate: DateTime(2024),
+//                     //         lastDate: DateTime(2030),
+//                     //       );
+//                     //       if (pickedDate != null) {
+//                     //         setState(() {
+//                     //           selectedDate = pickedDate;
+//                     //           dateController.text = DateFormat('dd-MMM-yyyy | EEEE').format(selectedDate!);
+//                     //         });
+//                     //       } else {
+//                     //         ScaffoldMessenger.of(context).showSnackBar(
+//                     //           const SnackBar(
+//                     //             content: Text("Please Select Date !!"),
+//                     //           ),
+//                     //         );
+//                     //       }
+//                     //     },
+//                     //     decoration: InputDecoration(
+//                     //       border: OutlineInputBorder(
+//                     //         borderRadius: BorderRadius.circular(20),
+//                     //       ),
+//                     //       prefixIcon: const Icon(Icons.date_range, color: Colors.white),
+//                     //       labelText: "Date",
+//                     //       labelStyle: const TextStyle(color: Colors.white),
+//                     //       hintText: "Select Date",
+//                     //     ),
+//                     //   ),
+//                     // ),
+//                     // const SizedBox(height: 10,),
+//                     const Image(
+//                         image: AssetImage("assets/images/find_page.png"),
+//                         height: 110,
+//                         width: 110),
+//                   ],
+//                 ),
+//               ),
+//               Positioned(
+//                 top: 280,
+//                 left: 20,
+//                 right: 20,
+//                 child: Container(
+//                   width: 350,
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(8),
+//                   ),
+//                   child: FutureBuilder(
+//                       future: _sendStops(),
+//                       builder:
+//                           (context, AsyncSnapshot<List<BusDisplay>> snapshot) {
+//                         if (snapshot.connectionState ==
+//                             ConnectionState.waiting) {
+//                           return const Center(child: CircularProgressIndicator());
+//                         } else if (snapshot.hasError) {
+//                           return Center(
+//                               child: Text(
+//                                 'Error:${snapshot.error}',
+//                                 style: const TextStyle(fontWeight: FontWeight.bold),
+//                               ));
+//                         } else if (snapshot.data!.isEmpty) {
+//                           return const Center(
+//                               child: Text(
+//                                 'Bus not Avilable',
+//                                 style: TextStyle(
+//                                     fontWeight: FontWeight.bold,
+//                                     fontSize: 25,
+//                                     color: Colors.red),
+//                               ));
+//                         } else {
+//                           return ListView.builder(
+//                             shrinkWrap: true,
+//                             itemCount: snapshot.data!.length,
+//                             itemBuilder: (context, index) {
+//                               final stops = snapshot.data![index];
+//                               return GestureDetector(
+//                                 onTap: () {
+//                                   Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                         builder: (context) => SeatSelect(
+//                                           busID: stops.busid.toString(),
+//                                           date: datecontroller.toString(),
+//                                         ),
+//                                       ));
+//                                   print(stops.busid.toString());
+//                                 },
+//                                 child: Card(
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                     CrossAxisAlignment.start,
+//                                     children: [
+//                                       Padding(
+//                                         padding: const EdgeInsets.all(8.0),
+//                                         child: Text(stops.busid.toString()),
+//                                       ),
+//                                       Padding(
+//                                         padding: const EdgeInsets.all(8.0),
+//                                         child: Text(stops.busname.toString(),
+//                                             style: const TextStyle(
+//                                                 fontSize: 18,
+//                                                 fontWeight: FontWeight.w400)),
+//                                       ),
+//                                       Row(
+//                                         children: [
+//                                           Padding(
+//                                             padding: const EdgeInsets.all(8.0),
+//                                             child: Text(
+//                                                 stops.arrivalTime.toString(),
+//                                                 style: const TextStyle(
+//                                                     fontSize: 12,
+//                                                     fontWeight:
+//                                                     FontWeight.w400)),
+//                                           ),
+//                                           const Text('-'),
+//                                           Padding(
+//                                             padding: const EdgeInsets.all(8.0),
+//                                             child: Text(
+//                                                 stops.deptTime.toString(),
+//                                                 style: const TextStyle(
+//                                                     fontSize: 12,
+//                                                     fontWeight:
+//                                                     FontWeight.w400)),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                       Padding(
+//                                         padding: const EdgeInsets.all(5),
+//                                         child: Text(stops.avSeats.toString(),
+//                                             style: const TextStyle(
+//                                                 fontSize: 14,
+//                                                 fontWeight: FontWeight.w300,
+//                                                 color: Color.fromRGBO(
+//                                                     67, 160, 71, 1))),
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               );
+//                             },
+//                           );
+//                         }
+//                       }),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+/**/
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -537,33 +854,37 @@ import 'package:http/http.dart' as http;
 import 'package:project/UI/select_seat.dart';
 import 'package:project/model/dropdown.dart';
 
-class FindBus extends StatelessWidget {
+class FindBus extends StatefulWidget {
   String? source;
   String? destination;
   String? datecontroller;
 
   FindBus({super.key, this.source, this.destination, this.datecontroller});
 
+  @override
+  State<FindBus> createState() => _FindBusState();
+}
+
+class _FindBusState extends State<FindBus> {
+
   Future<List<BusDisplay>> _sendStops() async {
-    print(source);
-    print(destination);
-    print(datecontroller);
+    print(widget.source);
+    print(widget.destination);
+    print(widget.datecontroller);
 
     var res = await http.post(
         Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
         body: jsonEncode({
-          "start": source.toString(),
-          "end": destination.toString(),
-          "date": datecontroller.toString()
+          "start": widget.source.toString(),
+          "end": widget.destination.toString(),
+          "date": widget.datecontroller.toString()
         }),
         headers: {'Content-Type': 'application/json'});
 
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);
       print(res.body);
-
       return (data['data'] as List).map((e) => BusDisplay.fromJson(e)).toList();
-
       // return (data['data'] as List).map((e) => BusDisplay.fromJson(e)).toList();
     } else {
       throw Exception('Failed to load ');
@@ -580,38 +901,41 @@ class FindBus extends StatelessWidget {
         surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),
         actions: [
           IconButton(
-              onPressed: () {
-                showDialog(context: context, builder: (context) =>
-                    Material(
-                      color: Colors.black45,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 50,left: 10,right: 10),
-                        child: TextField(
-                          controller: serch,
-                          style: TextStyle(color: Colors.white70,),
-                          decoration: InputDecoration(
-                            label: Text("Serch Your Bus..."),
-                            labelStyle: TextStyle(color: Colors.white70),
-                            hintText: "Serch Bus",
-                            hintStyle: TextStyle(color: Colors.white70),
-                            fillColor: Colors.white,
-                            prefixIcon: Icon(Icons.search_rounded),
-                            prefixIconColor: Colors.white70,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(width: 5),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+            onPressed: () {
+              showDialog(context: context, builder: (context) =>
+                  Material(
+                    elevation: 5,
+                    borderOnForeground: true,
+                    color: Colors.black45,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 50,left: 10,right: 10),
+                      child: TextField(
+                        controller: serch,
+                        style: const TextStyle(color: Colors.white70,),
+                        decoration: InputDecoration(
+                          label: const Text("Serch Your Bus..."),
+                          labelStyle: const TextStyle(color: Colors.white70),
+                          hintText: "Serch Bus",
+                          hintStyle: const TextStyle(color: Colors.white70),
+                          fillColor: Colors.white,
+                          prefixIcon: const Icon(Icons.search_rounded),
+                          prefixIconColor: Colors.white70,
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(width: 5),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
                       ),
                     ),
-                );
-              },
-              icon: const Icon(
-                Icons.filter_alt_outlined,
-                color: Colors.white,
-                size: 25,
-              ))
+                  ),
+              );
+            },
+            icon: const Icon(
+              Icons.filter_alt_outlined,
+              color: Colors.white,
+              size: 25,
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -643,84 +967,23 @@ class FindBus extends StatelessWidget {
                     Column(
                       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          source.toString(),
-                          style: const TextStyle(
-                              color: Colors.white,
-                              height: 1,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
-                        ),
+                        Text(widget.source.toString(), style: const TextStyle(color: Colors.white, height: 1, fontSize: 20, fontWeight: FontWeight.w500),),
                         IconButton(
-                          icon: const Icon(Icons.swap_vert_outlined,
-                              color: Colors.white),
-                          onPressed: () {},
+                          icon: const Icon(Icons.swap_vert_outlined, color: Colors.white), onPressed: () {},
                         ),
-                        Text(
-                          destination.toString(),
-                          style: const TextStyle(
-                              color: Colors.white,height: 1,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
+                        Text(widget.destination.toString(), style: const TextStyle(color: Colors.white,height: 1, fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 15,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Date:\t\t",style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromRGBO(238, 238, 238, 1)),),
-                        Text(
-                          datecontroller.toString(),
-                          style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: Color.fromRGBO(238, 238, 238, 1)),
-                        ),
+                        const Text("Date:\t\t",style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color.fromRGBO(238, 238, 238, 1)),),
+                        Text(widget.datecontroller.toString(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Color.fromRGBO(238, 238, 238, 1)),),
                         // Text(widget.dateInput.toString(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400,color: Color.fromRGBO(238, 238, 238, 1)),),
                       ],
                     ),
-                    // Container(
-                    //   width: 300,
-                    //   child: TextField(
-                    //     controller: dateController,
-                    //     onTap: () async {
-                    //       final DateTime? pickedDate = await showDatePicker(
-                    //         context: context,
-                    //         initialDate: DateTime.now(),
-                    //         firstDate: DateTime(2024),
-                    //         lastDate: DateTime(2030),
-                    //       );
-                    //       if (pickedDate != null) {
-                    //         setState(() {
-                    //           selectedDate = pickedDate;
-                    //           dateController.text = DateFormat('dd-MMM-yyyy | EEEE').format(selectedDate!);
-                    //         });
-                    //       } else {
-                    //         ScaffoldMessenger.of(context).showSnackBar(
-                    //           const SnackBar(
-                    //             content: Text("Please Select Date !!"),
-                    //           ),
-                    //         );
-                    //       }
-                    //     },
-                    //     decoration: InputDecoration(
-                    //       border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(20),
-                    //       ),
-                    //       prefixIcon: const Icon(Icons.date_range, color: Colors.white),
-                    //       labelText: "Date",
-                    //       labelStyle: const TextStyle(color: Colors.white),
-                    //       hintText: "Select Date",
-                    //     ),
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 10,),
                     const Image(
                         image: AssetImage("assets/images/find_page.png"),
                         height: 110,
@@ -760,7 +1023,7 @@ class FindBus extends StatelessWidget {
                                     color: Colors.red),
                               ));
                         } else {
-                          return ListView.builder(
+                          return ListView.builder (
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
@@ -772,67 +1035,45 @@ class FindBus extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) => SeatSelect(
                                           busID: stops.busid.toString(),
-                                          date: datecontroller.toString(),
+                                          date: widget.datecontroller.toString(),
+                                          start: widget.source,
+                                          end:widget.destination,
                                         ),
-                                      ));
+                                      )
+                                  );
                                   print(stops.busid.toString());
                                 },
                                 child: Card(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(stops.busid.toString()),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(stops.busname.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400)),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                                stops.arrivalTime.toString(),
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                    FontWeight.w400)),
-                                          ),
-                                          const Text('-'),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                                stops.deptTime.toString(),
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                    FontWeight.w400)),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(stops.avSeats.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w300,
-                                                color: Color.fromRGBO(
-                                                    67, 160, 71, 1))),
-                                      ),
-                                    ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:CrossAxisAlignment.start,
+                                      children: [
+                                        Text(stops.busid.toString()),
+                                        Text(stops.busname.toString(),style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w400)),
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text(stops.arrivalTime.toString(),style: const TextStyle(fontSize: 12, fontWeight:FontWeight.w400)),
+                                            ),
+                                            const Text('-'),
+                                            Padding(padding: const EdgeInsets.all(8.0),
+                                              child: Text(stops.deptTime.toString(),style: const TextStyle(fontSize: 12,fontWeight:FontWeight.w400)),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(stops.avSeats.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w300,color: Color.fromRGBO(67, 160, 71, 1))),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
                             },
                           );
                         }
-                      }),
+                      }
+                  ),
                 ),
               ),
             ],
