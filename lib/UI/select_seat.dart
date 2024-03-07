@@ -570,7 +570,9 @@ class _SeatSelectState extends State<SeatSelect> {
                                       Text(widget.bus!.price.toString(),style: TextStyle(fontSize: 15,color: Colors.white),),
                                     ],
                                   ),
-                                  ElevatedButton(onPressed: (){}, child: Text("Confirm Your Seat!!"))
+                                  ElevatedButton(onPressed: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => PassDeatils(seat: selectSeatList),));
+                                  }, child: Text("Confirm Your Seat!!"))
                                 ],
                               ),
                             ),
