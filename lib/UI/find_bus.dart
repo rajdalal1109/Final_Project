@@ -1038,6 +1038,7 @@ class _FindBusState extends State<FindBus> {
                                           date: widget.datecontroller.toString(),
                                           start: widget.source,
                                           end:widget.destination,
+                                          bus: snapshot.data![index],
                                         ),
                                       )
                                   );

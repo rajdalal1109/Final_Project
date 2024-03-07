@@ -1,9 +1,11 @@
+import 'package:flutter/src/widgets/editable_text.dart';
+
 class SeatSel {
   int? seatNo;
   bool? bookedStatus;
   bool? userSelected;
 
-  SeatSel({this.seatNo, this.bookedStatus, this.userSelected});
+  SeatSel({this.seatNo, this.bookedStatus, this.userSelected, required TextEditingController name, required TextEditingController age});
 
   SeatSel.fromJson(Map<String, dynamic> json) {
     seatNo = json['seatNo'];

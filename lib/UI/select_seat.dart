@@ -294,7 +294,8 @@ import 'package:project/model/dropdown.dart';
 import 'package:project/model/seatselect.dart';
 
 class SeatSelect extends StatefulWidget {
-  SeatSelect({Key? key, required this.busID, required this.date,this.start, this.end}): super(key: key);
+  BusDisplay?bus;
+  SeatSelect({Key? key, required this.busID, required this.date,this.start, this.end,this.bus}): super(key: key);
 
   String? start;
   String? end;
@@ -356,17 +357,26 @@ class _SeatSelectState extends State<SeatSelect> {
     _getSeat();
   }
 
-    getListOfSelectedSeats(){
+  getListOfSelectedSeats() {
     noOfSeats = 0;
     selectSeatList.clear();
     seat.forEach((element) {
-      if(element.userSelected!){
+      if (element.userSelected! && element.bookedStatus == false) {
         noOfSeats++;
-        selectSeatList.add(SeatSel(seatNo: element.seatNo!));
+        selectSeatList.add(
+            SeatSel(
+            seatNo: element.seatNo!,
+            userSelected: element.userSelected,
+            bookedStatus: element.bookedStatus,
+            name: TextEditingController(),
+            age: TextEditingController()
+            )
+        );
+      } else {
+        return null;
       }
-
     });
-    print("total Selected Seats $noOfSeats");
+    // print("total Selected Seats $noOfSeats");
     print("total Selected Seats {${jsonEncode(selectSeatList)}");
   }
 
@@ -449,7 +459,7 @@ class _SeatSelectState extends State<SeatSelect> {
                 ),
               ),
           Padding(
-            padding: EdgeInsets.only(top: 240,left: 10,right: 10,bottom: 120),
+            padding: EdgeInsets.only(top: 240,left: 30,right: 30,bottom: 80),
             child: Card(
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -505,22 +515,75 @@ class _SeatSelectState extends State<SeatSelect> {
               ),
             ),
               Padding(
-                padding: EdgeInsets.only(top: 690,left: 30,right: 5),
-                child: Text(
-                  'Selected Seat Numbers: ${selectSeatList.map((seat) => seat.seatNo).toList().join(', ')}',
-                  style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
                 padding: EdgeInsets.only(top: 740,left: 30,right: 20),
                 child: GestureDetector(
                   onTap: (){
                     if (selectSeatList.isNotEmpty) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PassDeatils(),
-                          ));
+                 showModalBottomSheet(
+                    context: context,
+                    builder: (builder){
+                      return Container(
+                        height: 250,
+                        width: 500,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 20,right: 10,left: 10,bottom: 20),
+                          child: Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            color: Color.fromRGBO(255, 98, 96, 1),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //Text(widget.bus!.busid.toString(),style: TextStyle(color: Colors.white),),
+                                  Text(
+                                    'Selected Seat Numbers: ${selectSeatList.map((seat) => seat.seatNo).toList().join(', ')}',
+                                    style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Bus Name : ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.white),),
+                                      Text(widget.bus!.busname.toString(),style: TextStyle(fontSize: 15,color: Colors.white),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Arrival Time : ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.white)),
+                                      Text(widget.bus!.arrivalTime.toString(),style: TextStyle(fontSize: 15,color: Colors.white),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Departure Time : ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.white)),
+                                      Text(widget.bus!.deptTime.toString(),style: TextStyle(fontSize: 15,color: Colors.white),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Available Seat : ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.white)),
+                                      Text(widget.bus!.avSeats.toString(),style: TextStyle(fontSize: 15,color: Colors.white),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Price : ₹ ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700,color: Colors.white)),
+                                      Text(widget.bus!.price.toString(),style: TextStyle(fontSize: 15,color: Colors.white),),
+                                    ],
+                                  ),
+                                  ElevatedButton(onPressed: (){}, child: Text("Confirm Your Seat!!"))
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                );
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => PassDeatils(),
+                      //     ));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           backgroundColor: Colors.red,
