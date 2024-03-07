@@ -130,6 +130,7 @@ class _LogInState extends State<LogIn> {
                       TextStyle(fontWeight: FontWeight.w100, fontSize: 15)),
                   const SizedBox(height: 25),
                   TextFormField(
+                    // E-Mail
                     controller: _mail,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -142,20 +143,20 @@ class _LogInState extends State<LogIn> {
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter an email address';
-                      } else if (!value.contains("@") || !value.contains(".")) {
-                        return "Format of abc123@gmail.com";
-                      } else if (!RegExp(r'^[\w-.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$')
-                          .hasMatch(value)) {
-                        return 'Format of abc123@gmail.com';
-                      }
-                      return null;
-                    },
+                    if (value == null || value.isEmpty)
+                    {
+                      return 'Please enter an email address';
+                    }
+                    if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value) || !value.contains("@gmail.com") || !value.contains("@yahoo.com")) {
+                      return 'Format is abc123@gmail.com or @yahoo.com ';
+                    }
+                    return null;
+                  },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(height: 25),
                   TextFormField(
+                    // Password
                     enableSuggestions: false,
                     autocorrect: false,
                     obscureText: !_passVisible,

@@ -45,9 +45,7 @@ class _RegistrationState extends State<Registration> {
               children: [
                 const SizedBox(height: 5,),
                 const Image(image: AssetImage("assets/images/registration.jpg"),height: 233,width: 390,),
-
                 const Text("Hop on Board : Your Journey Begins with Us !!",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,)),
-
                 const SizedBox(height: 45,),
                 TextFormField(
                   // For Name

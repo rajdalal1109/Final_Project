@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/Auth/verify_otp.dart';
 import 'package:provider/provider.dart';
-
 import '../Provider/auth_provider.dart';
 
 
@@ -68,16 +67,17 @@ class _ForgotPassState extends State<ForgotPass> {
               )
           );
           Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtp(email: _mail.text),));
-        }else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter an email address'))); // Snackbar to notify user to add email
-      }
-    } catch (e) {
+        }
+    }  catch (e) {
         print(e.toString());
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.toString()}")));
+        if()
+          {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${e.toString()}")));
+          }
       }
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
