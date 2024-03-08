@@ -232,6 +232,13 @@ class _LogInState extends State<LogIn> {
                             builder: (context) => BottoBar(),
                           ));
                         });
+                      } else {
+                        // Form is invalid
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Please fill the all data'),
+                          ),
+                        );
                       }
                     },
                   ),

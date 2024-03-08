@@ -340,7 +340,7 @@ class _SeatSelectState extends State<SeatSelect> {
   void _getSeat() async {
     var res = await http.post(
         Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/setas.php'),
-        body: jsonEncode({"bus_id": 24, "date": "2024/03/18"}),
+        body: jsonEncode({"bus_id": widget.busID, "date": widget.date.toString()}),
         headers: {'Content-Type': 'application/json'});
     if (res.statusCode == 200) {
       var data = jsonDecode(res.body);

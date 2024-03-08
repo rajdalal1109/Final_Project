@@ -228,9 +228,9 @@ class _RegistrationState extends State<Registration> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      Text("By Clicking on Register, you are agree to "
+                      Text("By Clicking on Register, You are agree to \n"
                           "Privacy Policy and "
-                          "Terms & Conditions !!",style: TextStyle(color: Colors.red)),
+                          "Terms & Conditions !!",style: TextStyle(color: Colors.red,fontWeight: FontWeight.w400)),
                     ],
                   ),
                 ),
