@@ -177,6 +177,7 @@
 //    }
 //  }
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/UI/confirm_ticket.dart';
 import 'package:project/UI/showpass_details.dart';
@@ -231,137 +232,153 @@ class _PassDeatilsState extends State<PassDeatils> {
           key: formKey,
           child: Column(
             children: [
+              Row(
+                children: [
+                  Icon(Icons.group,color: Colors.blue,size: 35,),
+                  Text("\t\t""Passanger Deatils",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                ],
+              ),
               Expanded(
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        print(widget.seat[index].seatNo);
-                      },
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('PasengerNo : ${index + 1}',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700),),
-                              Text('SeatNo : ${widget.seat[index].seatNo}',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700),),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(
-                                  // For Name
-                                  controller: widget.seat[index].name,
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: "Name*",
-                                    prefixIcon: Icon(Icons.person, color: Colors.blue),
-                                    hintText: 'Name',
-                                  ),
-                                  keyboardType: TextInputType.name,
-                                  validator: (String? value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Name is required';
-                                    }
-                                    String trimmedValue = value.trim();
-                                    if (trimmedValue.length < 2) {
-                                      return 'Name should contain at least two letters';
-                                    }
-                                    if (RegExp(r'[0-9!@#%^&*]').hasMatch(trimmedValue)) {
-                                      return 'Name should only contain letters';
-                                    }
-                                    return null;
-                                  },
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 8,left: 10,right: 10),
-                                child: TextFormField(
-                                  //For Age
-                                  controller: widget.seat[index].age,
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: "Age*",
-                                    hintText: 'Age',
-                                    // prefixIcon: Icon(Icons.age, color: Colors.blue)
-                                  ),
-                                  maxLength: 2,
-                                  keyboardType: TextInputType.number,
-                                  validator: (String? value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Age is required';
-                                    }
-                                    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                                      return 'Enter only numbers';
-                                    }
-                                    return null;
-                                  },
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Row(
-                                  children: <Widget>[
-                                    Text(
-                                      'Gender:',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Radio(
-                                        value: 'Male',
-                                        groupValue:
-                                        widget.seat[index].selecctRadio,
-                                        onChanged: (String? value) {
-                                          setState(() {
-                                            widget.seat[index].selecctRadio =
-                                            value!;
-                                          });
-                                        }),
-                                    Text('Male'),
-                                    Radio(
-                                        value: 'Female',
-                                        groupValue:
-                                        widget.seat[index].selecctRadio,
-                                        onChanged: (String? value) {
-                                          setState(() {
-                                            widget.seat[index].selecctRadio =
-                                            value!;
-                                          });
-                                        }),
-                                    Text('FeMale'),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          print(widget.seat[index].seatNo);
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text('Pasenger No : ${index + 1}',style: TextStyle(fontSize: 15),),
+                                    Text("\t\t\t"'SeatNo : ${widget.seat[index].seatNo}',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700),),
                                   ],
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextFormField(
+                                    // For Name
+                                    controller: widget.seat[index].name,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: "Name*",
+                                      prefixIcon: Icon(Icons.person, color: Colors.blue),
+                                      hintText: 'Name',
+                                    ),
+                                    keyboardType: TextInputType.name,
+                                    validator: (String? value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Name is required';
+                                      }
+                                      String trimmedValue = value.trim();
+                                      if (trimmedValue.length < 2) {
+                                        return 'Name should contain at least two letters';
+                                      }
+                                      if (RegExp(r'[0-9!@#%^&*]').hasMatch(trimmedValue)) {
+                                        return 'Name should only contain letters';
+                                      }
+                                      return null;
+                                    },
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 8,left: 10,right: 10),
+                                  child: TextFormField(
+                                    //For Age
+                                    controller: widget.seat[index].age,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: "Age*",
+                                      hintText: 'Age',
+                                      // prefixIcon: Icon(Icons.age, color: Colors.blue)
+                                    ),
+                                    maxLength: 2,
+                                    keyboardType: TextInputType.number,
+                                    validator: (String? value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Age is required';
+                                      }
+                                      if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                                        return 'Enter only numbers';
+                                      }
+                                      return null;
+                                    },
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        'Gender:',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Radio(
+                                          value: 'Male',
+                                          groupValue:
+                                          widget.seat[index].selecctRadio,
+                                          onChanged: (String? value) {
+                                            setState(() {
+                                              widget.seat[index].selecctRadio =
+                                              value!;
+                                            });
+                                          }),
+                                      Text('Male'),
+                                      Radio(
+                                          value: 'Female',
+                                          groupValue:
+                                          widget.seat[index].selecctRadio,
+                                          onChanged: (String? value) {
+                                            setState(() {
+                                              widget.seat[index].selecctRadio =
+                                              value!;
+                                            });
+                                          }),
+                                      Text('FeMale'),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: widget.seat.length,
+                      );
+                    },
+                    itemCount: widget.seat.length,
+                  ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 20),
-                child: ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        submitPasengerDetails();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ShowPassenger(addPasengers: addPasengers),
-                            ));
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text('Fill Proper Data !!')));
-                        return;
-                      }
-                    },
-                    child: Text("Proceed to Book..")),
-              )
+              GestureDetector(
+                onTap: (){
+                  if (formKey.currentState!.validate()) {
+                    submitPasengerDetails();
+                    Navigator.push(context,MaterialPageRoute(builder: (context) =>ShowPassenger(addPasengers: addPasengers),));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fill Passenger deatails !!')));
+                    return;
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 50,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 98, 96, 1),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Center(child: Text("Proceed to Book",style: TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.w500),)),
+                  ),
+                ),
+              ),
             ],
           ),
         )

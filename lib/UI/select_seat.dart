@@ -357,6 +357,8 @@ class _SeatSelectState extends State<SeatSelect> {
     _getSeat();
   }
 
+
+
   getListOfSelectedSeats() {
     noOfSeats = 0;
     selectSeatList.clear();
@@ -594,6 +596,7 @@ class _SeatSelectState extends State<SeatSelect> {
                                   borderRadius: BorderRadius.circular(25)),
                               content: Text('PLease select Seat!!')));
                         }
+                        return;
                       },
                       child: Container(
                         width: 293,
