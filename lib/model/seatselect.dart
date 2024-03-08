@@ -9,6 +9,7 @@ class SeatSel {
   String? selecctRadio;
   TextEditingController name = TextEditingController();
   TextEditingController age = TextEditingController();
+
   SeatSel(
       {this.seatNo,
       this.bookedStatus,
@@ -16,12 +17,14 @@ class SeatSel {
       this.selecctRadio,
       required this.name,
       required this.age});
+
   SeatSel.fromJson(Map<String, dynamic> json) {
     seatNo = json['seatNo'];
     bookedStatus = json['BookedStatus'];
     userSelected = json['userSelected'] ?? false;
     selecctRadio = json['selecctRadio'] ?? "";
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['seatNo'] = this.seatNo;

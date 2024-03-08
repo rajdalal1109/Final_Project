@@ -187,17 +187,18 @@ int selectoption = 1;
 
 class PassDeatils extends StatefulWidget {
   List<SeatSel> seat = [];
-  PassDeatils({required this.seat});
 
+  PassDeatils({required this.seat});
 
   @override
   State<PassDeatils> createState() => _PassDeatilsState();
 }
-enum selectOption {Male,Female}
+
+enum selectOption { Male, Female }
 
 class _PassDeatilsState extends State<PassDeatils> {
-
   List<SeatSel> addPasengers = [];
+
   submitPasengerDetails() {
     addPasengers.clear();
     widget.seat.forEach((element) {
@@ -219,23 +220,31 @@ class _PassDeatilsState extends State<PassDeatils> {
     });
     setState(() {});
   }
+
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor:  const Color.fromRGBO(255, 98, 96, 1),
-          surfaceTintColor:  const Color.fromRGBO(255, 98, 96, 1),
+          backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
+          surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),
         ),
-        body:Form(
+        body: Form(
           key: formKey,
           child: Column(
             children: [
               Row(
                 children: [
-                  Icon(Icons.group,color: Colors.blue,size: 35,),
-                  Text("\t\t""Passanger Deatils",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                  Icon(
+                    Icons.group,
+                    color: Colors.blue,
+                    size: 35,
+                  ),
+                  Text(
+                    "\t\t" "Passanger Deatils",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
               Expanded(
@@ -255,8 +264,17 @@ class _PassDeatilsState extends State<PassDeatils> {
                               children: [
                                 Row(
                                   children: [
-                                    Text('Pasenger No : ${index + 1}',style: TextStyle(fontSize: 15),),
-                                    Text("\t\t\t"'SeatNo : ${widget.seat[index].seatNo}',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700),),
+                                    Text(
+                                      'Pasenger No : ${index + 1}',
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    Text(
+                                      "\t\t\t"
+                                      'SeatNo : ${widget.seat[index].seatNo}',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700),
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -267,7 +285,8 @@ class _PassDeatilsState extends State<PassDeatils> {
                                     decoration: const InputDecoration(
                                       border: OutlineInputBorder(),
                                       labelText: "Name*",
-                                      prefixIcon: Icon(Icons.person, color: Colors.blue),
+                                      prefixIcon: Icon(Icons.person,
+                                          color: Colors.blue),
                                       hintText: 'Name',
                                     ),
                                     keyboardType: TextInputType.name,
@@ -276,19 +295,23 @@ class _PassDeatilsState extends State<PassDeatils> {
                                         return 'Name is required';
                                       }
                                       String trimmedValue = value.trim();
+
                                       if (trimmedValue.length < 2) {
                                         return 'Name should contain at least two letters';
                                       }
-                                      if (RegExp(r'[0-9!@#%^&*]').hasMatch(trimmedValue)) {
+                                      if (RegExp(r'[0-9!@#%^&*]')
+                                          .hasMatch(trimmedValue)) {
                                         return 'Name should only contain letters';
                                       }
                                       return null;
                                     },
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top: 8,left: 10,right: 10),
+                                  padding: EdgeInsets.only(
+                                      top: 8, left: 10, right: 10),
                                   child: TextFormField(
                                     //For Age
                                     controller: widget.seat[index].age,
@@ -304,12 +327,14 @@ class _PassDeatilsState extends State<PassDeatils> {
                                       if (value == null || value.isEmpty) {
                                         return 'Age is required';
                                       }
-                                      if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                                      if (!RegExp(r'^[0-9]+$')
+                                          .hasMatch(value)) {
                                         return 'Enter only numbers';
                                       }
                                       return null;
                                     },
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                   ),
                                 ),
                                 Padding(
@@ -324,22 +349,22 @@ class _PassDeatilsState extends State<PassDeatils> {
                                       Radio(
                                           value: 'Male',
                                           groupValue:
-                                          widget.seat[index].selecctRadio,
+                                              widget.seat[index].selecctRadio,
                                           onChanged: (String? value) {
                                             setState(() {
                                               widget.seat[index].selecctRadio =
-                                              value!;
+                                                  value!;
                                             });
                                           }),
                                       Text('Male'),
                                       Radio(
                                           value: 'Female',
                                           groupValue:
-                                          widget.seat[index].selecctRadio,
+                                              widget.seat[index].selecctRadio,
                                           onChanged: (String? value) {
                                             setState(() {
                                               widget.seat[index].selecctRadio =
-                                              value!;
+                                                  value!;
                                             });
                                           }),
                                       Text('FeMale'),
@@ -357,12 +382,18 @@ class _PassDeatilsState extends State<PassDeatils> {
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   if (formKey.currentState!.validate()) {
                     submitPasengerDetails();
-                    Navigator.push(context,MaterialPageRoute(builder: (context) =>ShowPassenger(addPasengers: addPasengers),));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ShowPassenger(addPasengers: addPasengers),
+                        ));
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fill Passenger deatails !!')));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Fill Passenger deatails !!')));
                     return;
                   }
                 },
@@ -375,16 +406,23 @@ class _PassDeatilsState extends State<PassDeatils> {
                       color: Color.fromRGBO(255, 98, 96, 1),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Center(child: Text("Proceed to Book",style: TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.w500),)),
+                    child: Center(
+                        child: Text(
+                      "Proceed to Book",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500),
+                    )),
                   ),
                 ),
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 }
+
 String? _validateName(String? name) {
   RegExp nameReg = RegExp(r'[a-z,A-Z]');
   final isName = nameReg.hasMatch(name ?? '');
@@ -392,6 +430,7 @@ String? _validateName(String? name) {
     return 'Please use only Alphabets';
   }
 }
+
 String? _validatePhone(String? num) {
   RegExp numReg = RegExp(r'[0-9]');
   final isNum = numReg.hasMatch(num ?? '');
