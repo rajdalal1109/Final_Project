@@ -44,6 +44,8 @@ class _LogInState extends State<LogIn> {
     }
   }
 
+
+
   @override
   void dispose() {
     _mail.dispose();
@@ -51,8 +53,15 @@ class _LogInState extends State<LogIn> {
     super.dispose();
   }
 
-    Future<void> _saveLoginStatus() async {
+  Future<void> _saveLoginStatus() async {
     await prefs.setBool('isLoggedIn', true);
+  }
+
+  void logout(BuildContext context) async {
+    await prefs.setBool('isLoggedIn', false); // Clear login status
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => LogIn(), // Navigate back to the login screen
+    ));
   }
 
   void Login(BuildContext context) async {
@@ -143,15 +152,15 @@ class _LogInState extends State<LogIn> {
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: (String? value) {
-                    if (value == null || value.isEmpty)
-                    {
-                      return 'Please enter an email address';
-                    }
-                    if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value) || !value.contains("@gmail.com")) {
-                      return 'Format is abc123@gmail.com';
-                    }
-                    return null;
-                  },
+                      if (value == null || value.isEmpty)
+                      {
+                        return 'Please enter an email address';
+                      }
+                      if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value) || !value.contains("@gmail.com")) {
+                        return 'Format is abc123@gmail.com';
+                      }
+                      return null;
+                    },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(height: 25),
@@ -211,20 +220,20 @@ class _LogInState extends State<LogIn> {
                     ],
                   ),
                   SizedBox(height: 10),
-              ElevatedButton(
-                      child: const Text("Log In"),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Perform login operation here
-                          // If login is successful, save login status
-                          _saveLoginStatus().then((_) {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                              builder: (context) => BottoBar(),
-                            ));
-                          });
-                        }
-                      },
-                    ),
+                  ElevatedButton(
+                    child: const Text("Log In"),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // Perform login operation here
+                        // If login is successful, save login status
+                        _saveLoginStatus().then((_) {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => BottoBar(),
+                          ));
+                        });
+                      }
+                    },
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -236,8 +245,8 @@ class _LogInState extends State<LogIn> {
                           child: const Text(
                             "\t\tRegister Here",
                             style: TextStyle(
-                              color: Color.fromRGBO(255, 98, 96, 1),
-                              fontWeight: FontWeight.bold
+                                color: Color.fromRGBO(255, 98, 96, 1),
+                                fontWeight: FontWeight.bold
                             ),
                           ),
                           onPressed: () {

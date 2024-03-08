@@ -51,23 +51,39 @@ class _ForgotPassState extends State<ForgotPass> {
           body: jsonEncode({"email": _mail.text}),
           headers: {'Content-Type': "application/json; charset=UTF-8"},
         );
-        if (response.statusCode == 200) {
-          // print('response --=================${response.body}');
-          print(response.body);
+        print('Response status code: ${response.statusCode}');
+        print('Response body: ${response.body}');
+        var responseBody = jsonDecode(response.body);
+        if (response.statusCode == 200 && responseBody['status'] == 'success') {
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('OTP sent and It will be expire in 2 Minutes !!'),
-                duration: Duration(seconds: 5),
-                elevation: 10,
-                behavior: SnackBarBehavior.floating,
-                margin: EdgeInsets.only(bottom: 50),
-              )
+            const SnackBar(
+              content: Text('OTP sent and It will be expire in 2 Minutes !!'),
+              duration: Duration(seconds: 5),
+              elevation: 10,
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.only(bottom: 50),
+            ),
           );
-          Navigator.push(context, MaterialPageRoute(
-            builder: (context) => VerifyOtp(email: _mail.text),));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VerifyOtp(email: _mail.text),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('User not registered. Please register first !!.'),
+              duration: Duration(seconds: 5),
+              elevation: 10,
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.only(bottom: 50),
+            ),
+          );
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => Registration(),));
         }
       } catch (e) {
-        print(e);
+        print('Error: $e');
       }
     }
   }

@@ -10,7 +10,9 @@ import 'package:project/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+  final SharedPreferences prefs;
+
+  const Profile({Key? key, required this.prefs}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -20,59 +22,74 @@ class _ProfileState extends State<Profile> {
   Uint8List? _image;
   File? selectedIMage;
 
-
   void showImagePickerOption(BuildContext context) {
     showModalBottomSheet(
-        backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
-        context: context,
-        builder: (builder) {
-          return Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: SizedBox(
-              height: 100,
-              width: 400,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        _getGallery();
-                      },
-                      child: const SizedBox(
-                        child: Column(
-                          children: [
-                            Icon(Icons.image, size: 50,color: Colors.white,),
-                            Text("Gallery",style: TextStyle(color: Colors.white),)
-                          ],
-                        ),
+      backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
+      context: context,
+      builder: (builder) {
+        return Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: SizedBox(
+            height: 100,
+            width: 400,
+            child: Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      _getGallery();
+                    },
+                    child: const SizedBox(
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.image,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Gallery",
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        _getCamera();
-                      },
-                      child: const SizedBox(
-                        child: Column(
-                          children: [
-                            Icon(CupertinoIcons.camera, size: 50,color: Colors.white,),
-                            Text("Camera",style: TextStyle(color: Colors.white),)
-                          ],
-                        ),
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      _getCamera();
+                    },
+                    child: const SizedBox(
+                      child: Column(
+                        children: [
+                          Icon(
+                            CupertinoIcons.camera,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Camera",
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
-//Gallery
+  //Gallery
   Future _getGallery() async {
-    final returnImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final returnImage =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnImage == null) return;
     setState(() {
       selectedIMage = File(returnImage.path);
@@ -80,14 +97,14 @@ class _ProfileState extends State<Profile> {
     });
 
     // Save image to local storage
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('profile_image', base64Encode(_image!));
+    widget.prefs.setString('profile_image', base64Encode(_image!));
     Navigator.of(context).pop();
   }
 
-//Camera
+  //Camera
   Future _getCamera() async {
-    final returnImage = await ImagePicker().pickImage(source: ImageSource.camera);
+    final returnImage =
+    await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnImage == null) return;
     setState(() {
       selectedIMage = File(returnImage.path);
@@ -95,8 +112,7 @@ class _ProfileState extends State<Profile> {
     });
 
     // Save image to local storage
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('profile_image', base64Encode(_image!));
+    widget.prefs.setString('profile_image', base64Encode(_image!));
     Navigator.of(context).pop();
   }
 
@@ -107,8 +123,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> _loadImage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? profileImageString = prefs.getString('profile_image');
+    String? profileImageString = widget.prefs.getString('profile_image');
 
     if (profileImageString != null) {
       setState(() {
@@ -118,11 +133,17 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> _deleteImage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('profile_image');
+    widget.prefs.remove('profile_image');
     setState(() {
       _image = null;
     });
+  }
+
+  void logout(BuildContext context) async {
+    await widget.prefs.setBool('isLoggedIn', false); // Clear login status
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => LogIn(),
+    ));
   }
 
   @override
@@ -142,7 +163,6 @@ class _ProfileState extends State<Profile> {
             },
             icon: const Icon(
               CupertinoIcons.camera_circle_fill,
-              // Icons.add_a_photo_outlined,
               color: Colors.white,
               size: 35,
             ),
@@ -185,54 +205,70 @@ class _ProfileState extends State<Profile> {
                 child: Column(
                   children: [
                     if (_image != null)
-                      CircleAvatar(radius: 90, backgroundImage: MemoryImage(_image!),)
+                      CircleAvatar(
+                        radius: 90,
+                        backgroundImage: MemoryImage(_image!),
+                      )
                     else
-                      const CircleAvatar(radius: 90, backgroundImage: AssetImage("assets/images/girldp2.png"),),
+                      const CircleAvatar(
+                        radius: 90,
+                        backgroundImage: AssetImage("assets/images/girldp2.png"),
+                      ),
                     const SizedBox(height: 8),
                     const Text(
                       "Carla Dakota",
                       style: TextStyle(
-                          fontWeight: FontWeight.w800, fontSize: 25),
+                        fontWeight: FontWeight.w800,
+                        fontSize: 25,
+                      ),
                     ),
-                    // IconButton(
-                    //   onPressed: () {
-                    //     _deleteImage();
-                    //   },
-                    //   icon: Icon(
-                    //     Icons.delete,
-                    //     color: Colors.black,
-                    //     size: 30,
-                    //   ),
-                    // ),
                     const SizedBox(height: 30),
                     const Card(
                       child: ListTile(
-                        title: Text("Email", style: TextStyle(fontSize: 16,
-                            fontWeight: FontWeight.w500)),
-                        subtitle: Text("abc@gmail.com", style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w400)),
+                        title: Text(
+                          "Email",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500),
+                        ),
+                        subtitle: Text(
+                          "abc@gmail.com",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w400),
+                        ),
                         trailing: Icon(CupertinoIcons.mail),
                       ),
                     ),
                     const SizedBox(height: 5),
                     const Card(
                       child: ListTile(
-                        title: Text("Phone Number", style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
-                        subtitle: Text("+91\t1234567890", style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w400)),
+                        title: Text(
+                          "Phone Number",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500),
+                        ),
+                        subtitle: Text(
+                          "+91\t1234567890",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w400),
+                        ),
                         trailing: Icon(CupertinoIcons.phone),
                       ),
                     ),
                     const SizedBox(height: 5),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Setting(),));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Setting()),
+                        );
                       },
                       child: const Card(
                         child: ListTile(
-                          title: Text("Setting", style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)),
+                          title: Text(
+                            "Setting",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
                           trailing: Icon(CupertinoIcons.gear_alt),
                         ),
                       ),
@@ -240,12 +276,15 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(height: 5),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn(),));
+                        logout(context);
                       },
                       child: const Card(
                         child: ListTile(
-                          title: Text("Log Out", style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)),
+                          title: Text(
+                            "Log Out",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
                           trailing: Icon(CupertinoIcons.power),
                         ),
                       ),
