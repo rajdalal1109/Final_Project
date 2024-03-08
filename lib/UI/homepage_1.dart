@@ -7,7 +7,9 @@ import 'package:project/UI/find_bus.dart';
 import 'package:project/model/data.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final String? name;
+  //const HomePage({super.key});
+  const HomePage({Key? key, required this.name}) : super(key: key);
 
 
   @override
@@ -17,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _MyHomePageState extends State<HomePage> {
   int currentPageIndex = 0;
   TextEditingController datecontroller = TextEditingController();
+  TextEditingController _name = TextEditingController();
 
   @override
   void initState() {
@@ -48,7 +51,6 @@ class _MyHomePageState extends State<HomePage> {
           "start": source?.name.toString(),
           "end": destination?.name.toString(),
           "date": datecontroller.text
-
         }),
         headers: {'Content-Type': 'application/json; charset=UTF-8'}
     );
@@ -59,8 +61,6 @@ class _MyHomePageState extends State<HomePage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Select Source & Destination !!"),),);
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +88,10 @@ class _MyHomePageState extends State<HomePage> {
                     color: Color.fromRGBO(255, 98, 96, 1),
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight: Radius.circular(5)),
                   ),
-                  child: const Column(
+                  child: Column(
                     children: [
                       SizedBox(height: 25,),
-                      Text('Hey User!', style: TextStyle(fontSize: 24,fontWeight: FontWeight.w300,color: Colors.white),),
+                      Text("Hey User!", style: TextStyle(fontSize: 24,fontWeight: FontWeight.w300,color: Colors.white),),
                       SizedBox(height: 5,),
                       Text('Where you want to go?', style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.w500),),
                       SizedBox(height: 3,),

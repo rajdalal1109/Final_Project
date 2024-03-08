@@ -16,26 +16,26 @@ class _BottoBarState extends State<BottoBar> {
   int currentPageIndex = 0;
   late SharedPreferences prefs;
 
+
   @override
   void initState() {
     super.initState();
     loadPreferences();
   }
 
-  Future<void> loadPreferences() async {
+  void loadPreferences() async {
     prefs = await SharedPreferences.getInstance();
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return prefs == null
-        ? CircularProgressIndicator() // Show loading indicator until prefs are loaded
+    return prefs == null ? CircularProgressIndicator() // Show loading indicator until prefs are loaded
         : Scaffold(
       body: IndexedStack(
         index: currentPageIndex,
         children: [
-          HomePage(),
+          HomePage(name: '',),
           Tickets(),
           Profile(prefs: prefs),
         ],

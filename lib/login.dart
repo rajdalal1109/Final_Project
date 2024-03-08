@@ -21,7 +21,7 @@ class _LogInState extends State<LogIn> {
   final TextEditingController _mail = TextEditingController();
   final TextEditingController _Password = TextEditingController();
   bool _isButtonDisabled = true;
-  late final SharedPreferences prefs;
+  late SharedPreferences prefs;
 
   @override
   void initState() {

@@ -115,8 +115,8 @@ class _RegistrationState extends State<Registration> {
                     {
                       return 'Please enter an email address';
                     }
-                    if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value) || !value.contains("@gmail.com") || !value.contains("@yahoo.com")) {
-                      return 'Format is abc123@gmail.com or @yahoo.com ';
+                    if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value) || !value.contains("@gmail.com")) {
+                      return 'Format is abc123@gmail.com';
                     }
                     return null;
                   },
@@ -196,7 +196,7 @@ class _RegistrationState extends State<Registration> {
                         if (_formKey.currentState!.validate()) {
                           // Form is valid, proceed with registration
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => HomePage(),
+                            builder: (context) => HomePage(name: _name.toString(),),
                           ));
                         } else {
                           // Form is invalid
