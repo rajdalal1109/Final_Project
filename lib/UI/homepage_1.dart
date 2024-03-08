@@ -141,33 +141,37 @@ class _MyHomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(10),
                               color: Color.fromRGBO(243, 238, 255, 1),
                             ),
-                            child: DropdownButton(
-                              value: source,
-                              padding: EdgeInsets.symmetric(horizontal: 50),
-                              hint: Text(
-                                'Source',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                isExpanded: true,
+                                value: source,
+                                padding: EdgeInsets.symmetric(horizontal: 50),
+                                hint: Text(
+                                  'Source',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey),
+                                ),
+                                items: stops.map((e) {
+                                  return DropdownMenuItem(
+                                    child: Text(
+                                      e.name.toString(),
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(181, 160, 232, 1),
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    value: e,
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    source = value!;
+                                  });
+                                  print(source!.name);
+                                },
                               ),
-                              items: stops.map((e) {
-                                return DropdownMenuItem(
-                                  child: Text(
-                                    e.name.toString(),
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(181, 160, 232, 1),
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  value: e,
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  source = value!;
-                                });
-                                print(source!.name);
-                              },
                             ),
                           ),
                         ),
@@ -182,33 +186,38 @@ class _MyHomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(10),
                               color: Color.fromRGBO(243, 238, 255, 1),
                             ),
-                            child: DropdownButton(
-                              value: desti,
-                              padding: EdgeInsets.symmetric(horizontal: 50),
-                              hint: Text(
-                                'Destination',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                isExpanded: true,
+                                // isDense: false,
+                                value: desti,
+                                padding: EdgeInsets.symmetric(horizontal: 50),
+                                hint: Text(
+                                  'Destination',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey),
+                                ),
+                                items: stops.map((e) {
+                                  return DropdownMenuItem(
+                                    child: Text(
+                                      e.name.toString(),
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(181, 160, 232, 1),
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    value: e,
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    desti = value!;
+                                  });
+                                  print(desti!.name);
+                                },
                               ),
-                              items: stops.map((e) {
-                                return DropdownMenuItem(
-                                  child: Text(
-                                    e.name.toString(),
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(181, 160, 232, 1),
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  value: e,
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  desti = value!;
-                                });
-                                print(desti!.name);
-                              },
                             ),
                           ),
                         ),
@@ -252,7 +261,7 @@ class _MyHomePageState extends State<HomePage> {
                                   print(
                                       pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                                   String formattedDate =
-                                      DateFormat('dd-MM-yyyy')
+                                      DateFormat('yyyy-MM-dd')
                                           .format(pickedDate);
                                   print(
                                       formattedDate); //formatted date output using intl package =>  2021-03-16

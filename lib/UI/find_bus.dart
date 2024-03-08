@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project/UI/select_seat.dart';
 import 'package:http/http.dart' as http;
@@ -202,7 +203,7 @@ class _FindBusState extends State<FindBus> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
-                                color: Colors.red),
+                                color: Colors.white),
                           ));
                         } else {
                           return ListView.builder(
@@ -215,7 +216,7 @@ class _FindBusState extends State<FindBus> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => SeatUi(
+                                        builder: (context) => SeatSelect(
                                           busID: stops.busid.toString(),
                                           date: widget.dateInput.toString(),
                                         ),
@@ -229,7 +230,19 @@ class _FindBusState extends State<FindBus> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(stops.busid.toString()),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(stops.busid.toString()),
+                                            Text(
+                                              '₹${stops.price.toString()}',
+                                              style: TextStyle(
+                                                  color: Colors.orange,
+                                                  fontSize: 20),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
