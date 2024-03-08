@@ -91,7 +91,7 @@ class _MyHomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       SizedBox(height: 25,),
-                      Text("Hey ${widget.name.toString()}!", style: TextStyle(fontSize: 24,fontWeight: FontWeight.w300,color: Colors.white),),
+                      Text("Hey User${widget.name.toString()}!", style: TextStyle(fontSize: 24,fontWeight: FontWeight.w300,color: Colors.white),),
                       SizedBox(height: 5,),
                       Text('Where you want to go?', style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.w500),),
                       SizedBox(height: 3,),
@@ -279,231 +279,306 @@ class _MyHomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-
-              //UPCOMING BUSES TEXT
-              const Positioned(
-                top: 550,
-                left: 20,
-                child: Text(
-                  "Upcoming Journey",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
-                ),
-              ),
-              Positioned(
-                height: 290,
-                width: 360,
-                top: 565,
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Container(
-                      height: 400,
-                      width: 350,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey,
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                blurStyle: BlurStyle.normal,
-                                offset: Offset(2, 2))
-                          ]
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              Padding(
+                padding: EdgeInsets.only(top: 550,left: 20),
+                child: SizedBox(
+                  height: 350,
+                  child: ListView(
+                    children: [
+                      SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 5,top: 8),
-                            child: Text("Ticket No : 13392789",
-                                style: TextStyle(
-                                    color: Color.fromRGBO(160, 160, 160, 1),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500)),
-                          ),
-                          const Divider(
-                            thickness: 1,
-                          ),
-                          Row(
-                            children: [
-                              const Column(
+                          Card(
+                            child: Container(
+                              height: 100,width: 200,
+                              child: Column(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                          flex: 0,
-                                          child: Icon(Icons.exit_to_app_sharp,
-                                              size: 20)),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                        flex: 0,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Boarding Point",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                    FontWeight.w500,
-                                                    color: Color.fromRGBO(
-                                                        160, 160, 160, 1))),
-                                            SizedBox(
-                                              width: 200,
-                                              child: Text(
-                                                  "8:05 PM, New Sangavi - Pick up near Sangavi Phata New Sangavi - Pick up near Sanavi Phata, 9595951132, 9028298789",
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                      FontWeight.w500,
-                                                      overflow:
-                                                      TextOverflow.clip)),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                          flex: 0,
-                                          child:
-                                          Icon(Icons.pin_drop, size: 20)),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                        flex: 0,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Drop Point",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                    FontWeight.w500,
-                                                    color: Color.fromRGBO(
-                                                        160, 160, 160, 1))),
-                                            SizedBox(
-                                              width: 200,
-                                              child: Text(
-                                                  "6:30 AM, DeepNagar,DeepNagar",
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                      FontWeight.w500,
-                                                      overflow:
-                                                      TextOverflow.clip)),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  Text("data"),
+                                  Text("data"),
+                                  Text("data"),
                                 ],
                               ),
-                              Container(
-                                width: 2,
-                                color: Colors.grey.withOpacity(0.2),
-                                height: 120,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Expanded(
-                                flex: 0,
-                                child: Column(
-                                  children: [
-                                    Text("Ahmedabad",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                160, 160, 160, 1))),
-                                    Text("8:05 PM",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500)),
-                                    Text("Sun, 13 Jan",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500)),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text("TO",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color.fromRGBO(
-                                                245, 165, 34, 1))),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text("Pune",
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                160, 160, 160, 1))),
-                                    Text("6:30 AM",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500)),
-                                    Text("Mon, 14 Jan",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500)),
-                                  ],
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                          const SizedBox(
-                            height: 13,
-                          ),
-                          const Divider(
-                            thickness: 1,
-                          ),
-                          const Row(
-                            children: [
-                              Expanded(
-                                  flex: 0, child: Icon(Icons.directions_bus)),
-                              SizedBox(
-                                width: 10,
+                          Card(
+                            child: Container(
+                              height: 100,width: 100,
+                              child: Column(
+                                children: [
+                                  Text("data"),
+                                  Text("data"),
+                                  Text("data"),
+                                ],
                               ),
-                              Expanded(
-                                flex: 0,
-                                child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Sangitam Travels",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500)),
-                                    Text("2X1 (30) A/C SLEEPER",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color.fromRGBO(
-                                                160, 160, 160, 1))),
-                                  ],
-                                ),
+                            ),
+                          ),
+                          Card(
+                            child: Container(
+                              height: 100,width: 100,
+                              child: Column(
+                                children: [
+                                  Text("data"),
+                                  Text("data"),
+                                  Text("data"),
+                                ],
                               ),
-                              SizedBox(width: 115,),
-                              Text("1 Seat", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                            ],
+                            ),
+                          ),Card(
+                            child: Container(
+                              height: 100,width: 100,
+                              child: Column(
+                                children: [
+                                  Text("data"),
+                                  Text("data"),
+                                  Text("data"),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: Container(
+                              height: 100,width: 100,
+                              child: Column(
+                                children: [
+                                  Text("data"),
+                                  Text("data"),
+                                  Text("data"),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
-                      )
+                      ),
+                    ),
+                  ]
                   ),
                 ),
               ),
+              // //UPCOMING BUSES TEXT
+              // const Positioned(
+              //   top: 550,
+              //   left: 20,
+              //   child: Text(
+              //     "Upcoming Journey",
+              //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+              //   ),
+              // ),
+              // Positioned(
+              //   height: 290,
+              //   width: 360,
+              //   top: 565,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(15),
+              //     child: Container(
+              //         height: 400,
+              //         width: 350,
+              //         decoration: const BoxDecoration(
+              //             color: Colors.white,
+              //             boxShadow: [
+              //               BoxShadow(
+              //                   color: Colors.grey,
+              //                   spreadRadius: 1,
+              //                   blurRadius: 5,
+              //                   blurStyle: BlurStyle.normal,
+              //                   offset: Offset(2, 2))
+              //             ]
+              //         ),
+              //         child: Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             const Padding(
+              //               padding: EdgeInsets.only(left: 5,top: 8),
+              //               child: Text("Ticket No : 13392789",
+              //                   style: TextStyle(
+              //                       color: Color.fromRGBO(160, 160, 160, 1),
+              //                       fontSize: 14,
+              //                       fontWeight: FontWeight.w500)),
+              //             ),
+              //             const Divider(
+              //               thickness: 1,
+              //             ),
+              //             Row(
+              //               children: [
+              //                 const Column(
+              //                   children: [
+              //                     Row(
+              //                       children: [
+              //                         Expanded(
+              //                             flex: 0,
+              //                             child: Icon(Icons.exit_to_app_sharp,
+              //                                 size: 20)),
+              //                         SizedBox(
+              //                           width: 10,
+              //                         ),
+              //                         Expanded(
+              //                           flex: 0,
+              //                           child: Column(
+              //                             crossAxisAlignment:
+              //                             CrossAxisAlignment.start,
+              //                             children: [
+              //                               Text("Boarding Point",
+              //                                   style: TextStyle(
+              //                                       fontSize: 12,
+              //                                       fontWeight:
+              //                                       FontWeight.w500,
+              //                                       color: Color.fromRGBO(
+              //                                           160, 160, 160, 1))),
+              //                               SizedBox(
+              //                                 width: 200,
+              //                                 child: Text(
+              //                                     "8:05 PM, New Sangavi - Pick up near Sangavi Phata New Sangavi - Pick up near Sanavi Phata, 9595951132, 9028298789",
+              //                                     style: TextStyle(
+              //                                         fontSize: 12,
+              //                                         fontWeight:
+              //                                         FontWeight.w500,
+              //                                         overflow:
+              //                                         TextOverflow.clip)),
+              //                               ),
+              //                             ],
+              //                           ),
+              //                         ),
+              //                       ],
+              //                     ),
+              //                     SizedBox(
+              //                       height: 10,
+              //                     ),
+              //                     Row(
+              //                       children: [
+              //                         Expanded(
+              //                             flex: 0,
+              //                             child:
+              //                             Icon(Icons.pin_drop, size: 20)),
+              //                         SizedBox(
+              //                           width: 10,
+              //                         ),
+              //                         Expanded(
+              //                           flex: 0,
+              //                           child: Column(
+              //                             crossAxisAlignment:
+              //                             CrossAxisAlignment.start,
+              //                             children: [
+              //                               Text("Drop Point",
+              //                                   style: TextStyle(
+              //                                       fontSize: 12,
+              //                                       fontWeight:
+              //                                       FontWeight.w500,
+              //                                       color: Color.fromRGBO(
+              //                                           160, 160, 160, 1))),
+              //                               SizedBox(
+              //                                 width: 200,
+              //                                 child: Text(
+              //                                     "6:30 AM, DeepNagar,DeepNagar",
+              //                                     style: TextStyle(
+              //                                         fontSize: 12,
+              //                                         fontWeight:
+              //                                         FontWeight.w500,
+              //                                         overflow:
+              //                                         TextOverflow.clip)),
+              //                               ),
+              //                             ],
+              //                           ),
+              //                         ),
+              //                       ],
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 Container(
+              //                   width: 2,
+              //                   color: Colors.grey.withOpacity(0.2),
+              //                   height: 120,
+              //                 ),
+              //                 const SizedBox(
+              //                   width: 10,
+              //                 ),
+              //                 const Expanded(
+              //                   flex: 0,
+              //                   child: Column(
+              //                     children: [
+              //                       Text("Ahmedabad",
+              //                           style: TextStyle(
+              //                               color: Color.fromRGBO(
+              //                                   160, 160, 160, 1))),
+              //                       Text("8:05 PM",
+              //                           style: TextStyle(
+              //                               fontSize: 14,
+              //                               fontWeight: FontWeight.w500)),
+              //                       Text("Sun, 13 Jan",
+              //                           style: TextStyle(
+              //                               fontSize: 10,
+              //                               fontWeight: FontWeight.w500)),
+              //                       SizedBox(
+              //                         height: 8,
+              //                       ),
+              //                       Text("TO",
+              //                           style: TextStyle(
+              //                               fontSize: 10,
+              //                               fontWeight: FontWeight.w500,
+              //                               color: Color.fromRGBO(
+              //                                   245, 165, 34, 1))),
+              //                       SizedBox(
+              //                         height: 5,
+              //                       ),
+              //                       Text("Pune",
+              //                           style: TextStyle(
+              //                               color: Color.fromRGBO(
+              //                                   160, 160, 160, 1))),
+              //                       Text("6:30 AM",
+              //                           style: TextStyle(
+              //                               fontSize: 14,
+              //                               fontWeight: FontWeight.w500)),
+              //                       Text("Mon, 14 Jan",
+              //                           style: TextStyle(
+              //                               fontSize: 10,
+              //                               fontWeight: FontWeight.w500)),
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //             const SizedBox(
+              //               height: 13,
+              //             ),
+              //             const Divider(
+              //               thickness: 1,
+              //             ),
+              //             const Row(
+              //               children: [
+              //                 Expanded(
+              //                     flex: 0, child: Icon(Icons.directions_bus)),
+              //                 SizedBox(
+              //                   width: 10,
+              //                 ),
+              //                 Expanded(
+              //                   flex: 0,
+              //                   child: Column(
+              //                     mainAxisAlignment:
+              //                     MainAxisAlignment.spaceBetween,
+              //                     crossAxisAlignment:
+              //                     CrossAxisAlignment.start,
+              //                     children: [
+              //                       Text("Sangitam Travels",
+              //                           style: TextStyle(
+              //                               fontSize: 14,
+              //                               fontWeight: FontWeight.w500)),
+              //                       Text("2X1 (30) A/C SLEEPER",
+              //                           style: TextStyle(
+              //                               fontSize: 12,
+              //                               fontWeight: FontWeight.w500,
+              //                               color: Color.fromRGBO(
+              //                                   160, 160, 160, 1))),
+              //                     ],
+              //                   ),
+              //                 ),
+              //                 SizedBox(width: 115,),
+              //                 Text("1 Seat", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+              //               ],
+              //             ),
+              //           ],
+              //         )
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

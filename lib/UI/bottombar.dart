@@ -63,7 +63,7 @@ class _BottoBarState extends State<BottoBar> {
           BottomNavigationBarItem(
             activeIcon: Icon(CupertinoIcons.tickets),
             icon: Icon(CupertinoIcons.ticket),
-            label: "Tickets",
+            label: "My Booking",
           ),
           BottomNavigationBarItem(
             activeIcon: const Icon(CupertinoIcons.profile_circled),
