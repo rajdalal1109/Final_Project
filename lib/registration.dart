@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/UI/bottombar.dart';
 import 'package:project/UI/homepage_1.dart';
 import 'package:project/login.dart';
 
@@ -196,7 +197,8 @@ class _RegistrationState extends State<Registration> {
                         if (_formKey.currentState!.validate()) {
                           // Form is valid, proceed with registration
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => HomePage(name: _name.toString(),),
+                            //builder: (context) => HomePage(name: _name.text,),
+                            builder: (context) => HomePage(name: _name.text),
                           ));
                         } else {
                           // Form is invalid

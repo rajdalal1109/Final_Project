@@ -7,7 +7,8 @@ import 'package:project/UI/find_bus.dart';
 import 'package:project/model/data.dart';
 
 class HomePage extends StatefulWidget {
-  final String? name;
+  final String name;
+
   //const HomePage({super.key});
   const HomePage({Key? key, required this.name}) : super(key: key);
 
@@ -19,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _MyHomePageState extends State<HomePage> {
   int currentPageIndex = 0;
   TextEditingController datecontroller = TextEditingController();
-  TextEditingController _name = TextEditingController();
+  TextEditingController name = TextEditingController();
 
   @override
   void initState() {
@@ -43,7 +44,6 @@ class _MyHomePageState extends State<HomePage> {
       setState(() {});
     }
   }
-
 
   void searchBuses() async{
     final res=await http.post(Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       SizedBox(height: 25,),
-                      Text("Hey User!", style: TextStyle(fontSize: 24,fontWeight: FontWeight.w300,color: Colors.white),),
+                      Text("Hey ${widget.name.toString()}!", style: TextStyle(fontSize: 24,fontWeight: FontWeight.w300,color: Colors.white),),
                       SizedBox(height: 5,),
                       Text('Where you want to go?', style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.w500),),
                       SizedBox(height: 3,),

@@ -13,6 +13,10 @@ class BottoBar extends StatefulWidget {
 }
 
 class _BottoBarState extends State<BottoBar> {
+
+  final TextEditingController _number = TextEditingController();
+  final TextEditingController _mail = TextEditingController();
+
   int currentPageIndex = 0;
   late SharedPreferences prefs;
 
@@ -38,7 +42,7 @@ class _BottoBarState extends State<BottoBar> {
         children: [
           HomePage(name: '',),
           Tickets(),
-          Profile(prefs: prefs),
+          Profile(prefs: prefs, mail: '', number: '',),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
