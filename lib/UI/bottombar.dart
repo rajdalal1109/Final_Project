@@ -25,6 +25,7 @@ class _BottoBarState extends State<BottoBar> {
 
   void loadPreferences() async {
     prefs = await SharedPreferences.getInstance();
+    SharedPreferences.getInstance().then((value) => prefs = value);
     setState(() {});
   }
 
@@ -51,15 +52,18 @@ class _BottoBarState extends State<BottoBar> {
         unselectedItemColor: Colors.grey,
         items: <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home),
+            activeIcon: Icon(CupertinoIcons.home),
+            icon: Icon(Icons.home),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.tickets),
+            activeIcon: Icon(CupertinoIcons.tickets),
+            icon: Icon(CupertinoIcons.ticket),
             label: "Tickets",
           ),
           BottomNavigationBarItem(
-            icon: const Icon(CupertinoIcons.profile_circled),
+            activeIcon: const Icon(CupertinoIcons.profile_circled),
+            icon: Icon(Icons.person),
             label: "Profile",
           ),
         ],

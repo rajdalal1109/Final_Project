@@ -29,6 +29,7 @@ class _LogInState extends State<LogIn> {
     _initSharedPreferences().then((_) {
       _checkLoginStatus();
     });
+    SharedPreferences.getInstance().then((value) => prefs = value);
   }
 
   Future<void> _initSharedPreferences() async {
