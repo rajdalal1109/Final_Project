@@ -65,14 +65,14 @@ class _LogInState extends State<LogIn> {
 
   void Login(BuildContext context) async {
     try {
-      if (_mail.text.isEmpty || _Password.text.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please fill the all fields'),
-          ),
-        );
-        return;
-      }
+      // if (_mail.text.isEmpty || _Password.text.isEmpty) {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(
+      //       content: Text('Please fill the all fields'),
+      //     ),
+      //   );
+      //   return;
+      // }
       Map data = {
         "email": _mail.text,
         "password": _Password.text,
@@ -237,27 +237,28 @@ class _LogInState extends State<LogIn> {
                   SizedBox(height: 10),
                   ElevatedButton(
                     child: const Text("Log In"),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Perform login operation here
-                        // If login is successful, save login status
-                        // _saveLoginStatus().then((_) {
-                        //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        //     builder: (context) => BottoBar(),
-                        //   ));
-                        // });
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => BottoBar(),
-                        ));
-                      } else {
-                        // Form is invalid
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text('Please fill the all data'),
-                          ),
-                        );
-                      }
-                    },
+                    onPressed: _isButtonDisabled ? null : () => LogIn(),
+                    // onPressed: () {
+                    //   if (_formKey.currentState!.validate()) {
+                    //     // Perform login operation here
+                    //     // If login is successful, save login status
+                    //     // _saveLoginStatus().then((_) {
+                    //     //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    //     //     builder: (context) => BottoBar(),
+                    //     //   ));
+                    //     // });
+                    //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    //       builder: (context) => BottoBar(),
+                    //     ));
+                    //   } else {
+                    //     // Form is invalid
+                    //     ScaffoldMessenger.of(context).showSnackBar(
+                    //       SnackBar(
+                    //         content: const Text('Please fill the all data'),
+                    //       ),
+                    //     );
+                    //   }
+                    // },
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
