@@ -65,6 +65,14 @@ class _LogInState extends State<LogIn> {
 
   void Login(BuildContext context) async {
     try {
+      if (_mail.text.isEmpty || _Password.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please fill the all fields'),
+          ),
+        );
+        return;
+      }
       Map data = {
         "email": _mail.text,
         "password": _Password.text,
@@ -80,7 +88,7 @@ class _LogInState extends State<LogIn> {
       if (responseBody['STATUS'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Login Sucessfully:) !!'),
+            content: Text('Login Sucessfully!!'),
             duration: Duration(seconds: 5),
             elevation: 10,
             behavior: SnackBarBehavior.floating,
@@ -88,23 +96,22 @@ class _LogInState extends State<LogIn> {
           ),
         );
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => BottoBar()));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Invalid UserName or Password',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-            ),
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottoBar(),
           ),
-          showCloseIcon: true,
-          elevation: 6,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          backgroundColor: Color.fromRGBO(255, 98, 96, 1),
-          padding: EdgeInsets.all(5),
-        ));
+        );
+      } else if(responseBody['STATUS'] == false ) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('E-mail or Password is  wrong ,please enter correct E-mail and Password'),
+            duration: Duration(seconds: 5),
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(bottom: 50),
+          ),
+        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn(),));
       }
     } catch (e) {
       print(e);
