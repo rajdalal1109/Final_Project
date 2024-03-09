@@ -74,8 +74,19 @@ class _LogInState extends State<LogIn> {
         body: jsonEncode(data),
         headers: {'Content-Type': "application/json; charset=UTF-8"},
       );
-      if (response.statusCode == 200) {
-        print(response.body);
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      var responseBody = jsonDecode(response.body);
+      if (responseBody['STATUS'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Login Sucessfully:) !!'),
+            duration: Duration(seconds: 5),
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(bottom: 50),
+          ),
+        );
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => BottoBar()));
       } else {
