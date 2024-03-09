@@ -6,7 +6,7 @@ import 'package:project/Auth/forgot_pass.dart';
 import 'package:project/UI/bottombar.dart';
 import 'package:project/registration.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -21,31 +21,40 @@ class _LogInState extends State<LogIn> {
   final TextEditingController _mail = TextEditingController();
   final TextEditingController _Password = TextEditingController();
   bool _isButtonDisabled = true;
-  late SharedPreferences prefs;
+  // late SharedPreferences prefs;
 
   @override
   void initState() {
     super.initState();
-    _initSharedPreferences().then((_) {
-      _checkLoginStatus();
-    });
-    SharedPreferences.getInstance().then((value) => prefs = value);
+    // _initSharedPreferences().then((_) {
+    //   _checkLoginStatus();
+    // });
+    // SharedPreferences.getInstance().then((value) => prefs = value);
   }
 
-  Future<void> _initSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();
-  }
+  // Future<void> _initSharedPreferences() async {
+  //   prefs = await SharedPreferences.getInstance();
+  // }
 
-  Future<void> _checkLoginStatus() async {
-    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-    if (isLoggedIn) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => BottoBar(),
-      ));
-    }
-  }
+  // Future<void> _checkLoginStatus() async {
+  //   final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+  //   if (isLoggedIn) {
+  //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+  //       builder: (context) => BottoBar(),
+  //     ));
+  //   }
+  // }
 
+  // Future<void> _saveLoginStatus() async {
+  //   await prefs.setBool('isLoggedIn', true);
+  // }
 
+  // void logout(BuildContext context) async {
+  //   await prefs.setBool('isLoggedIn', false); // Clear login status
+  //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+  //     builder: (context) => LogIn(), // Navigate back to the login screen
+  //   ));
+  // }
 
   @override
   void dispose() {
@@ -54,20 +63,8 @@ class _LogInState extends State<LogIn> {
     super.dispose();
   }
 
-  Future<void> _saveLoginStatus() async {
-    await prefs.setBool('isLoggedIn', true);
-  }
-
-  void logout(BuildContext context) async {
-    await prefs.setBool('isLoggedIn', false); // Clear login status
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => LogIn(), // Navigate back to the login screen
-    ));
-  }
-
   void Login(BuildContext context) async {
     try {
-
       Map data = {
         "email": _mail.text,
         "password": _Password.text,
@@ -79,7 +76,6 @@ class _LogInState extends State<LogIn> {
       );
       if (response.statusCode == 200) {
         print(response.body);
-
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => BottoBar()));
       } else {
@@ -227,11 +223,14 @@ class _LogInState extends State<LogIn> {
                       if (_formKey.currentState!.validate()) {
                         // Perform login operation here
                         // If login is successful, save login status
-                        _saveLoginStatus().then((_) {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => BottoBar(),
-                          ));
-                        });
+                        // _saveLoginStatus().then((_) {
+                        //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        //     builder: (context) => BottoBar(),
+                        //   ));
+                        // });
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => BottoBar(),
+                        ));
                       } else {
                         // Form is invalid
                         ScaffoldMessenger.of(context).showSnackBar(

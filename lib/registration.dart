@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:project/UI/bottombar.dart';
 import 'package:project/login.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -34,9 +35,7 @@ class _RegistrationState extends State<Registration> {
   }
 
   void Register(BuildContext context) async {
-    // final url = Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/user_registration");
-
-    if (_name.text.isEmpty ||
+       if (_name.text.isEmpty ||
         _number.text.isEmpty ||
         _mail.text.isEmpty ||
         _Password.text.isEmpty ||
@@ -49,7 +48,6 @@ class _RegistrationState extends State<Registration> {
       );
       return;
     }
-
     try
     {
       Map data =
@@ -66,7 +64,37 @@ class _RegistrationState extends State<Registration> {
           'Content-Type':"application/json; charset=UTF-8"
         },
       );
-      print(response.body);
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      var responseBody = jsonDecode(response.body);
+      if (responseBody['STATUS'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Register Sucessfully!!'),
+            duration: Duration(seconds: 5),
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(bottom: 50),
+          ),
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottoBar(),
+          ),
+        );
+      } else if(responseBody['STATUS'] == false ) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('User already registered!!.'),
+            duration: Duration(seconds: 5),
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(bottom: 50),
+          ),
+        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn(),));
+      }
     }
     catch(e)
     {
