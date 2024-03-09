@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:project/Auth/verify_mail.dart';
 import 'package:project/UI/bottombar.dart';
 import 'package:project/login.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class _RegistrationState extends State<Registration> {
     }
     try
     {
-      Map data =
+      Map mapdata =
       {
         "name" : _name.text,
         "mobile_no" : _number.text ,
@@ -58,11 +59,10 @@ class _RegistrationState extends State<Registration> {
         "password" : _Password.text,
       };
       var response = await http.post(
-        Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/user_registration"),
-        body: jsonEncode(data),
-        headers: {
-          'Content-Type':"application/json; charset=UTF-8"
-        },
+        Uri.parse(
+            'https://busbooking.bestdevelopmentteam.com/Api/user_registration.php'),
+        body: jsonEncode(mapdata),
+        headers: {'Content-Type': "application/json; charset=UTF-8"},
       );
       print('Response status code: ${response.statusCode}');
       print('Response body: ${response.body}');
@@ -70,7 +70,7 @@ class _RegistrationState extends State<Registration> {
       if (responseBody['STATUS'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Register Sucessfully!!'),
+            content: Text('Oyp sent Sucessfully!!'),
             duration: Duration(seconds: 5),
             elevation: 10,
             behavior: SnackBarBehavior.floating,
@@ -80,7 +80,7 @@ class _RegistrationState extends State<Registration> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => BottoBar(),
+            builder: (context) => VerifyMail(email: _mail.text),
           ),
         );
       } else if(responseBody['STATUS'] == false ) {
@@ -93,12 +93,12 @@ class _RegistrationState extends State<Registration> {
             margin: EdgeInsets.only(bottom: 50),
           ),
         );
-        Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn(),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Registration(),));
       }
     }
     catch(e)
     {
-      print(e);
+      print(e.toString());
     }
   }
 

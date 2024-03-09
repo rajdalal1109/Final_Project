@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -236,29 +237,31 @@ class _LogInState extends State<LogIn> {
                   ),
                   SizedBox(height: 10),
                   ElevatedButton(
-                    child: const Text("Log In"),
-                    onPressed: _isButtonDisabled ? null : () => LogIn(),
-                    // onPressed: () {
-                    //   if (_formKey.currentState!.validate()) {
-                    //     // Perform login operation here
-                    //     // If login is successful, save login status
-                    //     // _saveLoginStatus().then((_) {
-                    //     //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    //     //     builder: (context) => BottoBar(),
-                    //     //   ));
-                    //     // });
-                    //     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    //       builder: (context) => BottoBar(),
-                    //     ));
-                    //   } else {
-                    //     // Form is invalid
-                    //     ScaffoldMessenger.of(context).showSnackBar(
-                    //       SnackBar(
-                    //         content: const Text('Please fill the all data'),
-                    //       ),
-                    //     );
-                    //   }
-                    // },
+                    child: Text("Log In"),
+                    onPressed: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => BottoBar(),
+                        ));
+                      // if (_formKey.currentState!.validate()) {
+                      //   // Perform login operation here
+                      //   // If login is successful, save login status
+                      //   // _saveLoginStatus().then((_) {
+                      //   //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      //   //     builder: (context) => BottoBar(),
+                      //   //   ));
+                      //   // });
+                      //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      //     builder: (context) => BottoBar(),
+                      //   ));
+                      // } else {
+                      //   // Form is invalid
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     SnackBar(
+                      //       content: const Text('Please fill the all data'),
+                      //     ),
+                      //   );
+                      // }
+                    },
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
