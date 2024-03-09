@@ -60,7 +60,7 @@ class _RegistrationState extends State<Registration> {
       };
       var response = await http.post(
         Uri.parse(
-            'https://busbooking.bestdevelopmentteam.com/Api/user_registration.php'),
+            "https://busbooking.bestdevelopmentteam.com/Api/user_registration.php"),
         body: jsonEncode(mapdata),
         headers: {'Content-Type': "application/json; charset=UTF-8"},
       );
@@ -70,7 +70,7 @@ class _RegistrationState extends State<Registration> {
       if (responseBody['STATUS'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Oyp sent Sucessfully!!'),
+            content: Text('Otp sent Sucessfully!!'),
             duration: Duration(seconds: 5),
             elevation: 10,
             behavior: SnackBarBehavior.floating,
@@ -101,6 +101,39 @@ class _RegistrationState extends State<Registration> {
       print(e.toString());
     }
   }
+
+  // void Register() async {
+  //   try {
+  //     Map mapdata = {
+  //       'name': _name.text,
+  //       'mobile_no': _number.text,
+  //       'email': _mail.text,
+  //       'password': _Password.text,
+  //     };
+  //     var respone = await http.post(
+  //       Uri.parse(
+  //           'https://busbooking.bestdevelopmentteam.com/Api/user_registration.php'),
+  //       body: jsonEncode(mapdata),
+  //       headers: {'Content-Type': "application/json; charset=UTF-8"},
+  //     );
+  //     if (respone.statusCode == 200) {
+  //       var data = jsonDecode(respone.body);
+  //       if (data['STATUS'] == true) {
+  //         print(respone.body);
+  //         Navigator.of(context).push(MaterialPageRoute(
+  //           builder: (context) => VerifyMail(email: _mail.text),
+  //         ));
+  //       } else if (data['STATUS'] == false) {
+  //         ScaffoldMessenger.of(context)
+  //             .showSnackBar(SnackBar(content: Text('Email is already exists')));
+  //       }
+  //     } else {
+  //       return;
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   Widget build(BuildContext context) {
     return Scaffold(

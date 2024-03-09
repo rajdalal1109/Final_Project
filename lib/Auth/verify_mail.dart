@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/UI/bottombar.dart';
+import 'package:project/registration.dart';
 
 class VerifyMail extends StatefulWidget {
   final String email;
@@ -20,22 +21,53 @@ class _VerifyOtpState extends State<VerifyMail> {
 
   void submitOtp() async
   {
-    var res = await http.post(
-        Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/user_verification.php'),
-        body: jsonEncode({
-          'otp': _otp.text,
-          'email': widget.email.toString(),
-        }),
-        headers: {'content-type': 'application/json; charset=UTF-8'});
-    if (res.statusCode == 200) {
-      print(res.body);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => BottoBar()));
+    try
+    {
+      var response = await http.post(
+          Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/user_verification.php"),
+          body: jsonEncode({
+            'otp': _otp.text,
+            'email': widget.email.toString(),
+          }),
+          headers: {'content-type': 'application/json; charset=UTF-8'});
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      var responseBody = jsonDecode(response.body);
+      if (responseBody['STATUS'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Otp sent Sucessfully!!'),
+            duration: Duration(seconds: 5),
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(bottom: 50),
+          ),
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottoBar(),
+          ),
+        );
+      } else if(responseBody['code'] == 0 ) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Otp Expire, Please Registrater again!!'),
+            duration: Duration(seconds: 5),
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(bottom: 50),
+          ),
+        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Registration(),));
+      }
     }
-    else{
-      return;
+    catch(e)
+    {
+      print(e.toString());
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
