@@ -4,28 +4,20 @@ import 'package:project/UI/find_bus.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-
   @override
   State<HomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<HomePage> {
-  int currentPageIndex = 0;
-
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     currentPageIndex = index;
-  //   });
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
-        surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),//Color.fromRGBO(255, 98, 96, 1);
+        backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
+        //background: rgba(255, 98, 96, 1);
+        surfaceTintColor: const Color.fromRGBO(
+            255, 98, 96, 1), //Color.fromRGBO(255, 98, 96, 1);
       ),
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -43,15 +35,35 @@ class _MyHomePageState extends State<HomePage> {
                   height: 250,
                   decoration: const BoxDecoration(
                     color: Color.fromRGBO(255, 98, 96, 1),
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight: Radius.circular(5)),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(5)),
                   ),
                   child: const Column(
                     children: [
-                      SizedBox(height: 25,),
-                      Text('Hey User!', style: TextStyle(fontSize: 24,fontWeight: FontWeight.w300,color: Colors.white),),
-                      SizedBox(height: 5,),
-                      Text('Where you want to go?', style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.w500),),
-                      SizedBox(height: 3,),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        'Hey User!',
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        'Where you want to go?',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
                       Image(
                         image: AssetImage("assets/images/bus1.png"),
                         height: 120,
@@ -86,14 +98,21 @@ class _MyHomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 40),
                           child: TextFormField(
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                              fillColor: const Color.fromRGBO(243, 238, 255, 1),
+                              //background: rgba(243, 238, 255, 1);
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
                               hintText: 'Boarding From',
-                              hintStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Color.fromRGBO(181, 160, 232, 1),),
+                              hintStyle: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: Color.fromRGBO(181, 160, 232, 1),
+                              ),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
@@ -106,24 +125,29 @@ class _MyHomePageState extends State<HomePage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15, top: 12),
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 12),
                           child: TextFormField(
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                              hintStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Color.fromRGBO(181, 160, 232, 1),),
+                              fillColor: const Color.fromRGBO(243, 238, 255, 1),
+                              //background: rgba(243, 238, 255, 1);
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
+                              hintStyle: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: Color.fromRGBO(181, 160, 232, 1),
+                              ),
                               hintText: 'Where are you going?',
                               enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
+                                  borderRadius: BorderRadius.circular(5)),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
+                                  borderRadius: BorderRadius.circular(5)),
                             ),
                           ),
                         ),
@@ -131,17 +155,24 @@ class _MyHomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 15, left: 10, right: 15),
+                              padding: const EdgeInsets.only(
+                                  top: 15, left: 10, right: 15),
                               child: SizedBox(
                                 height: 25,
                                 width: 80,
                                 child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.white),
+                                  style: OutlinedButton.styleFrom(
+                                      side:
+                                          const BorderSide(color: Colors.white),
                                       alignment: Alignment.center,
-                                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5)
-                                  ),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 2.5)),
                                   onPressed: () {},
-                                  child: const Text('Today',style: TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.w400)),
+                                  child: const Text('Today',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400)),
                                 ),
                               ),
                             ),
@@ -152,35 +183,52 @@ class _MyHomePageState extends State<HomePage> {
                                 height: 25,
                                 width: 90,
                                 child: OutlinedButton(
-                                    style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.white),
+                                    style: OutlinedButton.styleFrom(
+                                        side: const BorderSide(
+                                            color: Colors.white),
                                         alignment: Alignment.center,
-                                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5)
-                                    ),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5, vertical: 2.5)),
                                     onPressed: () {},
-                                    child: const Text('Tomowrrow', style: TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.w400))
-                                ),
+                                    child: const Text('Tomowrrow',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400))),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 15, left: 10, right: 15),
+                              padding: const EdgeInsets.only(
+                                  top: 15, left: 10, right: 15),
                               child: SizedBox(
                                 height: 25,
                                 width: 80,
                                 child: OutlinedButton(
                                     style: OutlinedButton.styleFrom(
-                                      side: const BorderSide(color: Colors.white),
+                                      side:
+                                          const BorderSide(color: Colors.white),
                                       alignment: Alignment.center,
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 2.5),
                                     ),
                                     onPressed: () {},
                                     child: const Row(
                                       children: [
-                                        Icon(Icons.calendar_month, size: 18, color: Colors.white,),
-                                        SizedBox(width: 2,),
-                                        Text('Others', style: TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.w400)),
+                                        Icon(
+                                          Icons.calendar_month,
+                                          size: 18,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 2,
+                                        ),
+                                        Text('Others',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400)),
                                       ],
-                                    )
-                                ),
+                                    )),
                               ),
                             )
                           ],
@@ -188,21 +236,27 @@ class _MyHomePageState extends State<HomePage> {
                         SizedBox(
                           width: 300,
                           child: Padding(
-                            padding:
-                            const EdgeInsets.only(bottom: 25, top: 15),
+                            padding: const EdgeInsets.only(bottom: 25, top: 15),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
-                                const Color.fromRGBO(255, 98, 96, 1),
+                                    const Color.fromRGBO(255, 98, 96, 1),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FindBus(),));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const FindBus(),
+                                ));
                               },
-                              child: const Text('Find Buses', style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400),),
+                              child: const Text(
+                                'Find Buses',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400),
+                              ),
                             ),
                           ),
                         ),
@@ -222,29 +276,27 @@ class _MyHomePageState extends State<HomePage> {
               ),
               Positioned(
                 height: 290,
-                width: 360,
+                width: MediaQuery.of(context).size.width,
                 top: 520,
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Container(
                       height: 400,
                       width: 350,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey,
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                blurStyle: BlurStyle.normal,
-                                offset: Offset(2, 2))
-                          ]
-                      ),
+                      decoration:
+                          const BoxDecoration(color: Colors.white, boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            blurStyle: BlurStyle.normal,
+                            offset: Offset(2, 2))
+                      ]),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Padding(
-                            padding: EdgeInsets.only(left: 5,top: 8),
+                            padding: EdgeInsets.only(left: 5, top: 8),
                             child: Text("Ticket No : 13392789",
                                 style: TextStyle(
                                     color: Color.fromRGBO(160, 160, 160, 1),
@@ -271,13 +323,12 @@ class _MyHomePageState extends State<HomePage> {
                                         flex: 0,
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text("Boarding Point",
                                                 style: TextStyle(
                                                     fontSize: 12,
-                                                    fontWeight:
-                                                    FontWeight.w500,
+                                                    fontWeight: FontWeight.w500,
                                                     color: Color.fromRGBO(
                                                         160, 160, 160, 1))),
                                             SizedBox(
@@ -287,9 +338,9 @@ class _MyHomePageState extends State<HomePage> {
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
-                                                      FontWeight.w500,
+                                                          FontWeight.w500,
                                                       overflow:
-                                                      TextOverflow.clip)),
+                                                          TextOverflow.clip)),
                                             ),
                                           ],
                                         ),
@@ -304,7 +355,7 @@ class _MyHomePageState extends State<HomePage> {
                                       Expanded(
                                           flex: 0,
                                           child:
-                                          Icon(Icons.pin_drop, size: 20)),
+                                              Icon(Icons.pin_drop, size: 20)),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -312,13 +363,12 @@ class _MyHomePageState extends State<HomePage> {
                                         flex: 0,
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text("Drop Point",
                                                 style: TextStyle(
                                                     fontSize: 12,
-                                                    fontWeight:
-                                                    FontWeight.w500,
+                                                    fontWeight: FontWeight.w500,
                                                     color: Color.fromRGBO(
                                                         160, 160, 160, 1))),
                                             SizedBox(
@@ -328,9 +378,9 @@ class _MyHomePageState extends State<HomePage> {
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
-                                                      FontWeight.w500,
+                                                          FontWeight.w500,
                                                       overflow:
-                                                      TextOverflow.clip)),
+                                                          TextOverflow.clip)),
                                             ),
                                           ],
                                         ),
@@ -409,9 +459,8 @@ class _MyHomePageState extends State<HomePage> {
                                 flex: 0,
                                 child: Column(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text("Sangitam Travels",
                                         style: TextStyle(
@@ -426,13 +475,17 @@ class _MyHomePageState extends State<HomePage> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 115,),
-                              Text("1 Seat", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                              SizedBox(
+                                width: 115,
+                              ),
+                              Text("1 Seat",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500)),
                             ],
                           ),
                         ],
-                      )
-                  ),
+                      )),
                 ),
               ),
             ],

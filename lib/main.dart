@@ -10,8 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       title: 'Bus Booking System',
+      theme: ThemeData(fontFamily: "Ubuntu"),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(title: "Bus booking System"),
     );
