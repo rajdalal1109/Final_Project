@@ -28,10 +28,11 @@ class _UiScreenState extends State<UiScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 140),
-              child: Lottie.network("https://lottie.host/f40d84f7-e741-4342-8309-31f06609f687/bczEkPRu9i.json"),
-              //child: Image(image: AssetImage("assets/images/bus.png"),height: 145),
+              padding: EdgeInsets.only(top: 90),
+              child: Text("\t\t\t\t\t\t\t\t\t\t\tBus Booking....... \n Where Every Journey Begins !!",
+                style: TextStyle(fontFamily: "Yesteryear",fontSize: 30,fontWeight: FontWeight.w300,color: Colors.white),),
             ),
+            Lottie.network("https://lottie.host/f40d84f7-e741-4342-8309-31f06609f687/bczEkPRu9i.json"),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LogIn(),));
