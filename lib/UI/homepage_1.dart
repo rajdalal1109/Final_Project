@@ -8,10 +8,10 @@ import 'package:project/model/data.dart';
 
 class HomePage extends StatefulWidget {
   final String name;
+  String? cid;
 
   //const HomePage({super.key});
-  const HomePage({Key? key, required this.name}) : super(key: key);
-
+  HomePage({Key? key, required this.name, this.cid}) : super(key: key);
 
   @override
   State<HomePage> createState() => _MyHomePageState();
@@ -45,20 +45,24 @@ class _MyHomePageState extends State<HomePage> {
     }
   }
 
-  void searchBuses() async{
-    final res=await http.post(Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
+  void searchBuses() async {
+    final res = await http.post(
+        Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
         body: jsonEncode({
           "start": source?.name.toString(),
           "end": destination?.name.toString(),
           "date": datecontroller.text
         }),
-        headers: {'Content-Type': 'application/json; charset=UTF-8'}
-    );
-    if(res.statusCode==200){
+        headers: {'Content-Type': 'application/json; charset=UTF-8'});
+    if (res.statusCode == 200) {
       print(res.body);
       setState(() {});
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Select Source & Destination !!"),),);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Please Select Source & Destination !!"),
+        ),
+      );
     }
   }
 
@@ -67,8 +71,10 @@ class _MyHomePageState extends State<HomePage> {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
-        surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),//Color.fromRGBO(255, 98, 96, 1);
+        backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
+        //background: rgba(255, 98, 96, 1);
+        surfaceTintColor: const Color.fromRGBO(
+            255, 98, 96, 1), //Color.fromRGBO(255, 98, 96, 1);
       ),
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -86,15 +92,35 @@ class _MyHomePageState extends State<HomePage> {
                   height: 250,
                   decoration: const BoxDecoration(
                     color: Color.fromRGBO(255, 98, 96, 1),
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight: Radius.circular(5)),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(5)),
                   ),
                   child: Column(
                     children: [
-                      SizedBox(height: 25,),
-                      Text("Hey User${widget.name.toString()}!", style: TextStyle(fontSize: 24,fontWeight: FontWeight.w300,color: Colors.white),),
-                      SizedBox(height: 5,),
-                      Text('Where you want to go?', style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.w500),),
-                      SizedBox(height: 3,),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        "Hey User::${widget.cid.toString()}!",
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        'Where you want to go?',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
                       Image(
                         image: AssetImage("assets/images/bus1.png"),
                         height: 120,
@@ -130,25 +156,29 @@ class _MyHomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 40),
                           child: DropdownButtonFormField(
                             hint: Text("Boarding From"),
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);,
+                              fillColor: const Color.fromRGBO(243, 238, 255, 1),
+                              //background: rgba(243, 238, 255, 1);,
                               enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
+                                  borderRadius: BorderRadius.circular(5)),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
+                                  borderRadius: BorderRadius.circular(5)),
                             ),
                             borderRadius: BorderRadius.circular(5),
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Color.fromRGBO(181, 160, 232, 1),),
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: Color.fromRGBO(181, 160, 232, 1),
+                            ),
                             value: source,
                             items: route.map((e) {
                               return DropdownMenuItem<Routes>(
@@ -158,32 +188,35 @@ class _MyHomePageState extends State<HomePage> {
                             }).toList(),
                             onChanged: (value) {
                               setState(() {
-                                source=value;
+                                source = value;
                               });
                             },
                           ),
                         ),
-
                         Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15,top: 10),
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 10),
                           child: DropdownButtonFormField(
                             hint: Text("Where are you going?"),
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: const Color.fromRGBO(243, 238, 255, 1),//background: rgba(243, 238, 255, 1);,
+                              fillColor: const Color.fromRGBO(243, 238, 255, 1),
+                              //background: rgba(243, 238, 255, 1);,
                               enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
+                                  borderRadius: BorderRadius.circular(5)),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
+                                  borderRadius: BorderRadius.circular(5)),
                             ),
                             borderRadius: BorderRadius.circular(5),
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Color.fromRGBO(181, 160, 232, 1),),
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: Color.fromRGBO(181, 160, 232, 1),
+                            ),
                             value: destination,
                             items: route.map((e) {
                               return DropdownMenuItem<Routes>(
@@ -193,25 +226,27 @@ class _MyHomePageState extends State<HomePage> {
                             }).toList(),
                             onChanged: (value) {
                               setState(() {
-                                destination=value;
+                                destination = value;
                               });
                             },
                           ),
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                                padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
+                                padding: const EdgeInsets.only(
+                                    top: 15, left: 15, right: 15),
                                 child: SizedBox(
                                   height: 45,
                                   width: 250,
                                   child: TextField(
                                     // Date Select
                                     controller: datecontroller,
+                                    readOnly: true,
                                     onTap: () async {
-                                      final DateTime? pickedDate = await showDatePicker(
+                                      final DateTime? pickedDate =
+                                          await showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(1990),
@@ -219,15 +254,19 @@ class _MyHomePageState extends State<HomePage> {
                                       );
                                       if (pickedDate != null) {
                                         print(pickedDate);
-                                        String formateDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                        String formateDate =
+                                            DateFormat('yyyy-MM-dd')
+                                                .format(pickedDate);
                                         print(formateDate);
                                         setState(() {
                                           datecontroller.text = formateDate;
                                         });
                                       } else {
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
                                           const SnackBar(
-                                            content: Text("Please Select Date !!"),
+                                            content:
+                                                Text("Please Select Date !!"),
                                           ),
                                         );
                                       }
@@ -236,27 +275,25 @@ class _MyHomePageState extends State<HomePage> {
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
-                                      prefixIcon: const Icon(Icons.date_range, color: Colors.black),
+                                      prefixIcon: const Icon(Icons.date_range,
+                                          color: Colors.black),
                                       labelText: "Day*",
                                       hintText: "Select Date",
                                     ),
                                   ),
-                                )
-                            ),
+                                )),
                           ],
                         ),
                         SizedBox(
                           width: 300,
                           child: Padding(
-                            padding:
-                            const EdgeInsets.only(bottom: 15, top: 15),
+                            padding: const EdgeInsets.only(bottom: 15, top: 15),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
-                                const Color.fromRGBO(255, 98, 96, 1),
+                                    const Color.fromRGBO(255, 98, 96, 1),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
                               ),
                               onPressed: () {
@@ -265,12 +302,20 @@ class _MyHomePageState extends State<HomePage> {
                                     MaterialPageRoute(
                                       builder: (context) => FindBus(
                                         source: source!.name.toString(),
-                                        destination: destination!.name.toString(),
+                                        destination:
+                                            destination!.name.toString(),
                                         datecontroller: datecontroller.text,
+                                        cId: widget.cid,
                                       ),
                                     ));
                               },
-                              child: const Text('Find Buses', style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400),),
+                              child: const Text(
+                                'Find Buses',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400),
+                              ),
                             ),
                           ),
                         ),
@@ -280,18 +325,18 @@ class _MyHomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 550,left: 20),
+                padding: EdgeInsets.only(top: 550, left: 20),
                 child: SizedBox(
                   height: 350,
-                  child: ListView(
-                    children: [
-                      SingleChildScrollView(
+                  child: ListView(children: [
+                    SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
                           Card(
                             child: Container(
-                              height: 100,width: 200,
+                              height: 100,
+                              width: 200,
                               child: Column(
                                 children: [
                                   Text("data"),
@@ -303,7 +348,8 @@ class _MyHomePageState extends State<HomePage> {
                           ),
                           Card(
                             child: Container(
-                              height: 100,width: 100,
+                              height: 100,
+                              width: 100,
                               child: Column(
                                 children: [
                                   Text("data"),
@@ -315,18 +361,8 @@ class _MyHomePageState extends State<HomePage> {
                           ),
                           Card(
                             child: Container(
-                              height: 100,width: 100,
-                              child: Column(
-                                children: [
-                                  Text("data"),
-                                  Text("data"),
-                                  Text("data"),
-                                ],
-                              ),
-                            ),
-                          ),Card(
-                            child: Container(
-                              height: 100,width: 100,
+                              height: 100,
+                              width: 100,
                               child: Column(
                                 children: [
                                   Text("data"),
@@ -338,7 +374,21 @@ class _MyHomePageState extends State<HomePage> {
                           ),
                           Card(
                             child: Container(
-                              height: 100,width: 100,
+                              height: 100,
+                              width: 100,
+                              child: Column(
+                                children: [
+                                  Text("data"),
+                                  Text("data"),
+                                  Text("data"),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: Container(
+                              height: 100,
+                              width: 100,
                               child: Column(
                                 children: [
                                   Text("data"),
@@ -351,8 +401,7 @@ class _MyHomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                  ]
-                  ),
+                  ]),
                 ),
               ),
               // //UPCOMING BUSES TEXT

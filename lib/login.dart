@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,18 +9,18 @@ import 'package:http/http.dart' as http;
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class LogIn extends StatefulWidget {
-  const LogIn({super.key});
-
   @override
   State<LogIn> createState() => _LogInState();
 }
 
 class _LogInState extends State<LogIn> {
+  String? cId;
   final _formKey = GlobalKey<FormState>();
   bool _passVisible = false;
   final TextEditingController _mail = TextEditingController();
   final TextEditingController _Password = TextEditingController();
   bool _isButtonDisabled = true;
+
   // late SharedPreferences prefs;
 
   @override
@@ -64,16 +63,8 @@ class _LogInState extends State<LogIn> {
     super.dispose();
   }
 
-  void Login(BuildContext context) async {
+  loginSubmit() async {
     try {
-      // if (_mail.text.isEmpty || _Password.text.isEmpty) {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     SnackBar(
-      //       content: Text('Please fill the all fields'),
-      //     ),
-      //   );
-      //   return;
-      // }
       Map data = {
         "email": _mail.text,
         "password": _Password.text,
@@ -87,32 +78,54 @@ class _LogInState extends State<LogIn> {
       print('Response body: ${response.body}');
       var responseBody = jsonDecode(response.body);
       if (responseBody['STATUS'] == true) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BottoBar(
+                      cId: cId.toString(),
+                    )));
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Login Sucessfully!!'),
-            duration: Duration(seconds: 5),
-            elevation: 10,
+            content: Text(responseBody['message']),
+            showCloseIcon: true,
+            elevation: 6,
+            duration: Duration(seconds: 1),
             behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(bottom: 50),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            backgroundColor: Color.fromRGBO(255, 98, 96, 1),
+            padding: EdgeInsets.all(10),
+          ),
+        );
+        setState(() {
+          cId = responseBody['cid'];
+        });
+        print('CUSTOMER ID::::${cId}');
+      } else if (responseBody['STATUS'] == false) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                responseBody['message'],
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            showCloseIcon: true,
+            elevation: 6,
+            duration: Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            backgroundColor: Color.fromRGBO(255, 98, 96, 1),
+            padding: EdgeInsets.all(10),
           ),
         );
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BottoBar(),
-          ),
-        );
-      } else if(responseBody['STATUS'] == false ) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('E-mail or Password is  wrong ,please enter correct E-mail and Password'),
-            duration: Duration(seconds: 5),
-            elevation: 10,
-            behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(bottom: 50),
-          ),
-        );
-        Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn(),));
+            context,
+            MaterialPageRoute(
+              builder: (context) => LogIn(),
+            ));
       }
     } catch (e) {
       print(e);
@@ -152,7 +165,7 @@ class _LogInState extends State<LogIn> {
                       )),
                   const Text("You are just one step away",
                       style:
-                      TextStyle(fontWeight: FontWeight.w100, fontSize: 15)),
+                          TextStyle(fontWeight: FontWeight.w100, fontSize: 15)),
                   const SizedBox(height: 25),
                   TextFormField(
                     // E-Mail
@@ -168,11 +181,12 @@ class _LogInState extends State<LogIn> {
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty)
-                      {
+                      if (value == null || value.isEmpty) {
                         return 'Please enter an email address';
                       }
-                      if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value) || !value.contains("@gmail.com")) {
+                      if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$')
+                              .hasMatch(value) ||
+                          !value.contains("@gmail.com")) {
                         return 'Format is abc123@gmail.com';
                       }
                       return null;
@@ -208,7 +222,7 @@ class _LogInState extends State<LogIn> {
                       }
                       // Regular expression pattern to validate password format
                       if (!RegExp(
-                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$')
+                              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$')
                           .hasMatch(value)) {
                         return 'Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long';
                       }
@@ -221,14 +235,15 @@ class _LogInState extends State<LogIn> {
                     children: [
                       TextButton(
                         style: TextButton.styleFrom(
-                            padding: EdgeInsets.only(bottom: 15,right: 1),
-                            foregroundColor:Color.fromRGBO(255, 98, 96, 1) ,
-                            textStyle: TextStyle(fontWeight: FontWeight.w500
-                            )
+                            padding: EdgeInsets.only(bottom: 15, right: 1),
+                            foregroundColor: Color.fromRGBO(255, 98, 96, 1),
+                            textStyle: TextStyle(fontWeight: FontWeight.w500)),
+                        child: Text(
+                          "Forgot Password",
                         ),
-                        child: Text("Forgot Password",),
                         onPressed: () {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
                             builder: (context) => const ForgotPass(),
                           ));
                         },
@@ -236,37 +251,14 @@ class _LogInState extends State<LogIn> {
                     ],
                   ),
                   SizedBox(height: 10),
-                  ElevatedButton(
-                    child: Text("Log In"),
-                    onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => BottoBar(),
-                        ));
-                      // if (_formKey.currentState!.validate()) {
-                      //   // Perform login operation here
-                      //   // If login is successful, save login status
-                      //   // _saveLoginStatus().then((_) {
-                      //   //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      //   //     builder: (context) => BottoBar(),
-                      //   //   ));
-                      //   // });
-                      //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      //     builder: (context) => BottoBar(),
-                      //   ));
-                      // } else {
-                      //   // Form is invalid
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     SnackBar(
-                      //       content: const Text('Please fill the all data'),
-                      //     ),
-                      //   );
-                      // }
-                    },
-                  ),
+                  ElevatedButton(child: Text("Log In"), onPressed: loginSubmit),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Are you new user?",style: TextStyle(fontWeight: FontWeight.w500),),
+                      Text(
+                        "Are you new user?",
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
                       TextButton(
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.all(2),
@@ -275,8 +267,7 @@ class _LogInState extends State<LogIn> {
                             "\t\tRegister Here",
                             style: TextStyle(
                                 color: Color.fromRGBO(255, 98, 96, 1),
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             Navigator.of(context)

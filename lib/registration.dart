@@ -25,8 +25,7 @@ class _RegistrationState extends State<Registration> {
   bool _isButtonDisabled = true;
 
   @override
-  void dispose()
-  {
+  void dispose() {
     _name.dispose();
     _mail.dispose();
     _number.dispose();
@@ -36,7 +35,7 @@ class _RegistrationState extends State<Registration> {
   }
 
   void Register(BuildContext context) async {
-       if (_name.text.isEmpty ||
+    if (_name.text.isEmpty ||
         _number.text.isEmpty ||
         _mail.text.isEmpty ||
         _Password.text.isEmpty ||
@@ -49,14 +48,12 @@ class _RegistrationState extends State<Registration> {
       );
       return;
     }
-    try
-    {
-      Map mapdata =
-      {
-        "name" : _name.text,
-        "mobile_no" : _number.text ,
-        "email" : _mail.text,
-        "password" : _Password.text,
+    try {
+      Map mapdata = {
+        "name": _name.text,
+        "mobile_no": _number.text,
+        "email": _mail.text,
+        "password": _Password.text,
       };
       var response = await http.post(
         Uri.parse(
@@ -83,7 +80,7 @@ class _RegistrationState extends State<Registration> {
             builder: (context) => VerifyMail(email: _mail.text),
           ),
         );
-      } else if(responseBody['STATUS'] == false ) {
+      } else if (responseBody['STATUS'] == false) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('User already registered!!.'),
@@ -93,11 +90,13 @@ class _RegistrationState extends State<Registration> {
             margin: EdgeInsets.only(bottom: 50),
           ),
         );
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Registration(),));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Registration(),
+            ));
       }
-    }
-    catch(e)
-    {
+    } catch (e) {
       print(e.toString());
     }
   }
@@ -155,12 +154,22 @@ class _RegistrationState extends State<Registration> {
               },
               child: Column(
                 children: [
-                  const SizedBox(height: 5,),
-                  const Image(image: AssetImage("assets/images/registration.jpg"),height: 233,width: 390,),
-
-                  const Text("Hop on Board : Your Journey Begins with Us !!",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,)),
-
-                  const SizedBox(height: 45,),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Image(
+                    image: AssetImage("assets/images/registration.jpg"),
+                    height: 233,
+                    width: 390,
+                  ),
+                  const Text("Hop on Board : Your Journey Begins with Us !!",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      )),
+                  const SizedBox(
+                    height: 45,
+                  ),
                   TextFormField(
                     // For Name
                     controller: _name,
@@ -175,11 +184,12 @@ class _RegistrationState extends State<Registration> {
                       if (value == null || value.isEmpty) {
                         return 'Name is required';
                       }
-                      return (RegExp(r'[!@#%^&*0-9]').hasMatch(value)) ? 'Please enter alphabets only' : null;
+                      return (RegExp(r'[!@#%^&*0-9]').hasMatch(value))
+                          ? 'Please enter alphabets only'
+                          : null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
-
                   const SizedBox(height: 25),
                   TextFormField(
                     //For Number
@@ -195,11 +205,12 @@ class _RegistrationState extends State<Registration> {
                       if (value == null || value.isEmpty) {
                         return 'Number is required';
                       }
-                      return (RegExp(r'[!@#%^&*a-zA-Z]').hasMatch(value)) ? 'Enter only numbers' : null;
+                      return (RegExp(r'[!@#%^&*a-zA-Z]').hasMatch(value))
+                          ? 'Enter only numbers'
+                          : null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
-
                   const SizedBox(height: 5),
                   TextFormField(
                     //For E-mail
@@ -208,23 +219,19 @@ class _RegistrationState extends State<Registration> {
                         border: OutlineInputBorder(),
                         labelText: "E-Mail*",
                         hintText: 'E-mail',
-                        prefixIcon: Icon(Icons.email, color: Colors.blue)
-                    ),
+                        prefixIcon: Icon(Icons.email, color: Colors.blue)),
                     keyboardType: TextInputType.emailAddress,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty)
-                      {
+                      if (value == null || value.isEmpty) {
                         return 'Please enter an email address';
-                      }
-                      else if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value))
-                      {
+                      } else if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$')
+                          .hasMatch(value)) {
                         return 'Format of abc123@gmail.com';
                       }
                       return null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
-
                   const SizedBox(height: 25),
                   TextFormField(
                     //For Password
@@ -238,7 +245,9 @@ class _RegistrationState extends State<Registration> {
                       hintText: 'Password',
                       prefixIcon: const Icon(Icons.password),
                       suffixIcon: IconButton(
-                        icon: Icon(_passVisible ? Icons.visibility : Icons.visibility_off),
+                        icon: Icon(_passVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off),
                         onPressed: () {
                           setState(() {
                             _passVisible = !_passVisible;
@@ -251,14 +260,15 @@ class _RegistrationState extends State<Registration> {
                         return 'Password is required';
                       }
                       // Regular expression pattern to validate password format
-                      if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$').hasMatch(value)) {
+                      if (!RegExp(
+                              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$')
+                          .hasMatch(value)) {
                         return 'Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long';
                       }
                       return null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
-
                   const SizedBox(height: 25),
                   TextFormField(
                     // For Confirm Password
@@ -272,7 +282,9 @@ class _RegistrationState extends State<Registration> {
                       hintText: 'Confirm Password',
                       prefixIcon: const Icon(Icons.password),
                       suffixIcon: IconButton(
-                        icon: Icon(_CpassVisible ? Icons.visibility : Icons.visibility_off),
+                        icon: Icon(_CpassVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off),
                         onPressed: () {
                           setState(() {
                             _CpassVisible = !_CpassVisible;
@@ -296,7 +308,8 @@ class _RegistrationState extends State<Registration> {
                     padding: const EdgeInsets.all(25),
                     child: ElevatedButton(
                       child: const Text("Register"),
-                      onPressed: _isButtonDisabled ? null : () => Register(context),
+                      onPressed:
+                          _isButtonDisabled ? null : () => Register(context),
                       // onPressed: () {
                       //
                       //   // Navigator.of(context).push(MaterialPageRoute(
@@ -305,28 +318,30 @@ class _RegistrationState extends State<Registration> {
                       // },
                     ),
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Already Account?"),
-                      TextButton(child: const Text("LogIn Here"),
+                      TextButton(
+                        child: const Text("LogIn Here"),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const LogIn(),
+                            builder: (context) => LogIn(),
                           ));
                         },
                       ),
                     ],
                   ),
-
                   const SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        Text("By Clicking on Register, you are agree to "'\n'
+                        Text(
+                            "By Clicking on Register, you are agree to "
+                            '\n'
                             "Privacy Policy and "
-                            "Terms & Conditions !!",style: TextStyle(color: Colors.red)),
+                            "Terms & Conditions !!",
+                            style: TextStyle(color: Colors.red)),
                       ],
                     ),
                   ),

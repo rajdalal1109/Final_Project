@@ -34,7 +34,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
         var data = jsonDecode(res.body);
         if (data['STATUS'] == true) {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const LogIn(),
+            builder: (context) => LogIn(),
           ));
         } else if (data['code'] == 0) {
           ScaffoldMessenger.of(context)
