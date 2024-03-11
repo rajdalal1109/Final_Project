@@ -11,10 +11,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   final SharedPreferences prefs;
-  final String mail,number;
+  String? mail, number;
 
-
-  Profile({Key? key, required this.prefs, required this.mail, required this.number}) : super(key: key);
+  Profile({Key? key, required this.prefs, this.mail, this.number})
+      : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -93,7 +93,7 @@ class _ProfileState extends State<Profile> {
   //Gallery
   Future _getGallery() async {
     final returnImage =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnImage == null) return;
     setState(() {
       selectedIMage = File(returnImage.path);
@@ -108,7 +108,7 @@ class _ProfileState extends State<Profile> {
   //Camera
   Future _getCamera() async {
     final returnImage =
-    await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnImage == null) return;
     setState(() {
       selectedIMage = File(returnImage.path);
@@ -216,7 +216,8 @@ class _ProfileState extends State<Profile> {
                     else
                       const CircleAvatar(
                         radius: 90,
-                        backgroundImage: AssetImage("assets/images/girldp2.png"),
+                        backgroundImage:
+                            AssetImage("assets/images/girldp2.png"),
                       ),
                     const SizedBox(height: 8),
                     const Text(

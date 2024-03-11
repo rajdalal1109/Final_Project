@@ -6,18 +6,13 @@ import 'package:project/UI/ticket.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottoBar extends StatefulWidget {
-  String? cId;
-
-  BottoBar({this.cId});
+  const BottoBar({Key? key}) : super(key: key);
 
   @override
   State<BottoBar> createState() => _BottoBarState();
 }
 
 class _BottoBarState extends State<BottoBar> {
-  final TextEditingController _number = TextEditingController();
-  final TextEditingController _mail = TextEditingController();
-
   int currentPageIndex = 0;
   late SharedPreferences prefs;
 
@@ -29,13 +24,11 @@ class _BottoBarState extends State<BottoBar> {
 
   void loadPreferences() async {
     prefs = await SharedPreferences.getInstance();
-    SharedPreferences.getInstance().then((value) => prefs = value);
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    print('CUSTOMER ID BOTTOMBAR:::${widget.cId}');
     return prefs == null
         ? CircularProgressIndicator() // Show loading indicator until prefs are loaded
         : Scaffold(
@@ -44,14 +37,9 @@ class _BottoBarState extends State<BottoBar> {
               children: [
                 HomePage(
                   name: '',
-                  cid: widget.cId.toString(),
                 ),
                 Tickets(),
-                Profile(
-                  prefs: prefs,
-                  mail: '',
-                  number: '',
-                ),
+                Profile(prefs: prefs),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
@@ -65,18 +53,15 @@ class _BottoBarState extends State<BottoBar> {
               unselectedItemColor: Colors.grey,
               items: <BottomNavigationBarItem>[
                 const BottomNavigationBarItem(
-                  activeIcon: Icon(CupertinoIcons.home),
-                  icon: Icon(Icons.home),
+                  icon: Icon(CupertinoIcons.home),
                   label: "Home",
                 ),
                 BottomNavigationBarItem(
-                  activeIcon: Icon(CupertinoIcons.tickets),
-                  icon: Icon(CupertinoIcons.ticket),
-                  label: "My Booking",
+                  icon: Icon(CupertinoIcons.tickets),
+                  label: "Tickets",
                 ),
                 BottomNavigationBarItem(
-                  activeIcon: const Icon(CupertinoIcons.profile_circled),
-                  icon: Icon(Icons.person),
+                  icon: const Icon(CupertinoIcons.profile_circled),
                   label: "Profile",
                 ),
               ],
