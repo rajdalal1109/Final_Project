@@ -83,6 +83,9 @@ flutter:
     - family: Ubuntu
       fonts:
         - asset: assets/fonts/Ubuntu-Regular.ttf
+    - family: Yesteryear
+      fonts:
+        - asset: assets/fonts/Yesteryear-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -11,14 +11,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   final SharedPreferences prefs;
+  final String mail,number;
 
-  const Profile({Key? key, required this.prefs}) : super(key: key);
+
+  Profile({Key? key, required this.prefs, required this.mail, required this.number}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  final TextEditingController name = TextEditingController();
+  final TextEditingController number = TextEditingController();
   Uint8List? _image;
   File? selectedIMage;
 

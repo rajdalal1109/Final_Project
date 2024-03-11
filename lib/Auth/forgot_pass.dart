@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/Auth/verify_otp.dart';
+import 'package:project/registration.dart';
 
 class ForgotPass extends StatefulWidget {
 
@@ -54,9 +55,9 @@ class _ForgotPassState extends State<ForgotPass> {
         print('Response status code: ${response.statusCode}');
         print('Response body: ${response.body}');
         var responseBody = jsonDecode(response.body);
-        if (response.statusCode == 200 && responseBody['status'] == 'success') {
+        if (responseBody['STATUS'] == true) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text('OTP sent and It will be expire in 2 Minutes !!'),
               duration: Duration(seconds: 5),
               elevation: 10,
@@ -70,8 +71,8 @@ class _ForgotPassState extends State<ForgotPass> {
               builder: (context) => VerifyOtp(email: _mail.text),
             ),
           );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
+        } else if(responseBody['STATUS'] == false ) {
+           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('User not registered. Please register first !!.'),
               duration: Duration(seconds: 5),
@@ -80,7 +81,7 @@ class _ForgotPassState extends State<ForgotPass> {
               margin: EdgeInsets.only(bottom: 50),
             ),
           );
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => Registration(),));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Registration(),));
         }
       } catch (e) {
         print('Error: $e');

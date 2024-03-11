@@ -6,43 +6,55 @@ import 'package:project/Auth/forgot_pass.dart';
 import 'package:project/UI/bottombar.dart';
 import 'package:project/registration.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class LogIn extends StatefulWidget {
-  const LogIn({super.key});
-
   @override
   State<LogIn> createState() => _LogInState();
 }
 
 class _LogInState extends State<LogIn> {
+  String? cId;
   final _formKey = GlobalKey<FormState>();
   bool _passVisible = false;
   final TextEditingController _mail = TextEditingController();
   final TextEditingController _Password = TextEditingController();
   bool _isButtonDisabled = true;
-  late SharedPreferences prefs;
+
+  // late SharedPreferences prefs;
 
   @override
   void initState() {
     super.initState();
-    _initSharedPreferences().then((_) {
-      _checkLoginStatus();
-    });
+    // _initSharedPreferences().then((_) {
+    //   _checkLoginStatus();
+    // });
+    // SharedPreferences.getInstance().then((value) => prefs = value);
   }
 
-  Future<void> _initSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();
-  }
+  // Future<void> _initSharedPreferences() async {
+  //   prefs = await SharedPreferences.getInstance();
+  // }
 
-  Future<void> _checkLoginStatus() async {
-    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-    if (isLoggedIn) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => BottoBar(),
-      ));
-    }
-  }
+  // Future<void> _checkLoginStatus() async {
+  //   final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+  //   if (isLoggedIn) {
+  //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+  //       builder: (context) => BottoBar(),
+  //     ));
+  //   }
+  // }
+
+  // Future<void> _saveLoginStatus() async {
+  //   await prefs.setBool('isLoggedIn', true);
+  // }
+
+  // void logout(BuildContext context) async {
+  //   await prefs.setBool('isLoggedIn', false); // Clear login status
+  //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+  //     builder: (context) => LogIn(), // Navigate back to the login screen
+  //   ));
+  // }
 
   @override
   void dispose() {
@@ -51,18 +63,7 @@ class _LogInState extends State<LogIn> {
     super.dispose();
   }
 
-  Future<void> _saveLoginStatus() async {
-    await prefs.setBool('isLoggedIn', true);
-  }
-
-  void logout(BuildContext context) async {
-    await prefs.setBool('isLoggedIn', false); // Clear login status
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => LogIn(), // Navigate back to the login screen
-    ));
-  }
-
-  void Login(BuildContext context) async {
+  loginSubmit() async {
     try {
       Map data = {
         "email": _mail.text,
@@ -73,27 +74,58 @@ class _LogInState extends State<LogIn> {
         body: jsonEncode(data),
         headers: {'Content-Type': "application/json; charset=UTF-8"},
       );
-      if (response.statusCode == 200) {
-        print(response.body);
-
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => BottoBar()));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Invalid UserName or Password',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-            ),
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      var responseBody = jsonDecode(response.body);
+      if (responseBody['STATUS'] == true) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BottoBar(
+                      cId: cId.toString(),
+                    )));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(responseBody['message']),
+            showCloseIcon: true,
+            elevation: 6,
+            duration: Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            backgroundColor: Color.fromRGBO(255, 98, 96, 1),
+            padding: EdgeInsets.all(10),
           ),
-          showCloseIcon: true,
-          elevation: 6,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          backgroundColor: Color.fromRGBO(255, 98, 96, 1),
-          padding: EdgeInsets.all(5),
-        ));
+        );
+        setState(() {
+          cId = responseBody['cid'];
+        });
+        print('CUSTOMER ID::::${cId}');
+      } else if (responseBody['STATUS'] == false) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                responseBody['message'],
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            showCloseIcon: true,
+            elevation: 6,
+            duration: Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            backgroundColor: Color.fromRGBO(255, 98, 96, 1),
+            padding: EdgeInsets.all(10),
+          ),
+        );
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LogIn(),
+            ));
       }
     } catch (e) {
       print(e);
@@ -137,7 +169,6 @@ class _LogInState extends State<LogIn> {
                   const SizedBox(height: 25),
                   TextFormField(
                     // E-Mail
-
                     controller: _mail,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -220,21 +251,7 @@ class _LogInState extends State<LogIn> {
                     ],
                   ),
                   SizedBox(height: 10),
-                  ElevatedButton(
-                    child: const Text("Log In"),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Perform login operation here
-                        // If login is successful, save login status
-                        _saveLoginStatus().then((_) {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => BottoBar(),
-                          ));
-                        });
-                      }
-                    },
-                  ),
+                  ElevatedButton(child: Text("Log In"), onPressed: loginSubmit),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
