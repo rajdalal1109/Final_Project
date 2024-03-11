@@ -165,7 +165,7 @@ class _BoardDropState extends State<BoardDrop> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PassDeatils(),));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => PassDeatils(seat: [],),));
                 },
                 child: Container(
                     margin: const EdgeInsets.only(top: 720,left: 35,right: 35),

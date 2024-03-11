@@ -26,7 +26,7 @@ class _SettingState extends State<Setting> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
-                  child: 
+                  child:
                   Image.asset("assets/images/setting.jpg",)
               ),
             ),
@@ -35,7 +35,7 @@ class _SettingState extends State<Setting> {
               child: ListTile(
                 title: Text("App language"),
                 subtitle: Text("English\t(Device language)"),
-                trailing: Icon(Icons.language_outlined),
+                trailing: Icon(Icons.language_outlined,size: 30),
               ),
             ),
             const SizedBox(height: 5,),
@@ -43,14 +43,14 @@ class _SettingState extends State<Setting> {
               child: ListTile(
                 title: Text("Help Center"),
                 subtitle: Text("Contact us,Privacy Policy"),
-                trailing: Icon(Icons.help_outline_outlined),
+                trailing: Icon(CupertinoIcons.question_circle_fill,size: 30),
               ),
             ),
             const SizedBox(height: 5,),
             Card(
               child: ListTile(
                 title: Text("Invite a friend"),
-                trailing: Icon(Icons.groups_outlined),
+                trailing: Icon(CupertinoIcons.person_3_fill,size: 30),
               ),
             ),
           ],

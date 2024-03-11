@@ -4,11 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/Auth/verify_otp.dart';
-import 'package:provider/provider.dart';
-
-import '../Provider/auth_provider.dart';
-
-
+import 'package:project/registration.dart';
 
 class ForgotPass extends StatefulWidget {
 
@@ -56,28 +52,43 @@ class _ForgotPassState extends State<ForgotPass> {
           body: jsonEncode({"email": _mail.text}),
           headers: {'Content-Type': "application/json; charset=UTF-8"},
         );
-        if (response.statusCode == 200) {
-          print(response.body);
+        print('Response status code: ${response.statusCode}');
+        print('Response body: ${response.body}');
+        var responseBody = jsonDecode(response.body);
+        if (responseBody['STATUS'] == true) {
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('OTP sent and It will be expire in 2 Minutes !!'),
-                duration: Duration(seconds: 5),
-                elevation: 10,
-                behavior: SnackBarBehavior.floating,
-                margin: EdgeInsets.only(bottom: 50),
-
-              )
+            SnackBar(
+              content: Text('OTP sent and It will be expire in 2 Minutes !!'),
+              duration: Duration(seconds: 5),
+              elevation: 10,
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.only(bottom: 50),
+            ),
           );
-          Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtp(email: _mail.text),));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VerifyOtp(email: _mail.text),
+            ),
+          );
+        } else if(responseBody['STATUS'] == false ) {
+           ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('User not registered. Please register first !!.'),
+              duration: Duration(seconds: 5),
+              elevation: 10,
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.only(bottom: 50),
+            ),
+          );
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Registration(),));
         }
       } catch (e) {
-        print(e);
+        print('Error: $e');
       }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter an email address'))); // Snackbar to notify user to add email
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

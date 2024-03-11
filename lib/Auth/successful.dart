@@ -16,20 +16,30 @@ class _DoneState extends State<Done> {
     return Scaffold(
       body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.check_circle_outlined,size: 200,color: Colors.blueAccent,),
-              const SizedBox(height: 20),
-              const Text("Successfully", style: TextStyle(fontSize: 35),),
-              const SizedBox(height: 30),
-              const Text("Your Password has been reset successfully !!"),
-              const SizedBox(height: 20),
-              ElevatedButton(onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LogIn(),));
-              }, child: const Text("CONTIUNE")),
-            ],
-          )
-      ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.check_circle_outlined,
+            size: 200,
+            color: Colors.blueAccent,
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            "Successfully",
+            style: TextStyle(fontSize: 35),
+          ),
+          const SizedBox(height: 30),
+          const Text("Your Password has been reset successfully !!"),
+          const SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LogIn(),
+                ));
+              },
+              child: const Text("CONTIUNE")),
+        ],
+      )),
     );
   }
 }
