@@ -866,7 +866,6 @@ class FindBus extends StatefulWidget {
 }
 
 class _FindBusState extends State<FindBus> {
-
   Future<List<BusDisplay>> _sendStops() async {
     print(widget.source);
     print(widget.destination);
@@ -891,10 +890,11 @@ class _FindBusState extends State<FindBus> {
     }
   }
 
-  TextEditingController serch =TextEditingController();
+  TextEditingController serch = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    print(widget.source);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
@@ -902,32 +902,36 @@ class _FindBusState extends State<FindBus> {
         actions: [
           IconButton(
             onPressed: () {
-              showDialog(context: context, builder: (context) =>
-                  Material(
-                    elevation: 5,
-                    borderOnForeground: true,
-                    color: Colors.black45,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 50,left: 10,right: 10),
-                      child: TextField(
-                        controller: serch,
-                        style: const TextStyle(color: Colors.white70,),
-                        decoration: InputDecoration(
-                          label: const Text("Serch Your Bus..."),
-                          labelStyle: const TextStyle(color: Colors.white70),
-                          hintText: "Serch Bus",
-                          hintStyle: const TextStyle(color: Colors.white70),
-                          fillColor: Colors.white,
-                          prefixIcon: const Icon(Icons.search_rounded),
-                          prefixIconColor: Colors.white70,
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(width: 5),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+              showDialog(
+                context: context,
+                builder: (context) => Material(
+                  elevation: 5,
+                  borderOnForeground: true,
+                  color: Colors.black45,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 50, left: 10, right: 10),
+                    child: TextField(
+                      controller: serch,
+                      style: const TextStyle(
+                        color: Colors.white70,
+                      ),
+                      decoration: InputDecoration(
+                        label: const Text("Serch Your Bus..."),
+                        labelStyle: const TextStyle(color: Colors.white70),
+                        hintText: "Serch Bus",
+                        hintStyle: const TextStyle(color: Colors.white70),
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(Icons.search_rounded),
+                        prefixIconColor: Colors.white70,
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 5),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
                     ),
                   ),
+                ),
               );
             },
             icon: const Icon(
@@ -967,20 +971,49 @@ class _FindBusState extends State<FindBus> {
                     Column(
                       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(widget.source.toString(), style: const TextStyle(color: Colors.white, height: 1, fontSize: 20, fontWeight: FontWeight.w500),),
-                        IconButton(
-                          icon: const Icon(Icons.swap_vert_outlined, color: Colors.white), onPressed: () {},
+                        Text(
+                          widget.source.toString(),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              height: 1,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                         ),
-                        Text(widget.destination.toString(), style: const TextStyle(color: Colors.white,height: 1, fontSize: 20, fontWeight: FontWeight.w500),
+                        IconButton(
+                          icon: const Icon(Icons.swap_vert_outlined,
+                              color: Colors.white),
+                          onPressed: () {},
+                        ),
+                        Text(
+                          widget.destination.toString(),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              height: 1,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Date:\t\t",style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color.fromRGBO(238, 238, 238, 1)),),
-                        Text(widget.datecontroller.toString(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Color.fromRGBO(238, 238, 238, 1)),),
+                        const Text(
+                          "Date:\t\t",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromRGBO(238, 238, 238, 1)),
+                        ),
+                        Text(
+                          widget.datecontroller.toString(),
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: Color.fromRGBO(238, 238, 238, 1)),
+                        ),
                         // Text(widget.dateInput.toString(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400,color: Color.fromRGBO(238, 238, 238, 1)),),
                       ],
                     ),
@@ -1006,24 +1039,25 @@ class _FindBusState extends State<FindBus> {
                           (context, AsyncSnapshot<List<BusDisplay>> snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         } else if (snapshot.hasError) {
                           return Center(
                               child: Text(
-                                'Error:${snapshot.error}',
-                                style: const TextStyle(fontWeight: FontWeight.bold),
-                              ));
+                            'Error:${snapshot.error}',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ));
                         } else if (snapshot.data!.isEmpty) {
                           return const Center(
                               child: Text(
-                                'Bus not Avilable',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25,
-                                    color: Colors.red),
-                              ));
+                            'Bus not Avilable',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Colors.red),
+                          ));
                         } else {
-                          return ListView.builder (
+                          return ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
@@ -1035,36 +1069,58 @@ class _FindBusState extends State<FindBus> {
                                       MaterialPageRoute(
                                         builder: (context) => SeatSelect(
                                           busID: stops.busid.toString(),
-                                          date: widget.datecontroller.toString(),
+                                          date:
+                                              widget.datecontroller.toString(),
                                           start: widget.source,
-                                          end:widget.destination,
+                                          end: widget.destination,
                                           bus: snapshot.data![index],
                                         ),
-                                      )
-                                  );
+                                      ));
                                   print(stops.busid.toString());
                                 },
                                 child: Card(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
-                                      crossAxisAlignment:CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(stops.busid.toString()),
-                                        Text(stops.busname.toString(),style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w400)),
+                                        Text(stops.busname.toString(),
+                                            style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400)),
                                         Row(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Text(stops.arrivalTime.toString(),style: const TextStyle(fontSize: 12, fontWeight:FontWeight.w400)),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                  stops.arrivalTime.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400)),
                                             ),
                                             const Text('-'),
-                                            Padding(padding: const EdgeInsets.all(8.0),
-                                              child: Text(stops.deptTime.toString(),style: const TextStyle(fontSize: 12,fontWeight:FontWeight.w400)),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                  stops.deptTime.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400)),
                                             ),
                                           ],
                                         ),
-                                        Text(stops.avSeats.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w300,color: Color.fromRGBO(67, 160, 71, 1))),
+                                        Text(stops.avSeats.toString(),
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w300,
+                                                color: Color.fromRGBO(
+                                                    67, 160, 71, 1))),
                                       ],
                                     ),
                                   ),
@@ -1073,8 +1129,7 @@ class _FindBusState extends State<FindBus> {
                             },
                           );
                         }
-                      }
-                  ),
+                      }),
                 ),
               ),
             ],

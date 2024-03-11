@@ -305,7 +305,7 @@ class _MyHomePageState extends State<HomePage> {
                                         destination:
                                             destination!.name.toString(),
                                         datecontroller: datecontroller.text,
-                                        cId: widget.cid,
+                                        // cId: widget.cid,
                                       ),
                                     ));
                               },
