@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: "Ubuntu"),
+      theme: ThemeData(fontFamily: 'Ubuntu'),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(title: "Project"),
     );

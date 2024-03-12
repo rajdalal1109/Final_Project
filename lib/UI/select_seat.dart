@@ -295,7 +295,8 @@ import 'package:project/model/seatselect.dart';
 
 class SeatSelect extends StatefulWidget {
   BusDisplay? bus;
-
+  String? cId;
+  String? price;
   String? start;
   String? end;
   final String busID;
@@ -307,7 +308,9 @@ class SeatSelect extends StatefulWidget {
       required this.date,
       this.start,
       this.end,
-      this.bus})
+      this.bus,
+      this.price,
+      this.cId})
       : super(key: key);
 
   @override
@@ -315,31 +318,7 @@ class SeatSelect extends StatefulWidget {
 }
 
 class _SeatSelectState extends State<SeatSelect> {
-  Future<List<BusDisplay>> _sendStops() async {
-    print(widget.start);
-    print(widget.end);
-
-    var res = await http.post(
-        Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
-        body: jsonEncode({
-          "start": widget.start.toString(),
-          "end": widget.end.toString(),
-          "date": widget.date.toString()
-        }),
-        headers: {'Content-Type': 'application/json'});
-
-    if (res.statusCode == 200) {
-      var data = jsonDecode(res.body);
-      print(res.body);
-
-      return (data['data'] as List).map((e) => BusDisplay.fromJson(e)).toList();
-
-      // return (data['data'] as List).map((e) => BusDisplay.fromJson(e)).toList();
-    } else {
-      throw Exception('Failed to load ');
-    }
-  }
-
+  double totalPrice = 0.0;
   List<SeatSel> seat = [];
   int noOfSeats = 0;
   List<SeatSel> selectSeatList = [];
@@ -365,30 +344,36 @@ class _SeatSelectState extends State<SeatSelect> {
     // TODO: implement initState
     super.initState();
     _getSeat();
+    print('Cid On seat selcetion:::${widget.cId}');
   }
 
   getListOfSelectedSeats() {
     noOfSeats = 0;
     selectSeatList.clear();
+    totalPrice = 0.0;
     seat.forEach((element) {
       if (element.userSelected! && element.bookedStatus == false) {
         noOfSeats++;
         selectSeatList.add(SeatSel(
-            seatNo: element.seatNo!,
-            userSelected: element.userSelected,
-            bookedStatus: element.bookedStatus,
-            name: TextEditingController(),
-            age: TextEditingController()));
+          seatNo: element.seatNo!,
+          userSelected: element.userSelected,
+          bookedStatus: element.bookedStatus,
+          name: TextEditingController(),
+          age: TextEditingController(),
+        ));
       } else {
         return null;
       }
     });
+    totalPrice = selectSeatList.length * double.parse(widget.price!);
+    print("Total Price: $totalPrice");
     // print("total Selected Seats $noOfSeats");
     print("total Selected Seats {${jsonEncode(selectSeatList)}");
   }
 
   @override
   Widget build(BuildContext context) {
+    print('BUSID ON Select Seat :::::${widget.busID.toString()}');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
@@ -685,11 +670,17 @@ class _SeatSelectState extends State<SeatSelect> {
                                                             FontWeight.w700,
                                                         color: Colors.white)),
                                                 Text(
-                                                  widget.bus!.price.toString(),
+                                                  "${totalPrice.toString()}",
                                                   style: TextStyle(
                                                       fontSize: 15,
                                                       color: Colors.white),
                                                 ),
+                                                /*    Text(
+                                                  widget.bus!.price.toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.white),
+                                                ),*/
                                               ],
                                             ),
                                             ElevatedButton(
@@ -699,6 +690,16 @@ class _SeatSelectState extends State<SeatSelect> {
                                                       MaterialPageRoute(
                                                         builder: (context) =>
                                                             PassDeatils(
+                                                                price: totalPrice
+                                                                    .toString(),
+                                                                busId: widget
+                                                                    .bus!.busid,
+                                                                cId: widget.cId,
+                                                                start: widget
+                                                                    .start,
+                                                                end: widget.end,
+                                                                date:
+                                                                    widget.date,
                                                                 seat:
                                                                     selectSeatList),
                                                       ));

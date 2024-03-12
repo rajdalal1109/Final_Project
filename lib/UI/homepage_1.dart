@@ -7,11 +7,10 @@ import 'package:project/UI/find_bus.dart';
 import 'package:project/model/data.dart';
 
 class HomePage extends StatefulWidget {
-  final String name;
   String? cid;
 
   //const HomePage({super.key});
-  HomePage({Key? key, required this.name, this.cid}) : super(key: key);
+  HomePage({Key? key, this.cid}) : super(key: key);
 
   @override
   State<HomePage> createState() => _MyHomePageState();
@@ -33,7 +32,7 @@ class _MyHomePageState extends State<HomePage> {
   Routes? source;
   Routes? destination;
 
-  void _stop() async {
+  _stop() async {
     var response = await http.get(
       Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/stopsapi.php"),
     );
@@ -71,6 +70,7 @@ class _MyHomePageState extends State<HomePage> {
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
         //background: rgba(255, 98, 96, 1);
         surfaceTintColor: const Color.fromRGBO(
@@ -159,7 +159,10 @@ class _MyHomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(
                               left: 15, right: 15, top: 40),
                           child: DropdownButtonFormField(
-                            hint: Text("Boarding From"),
+                            hint: Text(
+                              "Boarding From",
+                              style: TextStyle(fontFamily: 'Ubuntu'),
+                            ),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color.fromRGBO(243, 238, 255, 1),
@@ -183,7 +186,10 @@ class _MyHomePageState extends State<HomePage> {
                             items: route.map((e) {
                               return DropdownMenuItem<Routes>(
                                 value: e,
-                                child: Text(e.name.toString()),
+                                child: Text(
+                                  e.name.toString(),
+                                  style: TextStyle(fontFamily: 'Ubuntu'),
+                                ),
                               );
                             }).toList(),
                             onChanged: (value) {
@@ -197,7 +203,10 @@ class _MyHomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(
                               left: 15, right: 15, top: 10),
                           child: DropdownButtonFormField(
-                            hint: Text("Where are you going?"),
+                            hint: Text(
+                              "Where are you going?",
+                              style: TextStyle(fontFamily: 'Ubuntu'),
+                            ),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color.fromRGBO(243, 238, 255, 1),
@@ -221,7 +230,10 @@ class _MyHomePageState extends State<HomePage> {
                             items: route.map((e) {
                               return DropdownMenuItem<Routes>(
                                 value: e,
-                                child: Text(e.name.toString()),
+                                child: Text(
+                                  e.name.toString(),
+                                  style: TextStyle(fontFamily: 'Ubuntu'),
+                                ),
                               );
                             }).toList(),
                             onChanged: (value) {
@@ -305,7 +317,7 @@ class _MyHomePageState extends State<HomePage> {
                                         destination:
                                             destination!.name.toString(),
                                         datecontroller: datecontroller.text,
-                                        // cId: widget.cid,
+                                        cId: widget.cid,
                                       ),
                                     ));
                               },

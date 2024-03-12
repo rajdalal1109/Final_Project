@@ -263,12 +263,8 @@ class _TicketsState extends State<ConfirmTickets> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HomePage(
-                                  name: '',
-                                )));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   },
                   child: Container(
                       margin: const EdgeInsets.only(top: 210),

@@ -6,7 +6,9 @@ import 'package:project/UI/ticket.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottoBar extends StatefulWidget {
-  const BottoBar({Key? key}) : super(key: key);
+  String? cId;
+
+  BottoBar({this.cId});
 
   @override
   State<BottoBar> createState() => _BottoBarState();
@@ -14,6 +16,7 @@ class BottoBar extends StatefulWidget {
 
 class _BottoBarState extends State<BottoBar> {
   int currentPageIndex = 0;
+
   late SharedPreferences prefs;
 
   @override
@@ -36,7 +39,7 @@ class _BottoBarState extends State<BottoBar> {
               index: currentPageIndex,
               children: [
                 HomePage(
-                  name: '',
+                  cid: widget.cId.toString(),
                 ),
                 Tickets(),
                 Profile(prefs: prefs),

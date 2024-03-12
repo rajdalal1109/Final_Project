@@ -187,8 +187,21 @@ int selectoption = 1;
 
 class PassDeatils extends StatefulWidget {
   List<SeatSel> seat = [];
+  String? cId;
+  String? date;
+  String? busId;
+  String? start;
+  String? end;
+  String? price;
 
-  PassDeatils({required this.seat});
+  PassDeatils(
+      {this.start,
+      this.end,
+      this.price,
+      required this.seat,
+      this.cId,
+      this.date,
+      this.busId});
 
   @override
   State<PassDeatils> createState() => _PassDeatilsState();
@@ -225,6 +238,8 @@ class _PassDeatilsState extends State<PassDeatils> {
 
   @override
   Widget build(BuildContext context) {
+    print('CID ON ADD PASS:::${widget.cId}');
+    print('BUSID ON Pass Details :::::${widget.busId.toString()}');
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
@@ -388,8 +403,15 @@ class _PassDeatilsState extends State<PassDeatils> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              ShowPassenger(addPasengers: addPasengers),
+                          builder: (context) => ShowPassenger(
+                            addPasengers: addPasengers,
+                            date: widget.date,
+                            price: widget.price,
+                            start: widget.start,
+                            end: widget.end,
+                            busId: widget.busId,
+                            cId: widget.cId,
+                          ),
                         ));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
