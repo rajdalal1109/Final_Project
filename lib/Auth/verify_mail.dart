@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pinput/pinput.dart';
 import 'package:project/UI/bottombar.dart';
 import 'package:project/registration.dart';
 
@@ -36,7 +37,7 @@ class _VerifyOtpState extends State<VerifyMail> {
       if (responseBody['STATUS'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Otp sent Sucessfully!!'),
+            content: Text('Otp sent Sucessfully!!, It will expire in 2 minutes '),
             duration: Duration(seconds: 5),
             elevation: 10,
             behavior: SnackBarBehavior.floating,
@@ -52,7 +53,7 @@ class _VerifyOtpState extends State<VerifyMail> {
       } else if(responseBody['code'] == 0 ) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Otp Expire, Please Registrater again!!'),
+            content: Text('Otp Expire, Please Register again!!'),
             duration: Duration(seconds: 5),
             elevation: 10,
             behavior: SnackBarBehavior.floating,
@@ -71,6 +72,20 @@ class _VerifyOtpState extends State<VerifyMail> {
 
   @override
   Widget build(BuildContext context) {
+    final otptheme = PinTheme(
+      height: 56,
+      width: 60,
+      textStyle: TextStyle(
+          fontSize: 20,
+          color: Colors.black
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.redAccent.shade400),
+      ),
+    );
+
     print(widget.email);
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
@@ -102,15 +117,28 @@ class _VerifyOtpState extends State<VerifyMail> {
                     const SizedBox(height: 20),
                     Text("Email: ${widget.email}"),
                     const SizedBox(height: 20),
-                    TextField(
-                      controller: _otp,
-                      maxLength: 4,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          hintText: "Enter Your OTP Here",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          )),
+                    // TextField(
+                    //   controller: _otp,
+                    //   maxLength: 4,
+                    //   keyboardType: TextInputType.number,
+                    //   decoration: InputDecoration(
+                    //       hintText: "Enter Your OTP Here",
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //       )),
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Pinput(
+                        length: 4,
+                        defaultPinTheme: otptheme,
+                        focusedPinTheme: otptheme.copyWith(
+                            decoration:otptheme.decoration!.copyWith(
+                              border: Border.all(color: Colors.redAccent.shade200),
+                            )
+                        ),
+                        controller: _otp,
+                      ),
                     ),
                     const SizedBox(height: 20),
                     //Text("$_timer"),

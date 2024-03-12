@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project/login.dart';
+import 'package:project/utils/appcolor.dart';
 
 class UiScreen extends StatefulWidget {
   const UiScreen({super.key});
@@ -11,62 +12,46 @@ class UiScreen extends StatefulWidget {
 }
 
 class _UiScreenState extends State<UiScreen> {
+
   @override
   void initState() {
-    Timer(const Duration(seconds: 6), () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LogIn(),
-          ));
-    });
+    Timer(const Duration(seconds: 3), () {Navigator.push(context, MaterialPageRoute(builder: (context) => const LogIn(),));});
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
-      //background: rgba(255, 98, 96, 1);
+      backgroundColor: AppColors.primary,//background: rgba(255, 98, 96, 1);
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Padding(
               padding: EdgeInsets.only(top: 90),
-              child: Text(
-                "\t\t\t\t\t\t\t\t\t\t\tBus Booking....... \n Where Every Journey Begins !!",
-                style: TextStyle(
-                    fontFamily: "Yesteryear",
-                    fontSize: 30,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white),
-              ),
+              child: Text("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tBus Booking \n Where Every Journey Begins !!",
+                style: TextStyle(fontSize: 23,fontWeight: FontWeight.w300,color: Colors.white),),
             ),
-            Lottie.network(
-                "https://lottie.host/f40d84f7-e741-4342-8309-31f06609f687/bczEkPRu9i.json"),
+            Lottie.network("https://lottie.host/6c65cab6-6666-49a4-a0a0-58a0416aaeb7/AqBS776xw5.json",height: 280),
+            // Lottie.network("https://lottie.host/68b773b8-dbd9-4fd3-8676-eb26ade732ef/8lmoFYgxmf.json"),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LogIn(),
-                ));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LogIn(),));
               },
               child: Container(
                   margin: const EdgeInsets.only(top: 10),
                   width: 305,
-                  decoration: BoxDecoration(
-                      color: const Color.fromRGBO(245, 165, 34, 1),
-                      //background: rgba(245, 165, 34, 1);
-                      borderRadius: BorderRadius.circular(20)),
+                  decoration: BoxDecoration
+                    (
+                      color: AppColors.secondary,
+                      borderRadius: BorderRadius.circular(8)
+                  ),
                   height: 56,
-                  child: const Center(
-                      child: Text(
-                    "Get Started",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
-                  ))),
+                  child: Center(
+                      child: Text("Get Started", style: TextStyle(fontSize: 20,color: AppColors.primary,fontWeight: FontWeight.w600),)
+                  )
+              ),
             ),
           ],
         ),

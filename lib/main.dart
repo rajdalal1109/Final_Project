@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'UI/splash_screen.dart';
 
-void main() {
+void main()  {
   runApp(const MyApp());
 }
 
@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: "Ubuntu"),
+      title: 'Project',
       debugShowCheckedModeBanner: false,
       home: MyHomePage(title: "Project"),
     );
@@ -28,10 +29,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: UiScreen(),
+      body : UiScreen(),
     );
   }
 }

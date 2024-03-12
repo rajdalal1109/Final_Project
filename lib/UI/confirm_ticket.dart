@@ -1,186 +1,452 @@
+// import 'dart:convert';
+//
+// import 'package:dotted_line/dotted_line.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart';
+// import 'package:project/UI/homepage_1.dart';
+// import 'package:project/model/dropdown.dart';
+// import 'package:project/model/seatselect.dart';
+// import 'package:http/http.dart' as http;
+//
+// class ConfirmTickets extends StatefulWidget {
+//   List<SeatSel> booking = [];
+//   // BusDisplay pass;
+//
+//   ConfirmTickets({super.key, required this.booking, required this.busID, required this.date});
+//
+//   String? start;
+//   String? end;
+//   String? arrivalTime;
+//   String? deptTime;
+//   final String busID;
+//   final String date;
+//
+//   @override
+//   State<ConfirmTickets> createState() => _TicketsState();
+// }
+//
+// class _TicketsState extends State<ConfirmTickets> {
+//   Future<List<BusDisplay>> _sendStops() async {
+//     print(widget.start);
+//     print(widget.end);
+//     print(widget.arrivalTime);
+//     print(widget.deptTime);
+//
+//     var res = await http.post(
+//         Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/bussrch.php'),
+//         body: jsonEncode({
+//           "start": widget.start.toString(),
+//           "end": widget.end.toString(),
+//           "date": widget.date.toString()
+//         }),
+//         headers: {'Content-Type': 'application/json'});
+//
+//     if (res.statusCode == 200) {
+//       var data = jsonDecode(res.body);
+//       print(res.body);
+//       return (data['data'] as List).map((e) => BusDisplay.fromJson(e)).toList();
+//     } else {
+//       throw Exception('Failed to load ');
+//     }
+//   }
+//
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Color.fromRGBO(255, 98, 96, 1),
+//       body:
+//       SafeArea(
+//         child: Column(
+//           children: [
+//             Container(
+//               // color: Colors.redAccent,
+//               color: Color.fromRGBO(255, 98, 96, 1),
+//               height: MediaQuery.of(context).size.height*0.3,
+//               width: MediaQuery.of(context).size.width,
+//               child:
+//               Padding(
+//                 padding: EdgeInsets.only(top: 100),
+//                 child: Column(
+//                   children: [
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         Text("Booking Confirmed",style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700,color: Colors.white)),
+//                         SizedBox(width: 5),
+//                         Image.asset("assets/images/confirm.png"),
+//                         // ImageIcon(AssetImage("assets/images/confirm.png")),
+//                       ],
+//                     ),
+//                     SizedBox(height: 20),
+//                     Text("We have send you the ticket copy on your E-mail",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.white)),
+//                     Text("abc@gmail.com",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.white)),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//             Expanded(
+//               child: Container(
+//                 color: Colors.white,
+//                  width:  MediaQuery.of(context).size.width,
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     Padding(
+//                       padding: EdgeInsets.only(top: 30,right: 50,left: 50),
+//                       child: Container(
+//                         height: 350,
+//                         decoration: BoxDecoration(
+//                           borderRadius: BorderRadius.circular(10),
+//                         ),
+//                         child: Column(
+//                           mainAxisAlignment: MainAxisAlignment.start,
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               children: [
+//                                 Text(widget.start.toString(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
+//                                 IconButton(icon: const Icon(Icons.swap_horiz, color: Colors.black), onPressed: () {},),
+//                                 Text(widget.end.toString(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
+//                               ],
+//                             ),
+//                             SizedBox(height: 15,),
+//                             Text(widget.date.toString()),
+//                             SizedBox(height: 10,),
+//                             Text(widget.arrivalTime.toString()),
+//                             Text(widget.deptTime.toString()),
+//                             SizedBox(height: 15,),
+//                             DottedLine(dashLength: 5,dashColor: Colors.black,lineThickness: 2,dashGapLength: 6,),
+//                             SizedBox(height: 15,),
+//                             Text("TICKET NUMBER : 1234567890",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700),),
+//                             SizedBox(height: 10,),
+//                             Text("Total Seat : 2",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700),),
+//                             SizedBox(height: 10,),
+//                             Text("Total Price : ₹ 1350",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700),),
+//                             SizedBox(height: 15,),
+//                             GestureDetector(
+//                               onTap: (){
+//
+//                                 },
+//                               child: Padding(
+//                                 padding: EdgeInsets.only(bottom: 30,),
+//                                 child: Container(
+//                                     height: 40,
+//                                     width: 250,
+//                                     decoration: BoxDecoration(
+//                                         color: Color.fromRGBO(255, 98, 96, 1),
+//                                         borderRadius: BorderRadius.circular(8)
+//                                     ),
+//                                     child: const Center(
+//                                         child: Text("Show Passangers Details", style: TextStyle(fontSize: 18,color: Colors.white,),)
+//                                     )
+//                                 ),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                     GestureDetector(
+//                       onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(name: ''),));},
+//                       child: Padding(
+//                         padding: EdgeInsets.only(bottom: 30,),
+//                         child: Container(
+//                             height: 50,
+//                             width: 300,
+//                             decoration: BoxDecoration(
+//                                 color: Color.fromRGBO(255, 98, 96, 1),
+//                                 borderRadius: BorderRadius.circular(8)
+//                             ),
+//                             child: const Center(
+//                                 child: Text("Home", style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.w600),)
+//                             )
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+import 'dart:convert';
+
+import 'package:dotted_line/dotted_line.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'package:project/UI/bottombar.dart';
 import 'package:project/UI/homepage_1.dart';
+import 'package:project/model/showticketmodel.dart';
 
 class ConfirmTickets extends StatefulWidget {
-  const ConfirmTickets({super.key});
+  String? ticketNo;
+  String? cId;
+
+  ConfirmTickets({this.ticketNo,this.cId});
 
   @override
   State<ConfirmTickets> createState() => _TicketsState();
 }
 
 class _TicketsState extends State<ConfirmTickets> {
+  Future<List<ShowTicket>> displayTicket() async {
+    var res = await http.post(
+        Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/tickit.php'),
+        body: jsonEncode({
+          "ticketno": widget.ticketNo.toString(),
+        }),
+        headers: {'Content-Type': 'application/json'});
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      print('Ticket REsponse:::::${res.body}');
+
+      var data = jsonDecode(res.body);
+      return (data['tickit'] as List)
+          .map((e) => ShowTicket.fromJson(e))
+          .toList();
+    } else {
+      throw ('ERRORRR');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('TicketNo on Confir TIcket::::${widget.ticketNo.toString()}');
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Tickets",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w500)),
-        backgroundColor: Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
-        surfaceTintColor: Color.fromRGBO(255, 98, 96, 1),
+        backgroundColor: Color.fromRGBO(255, 98, 96, 1),
       ),
-      body:
-      SingleChildScrollView(
-        child: Container(
-          height: 792,
-          width: 393,
-          color: Color.fromRGBO(255, 98, 96, 1),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      backgroundColor: Color.fromRGBO(255, 98, 96, 1),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              // color: Colors.redAccent,
+              color: Color.fromRGBO(255, 98, 96, 1),
+              height: MediaQuery.of(context).size.height * 0.12,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Booking Confirmed",
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white)),
+                      SizedBox(width: 5),
+                      // Image.asset("assets/images/confirm.png"),
+                      // ImageIcon(AssetImage("assets/images/confirm.png")),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Text("We have send you the ticket copy on your E-mail",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white)),
+                  Text("abc@gmail.com",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white)),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Container(
+                color: Colors.white,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Booking Confirmed",style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700,color: Colors.white)),
-                    SizedBox(width: 5),
-                    Image.asset("assets/images/confirm.png"),
-                    // ImageIcon(AssetImage("assets/images/confirm.png")),
+                    Padding(
+                      padding: EdgeInsets.only(top: 30, right: 50, left: 50),
+                      child: SingleChildScrollView(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        child: Container(
+                            height: 380,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: FutureBuilder(
+                              future: displayTicket(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Text('ERROR :::${snapshot.error}');
+                                } else {
+                                  return ListView.builder(
+                                    itemBuilder: (context, index) {
+                                      final ticket = snapshot.data![index];
+
+                                      return Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              "Bus Name : ${ticket.busname.toString()}"),
+                                          Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Source : ${ticket.start.toString()}",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                    FontWeight.w700),
+                                              ),
+                                              // IconButton(
+                                              //   icon: const Icon(Icons.swap_vert,
+                                              //       color: Colors.black),
+                                              //   onPressed: () {},
+                                              // ),
+                                              Text(
+                                                "Desination : ${ticket.end.toString()}",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                    FontWeight.w700),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text(
+                                              "Day : ${ticket.day.toString()}"),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                              "Arival Time : ${ticket.reportingTime.toString()}"),
+                                          Text(
+                                              "Desination Time : ${ticket.depatureTime.toString()}"),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          DottedLine(
+                                            dashLength: 5,
+                                            dashColor: Colors.black,
+                                            lineThickness: 2,
+                                            dashGapLength: 6,
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text(
+                                            "Ticket No : ${ticket.tickitno.toString()}",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          ListView.builder(
+                                            itemBuilder: (context, index) {
+                                              final passenger =
+                                                  ticket.passenger;
+                                              return Container(
+                                                height: 50,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                        "Passanger Name : ${passenger![index].name.toString()}"),
+                                                    Text(
+                                                        "Seat No : ${passenger[index].seatno.toString()}")
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            shrinkWrap: true,
+                                            itemCount: ticket.passenger!.length,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            "Price = ${ticket.amount.toString()}",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          Text(
+                                            "Ticket Booking Date : ${ticket.bookingdate.toString()}",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          Text(
+                                            "Ticket Created Date : ${ticket.createddate.toString()}",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                    itemCount: snapshot.data!.length,
+                                  );
+                                }
+                              },
+                            )),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottoBar()));
+
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 30,
+                        ),
+                        child: Container(
+                            height: 50,
+                            width: 300,
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 98, 96, 1),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: const Center(
+                                child: Text(
+                                  "Home",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
+                                )
+                            )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-                SizedBox(height: 10),
-                Text("We have send you the ticket copy on your E-mail",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.white)),
-                Text("abc@gmail.com",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.white)),
-
-                SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                      height: 250,
-                      width: 350,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Color.fromRGBO(245, 165, 34, 1),//background: rgba(245, 165, 34, 1);
-                          //color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.white,
-                                spreadRadius: 0.5,
-                                blurRadius: 10,
-                                blurStyle: BlurStyle.normal,
-                                offset: Offset(2, 2))
-                          ]
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 8,),
-                          const Text("PNR/Ticket No:13392789",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w500)),
-                          const Divider(thickness: 1,color: Colors.white,),
-                          Row(
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Expanded(flex:0,child: Icon(Icons.exit_to_app_sharp,size: 20)),
-                                      const SizedBox(width: 10,),
-                                      Expanded(flex: 0,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            const Text("Boarding Point",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Colors.white)),
-                                            Container(
-                                              width: 200,
-                                              child: const Text("8:05 PM, New Sangavi - Pick up near Sangavi Phata New Sangavi - Pick up near Sanavi Phata, 9595951132, 9028298789",
-                                                  style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,overflow: TextOverflow.clip)
-                                              ),
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10,),
-                                  Row(
-                                    children: [
-                                      const Expanded(flex:0,child: Icon(Icons.pin_drop,size: 20)),
-                                      const SizedBox(width: 10,),
-                                      Expanded(flex: 0,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            const Text("Drop Point",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Colors.white)),
-                                            Container(
-                                              width: 200,
-                                              child: const Text("6:30 AM, DeepNagar,DeepNagar",
-                                                  style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,overflow: TextOverflow.clip)
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Container(width: 2,color: Colors.white.withOpacity(0.5),height: 120,),
-                              const SizedBox(width: 10,),
-                              const Expanded(
-                                flex: 0,
-                                child: Column(
-                                  children: [
-                                    Text("Ahmedabad",style: TextStyle(color: Colors.white)),
-                                    Text("8:05 PM",style:TextStyle(fontSize: 14,fontWeight: FontWeight.w500)),
-                                    Text("Sun, 13 Jan",style:TextStyle(fontSize: 10,fontWeight: FontWeight.w500)),
-                                    SizedBox(height: 8,),
-                                    Text("TO",style: TextStyle(fontSize: 10,fontWeight: FontWeight.w500,color: Color.fromRGBO(245, 165, 34, 1))),
-                                    SizedBox(height: 5,),
-                                    Text("Pune",style: TextStyle(color: Colors.white)),
-                                    Text("6:30 AM",style:TextStyle(fontSize: 14,fontWeight: FontWeight.w500)),
-                                    Text("Mon, 14 Jan",style:TextStyle(fontSize: 10,fontWeight: FontWeight.w500)),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(height: 13,),
-                          const Divider(thickness: 1,color: Colors.white),
-                          const Row(
-                            children: [
-                              Expanded(flex: 0,child: Icon(Icons.directions_bus)),
-                              SizedBox(width: 10,),
-                              Expanded(
-                                flex: 0,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Sangitam Travels",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500)),
-                                    Text("2X1 (30) A/C SLEEPER",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Colors.white)),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 115,),
-                              Text("1 Seat",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                        ],
-                      )
-                  ),
-                ),
-
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(name: '',)));
-                  },
-                  child: Container(
-                      margin: const EdgeInsets.only(top: 210),
-                      width: 305,
-                      decoration: BoxDecoration
-                        (
-                          color: const Color.fromRGBO(245, 165, 34, 1),//background: rgba(245, 165, 34, 1);
-                          borderRadius: BorderRadius.circular(20)
-                      ),
-                      height: 56,
-                      child: const Center(
-                          child: Text("Home", style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.w600),)
-                      )
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

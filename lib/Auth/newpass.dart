@@ -1,20 +1,16 @@
 import 'dart:convert';
 
-// import 'package:apidemo/forgot_pass.dart';
-// import 'package:apidemo/successful.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/Auth/successful.dart';
+import 'package:project/utils/appcolor.dart';
 
 class NewPass extends StatefulWidget {
 
   final String email;
 
   // const NewPass({super.key, required this.Pass, required this.comPass});
-  const NewPass(
-      {Key? key,
-        required this.email})
-      : super(key: key);
+  const NewPass({Key? key, required this.email}) : super(key: key);
 
   @override
   State<NewPass> createState() => _NewPassState();
@@ -50,118 +46,161 @@ class _NewPassState extends State<NewPass> {
   Widget build(BuildContext context) {
     print(widget.email);
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        centerTitle: true,
+        title: Text("Verify Your Email",style: TextStyle(color: AppColors.primary,fontSize: 22,fontWeight: FontWeight.w600),),
+      ),
+      backgroundColor: Colors.white,
       //background: rgba(255, 98, 96, 1);
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: SingleChildScrollView(
-            child: Container(
-              height: 600,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "New Password",
-                        style: TextStyle(fontSize: 35),
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                          "Set the new password for account so you can login and access all  features."),
-                      //const Text("OTP will expire soon",style: TextStyle(color: Colors.redAccent),),
+          padding: const EdgeInsets.only(top: 50,left: 15, right: 15),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Image.asset("assets/images/auth/forgot.png",height: 224,width: 300,),
+                const SizedBox(height: 40),
+                Text("Set the new password for account so \nyou can login and access all  features.",style: TextStyle(color: AppColors.primary,fontSize: 16,fontWeight: FontWeight.w500),),
+                const SizedBox(height: 30),
+                TextFormField(
+                  // Password
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  obscureText: !_passVisible,
+                  controller: _Pass,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppColors.secondary,
+                    isDense: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.secondary),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.secondary),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.secondary),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color:AppColors.secondary),
+                    ),
+                    prefixIcon: Icon(Icons.password,color: AppColors.primary,size: 20,),
+                    labelText: "New Password*",
+                    hintText: "New Password",
+                    suffixIcon: IconButton(
+                      icon: Icon(_passVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _passVisible = !_passVisible;
+                        });
+                      },
+                    ),
+                  ),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password is required';
+                    }
+                    // Regular expression pattern to validate password format
+                    if (!RegExp(
+                        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$')
+                        .hasMatch(value)) {
+                      return 'Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long';
+                    }
+                    return null;
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                ),
 
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        //For Password
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        obscureText: !_passVisible,
-                        controller: _Pass,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: "Password*",
-                          hintText: 'Password',
-                          prefixIcon: const Icon(Icons.password),
-                          suffixIcon: IconButton(
-                            icon: Icon(_passVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                _passVisible = !_passVisible;
-                              });
-                            },
-                          ),
+                const SizedBox(height: 15),
+                TextFormField(
+                  // For Confirm Password
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  obscureText: !_CpassVisible,
+                  controller: _comPass,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppColors.secondary,
+                    isDense: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.secondary),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.secondary),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.secondary),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color:AppColors.secondary),
+                    ),
+                    labelText: "Confirm Password*",
+                    hintText: 'Confirm Password',
+                    prefixIcon: Icon(Icons.password,color: AppColors.primary,size: 20,),
+                    suffixIcon: IconButton(
+                      icon: Icon(_CpassVisible ? Icons.visibility : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _CpassVisible = !_CpassVisible;
+                        });
+                      },
+                    ),
+                  ),
+                  validator: (String? value) {
+                    if (value != null && value.isNotEmpty) {
+                      if (value != _Pass.text) {
+                        return 'Passwords do not match';
+                      }
+                    } else {
+                      return 'Please enter your password again';
+                    }
+                    return null;
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                ),
+
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) { // Validate the form
+                      ConfirmPass(); // Submit the login
+                    } else {
+                      // Show a Snackbar indicating that the form fields are not valid
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Please fill proper mail addrerss.."),
+                          duration: Duration(seconds: 2),
                         ),
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Password is required';
-                          }
-                          return (value.length < 6 &&
-                              value.contains(RegExp(r'[a-zA-z0-9!@#%^&*]')))
-                              ? 'Password must be at least 6 characters long'
-                              : null;
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 15,right: 15),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      // width: 250,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(8),
                       ),
-
-                      const SizedBox(height: 25),
-                      TextFormField(
-                        // For Confirm Password
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        obscureText: !_CpassVisible,
-                        controller: _comPass,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: "Confirm Password*",
-                          hintText: 'Confirm Password',
-                          prefixIcon: const Icon(Icons.password),
-                          suffixIcon: IconButton(
-                            icon: Icon(_CpassVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                _CpassVisible = !_CpassVisible;
-                              });
-                            },
-                          ),
+                      child: const Center(
+                        child: Text(
+                          "Save",
+                          style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
                         ),
-                        validator: (String? value) {
-                          if (value != null && value.isNotEmpty) {
-                            if (value != _Pass.text) {
-                              return 'Passwords do not match';
-                            }
-                          } else {
-                            return 'Please enter your password again';
-                          }
-                          return null;
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
-
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        onPressed: ConfirmPass,
-                        child: Center(child: Text("UPDATE PASSWORD")),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
         ),

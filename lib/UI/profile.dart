@@ -7,14 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/UI/setting.dart';
 import 'package:project/login.dart';
+import 'package:http/http.dart' as http;
+import 'package:project/model/userprofile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+userProfile? userData;
+
 class Profile extends StatefulWidget {
+  String? name;
+  String? mobile;
+  String? email;
   final SharedPreferences prefs;
-  final String mail,number;
+  String? cId;
 
-
-  Profile({Key? key, required this.prefs, required this.mail, required this.number}) : super(key: key);
+  Profile({Key? key, required this.prefs, this.cId,this.name,this.mobile,this.email}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -25,6 +31,11 @@ class _ProfileState extends State<Profile> {
   final TextEditingController number = TextEditingController();
   Uint8List? _image;
   File? selectedIMage;
+
+  String? mobile;
+  String? email;
+
+
 
   void showImagePickerOption(BuildContext context) {
     showModalBottomSheet(
@@ -124,6 +135,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     _loadImage();
+
   }
 
   Future<void> _loadImage() async {
@@ -143,6 +155,8 @@ class _ProfileState extends State<Profile> {
     });
   }
 
+
+
   void logout(BuildContext context) async {
     await widget.prefs.setBool('isLoggedIn', false); // Clear login status
     Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -152,6 +166,11 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    print('PROFILEPAGE::');
+    print(widget.name);
+    print(widget.email);
+    print(widget.mobile);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -183,121 +202,119 @@ class _ProfileState extends State<Profile> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                height: 179,
-                width: 393,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(8),
-                    bottomRight: Radius.circular(8),
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              height: 179,
+              width: 393,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                ),
+                color: Color.fromRGBO(255, 98, 96, 1),
+              ),
+            ),
+            Positioned(
+              top: 80,
+              left: 20,
+              right: 20,
+              child: Column(
+                children: [
+                  if (_image != null)
+                    CircleAvatar(
+                      radius: 90,
+                      backgroundImage: MemoryImage(_image!),
+                    )
+                  else
+                    const CircleAvatar(
+                      radius: 90,
+                      backgroundImage:
+                      AssetImage("assets/images/girldp2.png"),
+                    ),
+                  const SizedBox(height: 8),
+
+                  Text(
+                    "${widget.name}",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 25,
+                    ),
                   ),
-                  color: Color.fromRGBO(255, 98, 96, 1),
-                ),
-              ),
-              Positioned(
-                top: 80,
-                left: 20,
-                right: 20,
-                child: Column(
-                  children: [
-                    if (_image != null)
-                      CircleAvatar(
-                        radius: 90,
-                        backgroundImage: MemoryImage(_image!),
-                      )
-                    else
-                      const CircleAvatar(
-                        radius: 90,
-                        backgroundImage: AssetImage("assets/images/girldp2.png"),
+                  const SizedBox(height: 30),
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                        "Email",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      "Carla Dakota",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 25,
+                      subtitle: Text(
+                        "${widget.email.toString()}",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w400),
                       ),
+                      trailing: Icon(CupertinoIcons.mail),
                     ),
-                    const SizedBox(height: 30),
-                    const Card(
+                  ),
+                  const SizedBox(height: 5),
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                        "Phone Number",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      subtitle: Text(
+                        "${widget.mobile}",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w400),
+                      ),
+                      trailing: Icon(CupertinoIcons.phone),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Setting()),
+                      );
+                    },
+                    child: const Card(
                       child: ListTile(
                         title: Text(
-                          "Email",
+                          "Setting",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
-                        subtitle: Text(
-                          "abc@gmail.com",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w400),
-                        ),
-                        trailing: Icon(CupertinoIcons.mail),
+                        trailing: Icon(CupertinoIcons.gear_alt),
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    const Card(
+                  ),
+                  const SizedBox(height: 5),
+                  GestureDetector(
+                    onTap: () {
+                      logout(context);
+                    },
+                    child: const Card(
                       child: ListTile(
                         title: Text(
-                          "Phone Number",
+                          "Log Out",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
-                        subtitle: Text(
-                          "+91\t1234567890",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w400),
-                        ),
-                        trailing: Icon(CupertinoIcons.phone),
+                        trailing: Icon(CupertinoIcons.power),
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Setting()),
-                        );
-                      },
-                      child: const Card(
-                        child: ListTile(
-                          title: Text(
-                            "Setting",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Icon(CupertinoIcons.gear_alt),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    GestureDetector(
-                      onTap: () {
-                        logout(context);
-                      },
-                      child: const Card(
-                        child: ListTile(
-                          title: Text(
-                            "Log Out",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Icon(CupertinoIcons.power),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

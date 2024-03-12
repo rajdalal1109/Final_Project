@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:project/Auth/verify_mail.dart';
 import 'package:project/UI/bottombar.dart';
 import 'package:project/login.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:project/utils/appcolor.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
@@ -25,7 +27,8 @@ class _RegistrationState extends State<Registration> {
   bool _isButtonDisabled = true;
 
   @override
-  void dispose() {
+  void dispose()
+  {
     _name.dispose();
     _mail.dispose();
     _number.dispose();
@@ -48,12 +51,14 @@ class _RegistrationState extends State<Registration> {
       );
       return;
     }
-    try {
-      Map mapdata = {
-        "name": _name.text,
-        "mobile_no": _number.text,
-        "email": _mail.text,
-        "password": _Password.text,
+    try
+    {
+      Map mapdata =
+      {
+        "name" : _name.text,
+        "mobile_no" : _number.text ,
+        "email" : _mail.text,
+        "password" : _Password.text,
       };
       var response = await http.post(
         Uri.parse(
@@ -80,7 +85,7 @@ class _RegistrationState extends State<Registration> {
             builder: (context) => VerifyMail(email: _mail.text),
           ),
         );
-      } else if (responseBody['STATUS'] == false) {
+      } else if(responseBody['STATUS'] == false ) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('User already registered!!.'),
@@ -90,13 +95,11 @@ class _RegistrationState extends State<Registration> {
             margin: EdgeInsets.only(bottom: 50),
           ),
         );
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Registration(),
-            ));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn(),));
       }
-    } catch (e) {
+    }
+    catch(e)
+    {
       print(e.toString());
     }
   }
@@ -154,96 +157,150 @@ class _RegistrationState extends State<Registration> {
               },
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Image(
-                    image: AssetImage("assets/images/registration.jpg"),
-                    height: 233,
-                    width: 390,
-                  ),
-                  const Text("Hop on Board : Your Journey Begins with Us !!",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                      )),
-                  const SizedBox(
-                    height: 45,
-                  ),
+                  const SizedBox(height: 5,),
+                  const Image(image: AssetImage("assets/images/registration_new.jpg"),height: 233,width: 390,),
+                  Text("Hop on Board : Your Journey Begins with Us !!",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,color: AppColors.primary)),
+
+                  const SizedBox(height: 45,),
                   TextFormField(
                     // For Name
                     controller: _name,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Name*",
-                      prefixIcon: Icon(Icons.person, color: Colors.blue),
-                      hintText: 'Name',
+                    decoration:  InputDecoration(
+                        filled: true,
+                        fillColor:AppColors.secondary,
+                        isDense: true,
+                        labelText: "Name*",
+                        prefixIcon: Icon(CupertinoIcons.person_alt_circle,color: AppColors.primary,size: 22,),
+                        hintText: 'Name',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                        )
                     ),
                     keyboardType: TextInputType.name,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Name is required';
                       }
-                      return (RegExp(r'[!@#%^&*0-9]').hasMatch(value))
-                          ? 'Please enter alphabets only'
-                          : null;
+                      return (RegExp(r'[!@#%^&*0-9]').hasMatch(value)) ? 'Please enter alphabets only' : null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
+
                   const SizedBox(height: 25),
                   TextFormField(
                     //For Number
                     controller: _number,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor:AppColors.secondary,
+                        isDense: true,
                         labelText: "Number*",
                         hintText: 'Number',
-                        prefixIcon: Icon(Icons.call, color: Colors.blue)),
+                        prefixIcon: Icon(CupertinoIcons.phone,color: AppColors.primary,size: 22,),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                        )
+
+                    ),
                     maxLength: 10,
                     keyboardType: TextInputType.phone,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'Number is required';
                       }
-                      return (RegExp(r'[!@#%^&*a-zA-Z]').hasMatch(value))
-                          ? 'Enter only numbers'
-                          : null;
+                      return (RegExp(r'[.!@#%^&*a-zA-Z]').hasMatch(value)) ? 'Enter only numbers' : null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
+
                   const SizedBox(height: 5),
                   TextFormField(
-                    //For E-mail
+                    // E-Mail
                     controller: _mail,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "E-Mail*",
-                        hintText: 'E-mail',
-                        prefixIcon: Icon(Icons.email, color: Colors.blue)),
+                    decoration:  InputDecoration(
+                        labelText: "E-mail*",
+                        hintText: "E-Mail",
+                        filled: true,
+                        fillColor:AppColors.secondary,
+                        isDense: true,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        prefixIcon: Icon(
+                          CupertinoIcons.mail,color: AppColors.primary,size: 20,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.secondary),
+                        )
+                    ),
                     keyboardType: TextInputType.emailAddress,
                     validator: (String? value) {
-                      if (value == null || value.isEmpty) {
+                      if (value == null || value.isEmpty)
+                      {
                         return 'Please enter an email address';
-                      } else if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$')
-                          .hasMatch(value)) {
-                        return 'Format of abc123@gmail.com';
+                      }
+                      if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value) || !value.contains("@gmail.com")) {
+                        return 'Format is abc123@gmail.com';
                       }
                       return null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
+
                   const SizedBox(height: 25),
                   TextFormField(
-                    //For Password
+                    // Password
                     enableSuggestions: false,
                     autocorrect: false,
                     obscureText: !_passVisible,
                     controller: _Password,
                     decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
+                      filled: true,
+                      fillColor: AppColors.secondary,
+                      isDense: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.secondary),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.secondary),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.secondary),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color:AppColors.secondary),
+                      ),
+                      prefixIcon: Icon(Icons.password,color: AppColors.primary,size: 20,),
                       labelText: "Password*",
-                      hintText: 'Password',
-                      prefixIcon: const Icon(Icons.password),
+                      hintText: "Password",
                       suffixIcon: IconButton(
                         icon: Icon(_passVisible
                             ? Icons.visibility
@@ -261,7 +318,7 @@ class _RegistrationState extends State<Registration> {
                       }
                       // Regular expression pattern to validate password format
                       if (!RegExp(
-                              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$')
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$')
                           .hasMatch(value)) {
                         return 'Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long';
                       }
@@ -269,6 +326,7 @@ class _RegistrationState extends State<Registration> {
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
+
                   const SizedBox(height: 25),
                   TextFormField(
                     // For Confirm Password
@@ -277,14 +335,27 @@ class _RegistrationState extends State<Registration> {
                     obscureText: !_CpassVisible,
                     controller: _confirmPassword,
                     decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
+                      filled: true,
+                      fillColor: AppColors.secondary,
+                      isDense: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.secondary),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.secondary),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.secondary),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color:AppColors.secondary),
+                      ),
                       labelText: "Confirm Password*",
                       hintText: 'Confirm Password',
-                      prefixIcon: const Icon(Icons.password),
+                      prefixIcon: Icon(Icons.password,color: AppColors.primary,size: 20,),
                       suffixIcon: IconButton(
-                        icon: Icon(_CpassVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off),
+                        icon: Icon(_CpassVisible ? Icons.visibility : Icons.visibility_off),
                         onPressed: () {
                           setState(() {
                             _CpassVisible = !_CpassVisible;
@@ -304,45 +375,69 @@ class _RegistrationState extends State<Registration> {
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
+
                   Padding(
                     padding: const EdgeInsets.all(25),
-                    child: ElevatedButton(
-                      child: const Text("Register"),
-                      onPressed:
-                          _isButtonDisabled ? null : () => Register(context),
-                      // onPressed: () {
-                      //
-                      //   // Navigator.of(context).push(MaterialPageRoute(
-                      //   //   builder: (context) => MyHomePage(),
-                      //   // ));
-                      // },
+                    child: GestureDetector(
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) { // Validate the form
+                          Register(context); // Submit the login
+                        } else {
+                          // Show a Snackbar indicating that the form fields are not valid
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Please fill in all the fields with valid data"),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10,right: 10),
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 15),
+                          // width: 250,
+                          height: 45,
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "Register",
+                              style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Already Account?"),
-                      TextButton(
-                        child: const Text("LogIn Here"),
+                      TextButton(child: Text("LogIn Here",style: TextStyle(fontWeight: FontWeight.bold,color: AppColors.primary),),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LogIn(),
+                            builder: (context) => const LogIn(),
                           ));
                         },
                       ),
                     ],
                   ),
-                  const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Text(
-                            "By Clicking on Register, you are agree to "
-                            '\n'
-                            "Privacy Policy and "
-                            "Terms & Conditions !!",
-                            style: TextStyle(color: Colors.red)),
-                      ],
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Text("By Clicking on Register, you are agree to ""\n"
+                              "Privacy Policy and "
+                              "Terms & Conditions !!",style: TextStyle(color: Colors.red,fontWeight: FontWeight.w500)),
+                        ],
+                      ),
                     ),
                   ),
                 ],
