@@ -1,22 +1,29 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project/UI/bottombar.dart';
+import 'package:project/UI/homepage_1.dart';
 import 'package:project/login.dart';
 import 'package:project/utils/appcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart'as http;
 
 class UiScreen extends StatefulWidget {
   const UiScreen({super.key});
 
   @override
-  State<UiScreen> createState() => _UiScreenState();
+  State<UiScreen> createState() => UiScreenState();
 }
 
-class _UiScreenState extends State<UiScreen> {
+class UiScreenState extends State<UiScreen> {
+  static const String keylogin = "Login";
 
   @override
   void initState() {
-    Timer(const Duration(seconds: 3), () {Navigator.push(context, MaterialPageRoute(builder: (context) => const LogIn(),));});
     super.initState();
+    // Timer(const Duration(seconds: 3), () {Navigator.push(context, MaterialPageRoute(builder: (context) => const LogIn(),));});
+    whereToGo();
   }
 
 
@@ -58,4 +65,26 @@ class _UiScreenState extends State<UiScreen> {
       ),
     );
   }
+
+
+  void whereToGo() async{
+    var sheredPref = await SharedPreferences.getInstance();
+    String? islogin = sheredPref.getString(keylogin);
+    print("IDSW#!! $islogin");
+
+    Timer(const Duration(seconds: 2), () {
+      if(islogin != null)
+      {
+
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottoBar(cId: islogin,),));
+
+
+      }else
+      {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LogIn(),));
+      }
+    });
+  }
+
 }
+

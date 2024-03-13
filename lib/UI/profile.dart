@@ -8,20 +8,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:project/UI/setting.dart';
 import 'package:project/login.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/model/userprofile.dart';
 import 'package:project/utils/appcolor.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:project/utils/global_function.dart';
 
-userProfile? userData;
+
 
 class Profile extends StatefulWidget {
-  String? name;
-  String? mobile;
-  String? email;
-  final SharedPreferences prefs;
+
   String? cId;
 
-  Profile({Key? key, required this.prefs, this.cId,this.name,this.mobile,this.email}) : super(key: key);
+  Profile({Key? key,this.cId}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -113,7 +109,7 @@ class _ProfileState extends State<Profile> {
     });
 
     // Save image to local storage
-    widget.prefs.setString('profile_image', base64Encode(_image!));
+    // widget.prefs.setString('profile_image', base64Encode(_image!));
     Navigator.of(context).pop();
   }
 
@@ -128,7 +124,7 @@ class _ProfileState extends State<Profile> {
     });
 
     // Save image to local storage
-    widget.prefs.setString('profile_image', base64Encode(_image!));
+    // widget.prefs.setString('profile_image', base64Encode(_image!));
     Navigator.of(context).pop();
   }
 
@@ -140,17 +136,17 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> _loadImage() async {
-    String? profileImageString = widget.prefs.getString('profile_image');
+    // String? profileImageString = widget.prefs.getString('profile_image');
 
-    if (profileImageString != null) {
-      setState(() {
-        _image = base64Decode(profileImageString);
-      });
-    }
+    // if (profileImageString != null) {
+    //   setState(() {
+    //     _image = base64Decode(profileImageString);
+    //   });
+    // }
   }
 
   Future<void> _deleteImage() async {
-    widget.prefs.remove('profile_image');
+    // widget.prefs.remove('profile_image');
     setState(() {
       _image = null;
     });
@@ -159,7 +155,7 @@ class _ProfileState extends State<Profile> {
 
 
   void logout(BuildContext context) async {
-    await widget.prefs.setBool('isLoggedIn', false); // Clear login status
+    // await widget.prefs.setBool('isLoggedIn', false); // Clear login status
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) => LogIn(),
     ));
@@ -168,9 +164,9 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     print('PROFILEPAGE::');
-    print(widget.name);
-    print(widget.email);
-    print(widget.mobile);
+    // print(widget.name);
+    // print(widget.email);
+    // print(widget.mobile);
 
     return Scaffold(
       appBar: AppBar(
@@ -238,7 +234,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   const SizedBox(height: 8),
                   Text(
-                    "${widget.name}",
+                    "${GlobalFunction.userProfile.name}",
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 25,
@@ -255,7 +251,7 @@ class _ProfileState extends State<Profile> {
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
-                        "${widget.email.toString()}",
+                        "${GlobalFunction.userProfile.email.toString()}",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w400),
                       ),
@@ -272,7 +268,7 @@ class _ProfileState extends State<Profile> {
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
-                        "${widget.mobile}",
+                        "${GlobalFunction.userProfile.mobile}",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w400),
                       ),

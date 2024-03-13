@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 import 'package:project/UI/find_bus.dart';
 import 'package:project/model/data.dart';
 import 'package:project/utils/appcolor.dart';
+import 'package:project/utils/global_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -110,7 +110,8 @@ class _MyHomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       Text(
-                        "Hey ${widget.name.toString()} ! and ${widget.cid.toString()}",
+                        "Hey ${GlobalFunction.userProfile.name.toString()} ! and ${widget.cid.toString()}",
+
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -123,11 +124,10 @@ class _MyHomePageState extends State<HomePage> {
                             fontSize: 18,
                             fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(height: 5,),
                       Image(
-                        image: AssetImage("assets/images/homepage.png"),
+                        image: AssetImage("assets/images/bus1.png"),
                         height: 100,
-                        width: 135,
+                        width: 100,
                       )
                     ],
                   ),
@@ -349,20 +349,23 @@ class _MyHomePageState extends State<HomePage> {
                               Card(
                                 color: Color.fromRGBO(255, 98, 96, 1),
                                 child: Container(
-                                  height: 120,width: 262,
+                                  height: 130,width: 250,
                                   child: Column(
                                     children: [
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                            padding: EdgeInsets.only(left: 10,top: 12),
+                                            // child: Text("Stay informed! Get real-time bus \nlocation updates to plan your journey \nefficiently. Never miss your stop again.",style: TextStyle(fontSize: 10),),
                                             child: Text("Stay updated with \nreal-time bus locations. \n\nNever miss your stop!",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400 ),),
                                           ),
-                                          Lottie.network("https://lottie.host/68b773b8-dbd9-4fd3-8676-eb26ade732ef/8lmoFYgxmf.json",height: 110,width: 110),
-                                          // ClipRRect(
-                                          //     borderRadius: BorderRadius.circular(10),
-                                          //     child:
-                                          // ),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 15,right: 1),
+                                            child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(10),
+                                                child: Image.asset("assets/images/features/bus_location.jpg",width: 100,height: 100,)
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ],

@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:project/UI/homepage_1.dart';
 import 'package:project/UI/profile.dart';
 import 'package:project/UI/ticket.dart';
+import 'package:project/model/userprofile.dart';
 import 'package:project/utils/appcolor.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:project/utils/global_function.dart';
 import 'package:http/http.dart'as http;
 
 class BottoBar extends StatefulWidget {
@@ -26,7 +27,7 @@ class _BottoBarState extends State<BottoBar> {
   String? email;
 
   int currentPageIndex = 0;
-  late SharedPreferences prefs;
+  // late SharedPreferences prefs;
   displayName() async
   {
     final response = await http.post(Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/displayuser.php"),
@@ -41,37 +42,33 @@ class _BottoBarState extends State<BottoBar> {
       var data = jsonDecode(response.body) ;
 
       print(response.body);
-      setState(() {
-        name=data['userProfile']['name'];
-        mobile=data['userProfile']['mobile'];
-        email=data['userProfile']['email'];
 
-
-        print('NAme:${name}\nMobile: ${mobile}\n Email:${email}');
-
-
-      });
+      GlobalFunction.userProfile = UserProfile.fromJson(data['userProfile']);
+      // setState(() {
+      //   name=data['userProfile']['name'];
+      //   mobile=data['userProfile']['mobile'];
+      //   email=data['userProfile']['email'];
+      //
+      //
+      //   print('NAme:${name}\nMobile: ${mobile}\n Email:${email}');
+      //
+      //
+      // });
     }
   }
   @override
   void initState() {
     super.initState();
-    loadPreferences();
+
     displayName();
   }
 
-  void loadPreferences() async {
-    prefs = await SharedPreferences.getInstance();
-    SharedPreferences.getInstance().then((value) => prefs = value);
-    setState(() {});
-  }
+
 
   @override
   Widget build(BuildContext context) {
     print('CUSTOMER ID BOTTOMBAR:::${widget.cId}');
-    return prefs == null
-        ? CircularProgressIndicator() // Show loading indicator until prefs are loaded
-        : Scaffold(
+    return  Scaffold(
       body: IndexedStack(
         index: currentPageIndex,
         children: [
@@ -82,11 +79,9 @@ class _BottoBarState extends State<BottoBar> {
           ),
           Tickets(cId: widget.cId.toString(),),
           Profile(
-            prefs: prefs,
+
             cId: widget.cId,
-            name: name.toString(),
-            mobile: mobile.toString(),
-            email: email.toString(),
+
           ),
         ],
       ),
