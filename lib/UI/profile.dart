@@ -234,7 +234,7 @@ class _ProfileState extends State<Profile> {
                     const CircleAvatar(
                       radius: 90,
                       backgroundImage:
-                      AssetImage("assets/images/girldp2.png"),
+                      AssetImage("assets/images/feature/profile_dp.png"),
                     ),
                   const SizedBox(height: 8),
                   Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project/utils/appcolor.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -16,8 +17,8 @@ class _SettingState extends State<Setting> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Setting",style: TextStyle(color: Colors.white),),
-        backgroundColor:  const Color.fromRGBO(255, 98, 96, 1),
-        surfaceTintColor:  const Color.fromRGBO(255, 98, 96, 1),
+        backgroundColor:  AppColors.primary,
+        surfaceTintColor:  AppColors.primary,
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20),
@@ -27,11 +28,12 @@ class _SettingState extends State<Setting> {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                   child:
-                  Image.asset("assets/images/setting.jpg",)
+                  Image.asset("assets/images/setting_new.png",height: 227,width: 250,)
               ),
             ),
             const SizedBox(height: 20,),
             Card(
+              color: AppColors.secondary,
               child: ListTile(
                 title: Text("App language"),
                 subtitle: Text("English\t(Device language)"),
@@ -40,6 +42,7 @@ class _SettingState extends State<Setting> {
             ),
             const SizedBox(height: 5,),
             Card(
+              color: AppColors.secondary,
               child: ListTile(
                 title: Text("Help Center"),
                 subtitle: Text("Contact us,Privacy Policy"),
@@ -48,6 +51,7 @@ class _SettingState extends State<Setting> {
             ),
             const SizedBox(height: 5,),
             Card(
+              color: AppColors.secondary,
               child: ListTile(
                 title: Text("Invite a friend"),
                 trailing: Icon(CupertinoIcons.person_3_fill,size: 30),
