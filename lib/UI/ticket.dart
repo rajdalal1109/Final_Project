@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:project/model/tickethistorymodel.dart';
 import 'package:http/http.dart'as http;
 import 'package:intl/intl.dart';
+import 'package:project/utils/appcolor.dart';
 class Tickets extends StatefulWidget {
   String?cId;
 
@@ -41,8 +42,10 @@ class _TicketsState extends State<Tickets> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
-        surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),//background: rgba(255, 98, 96, 1);
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.primary,
+        surfaceTintColor: AppColors.primary,
+        centerTitle: true,
         title: const Text("My Tickets",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.white)),
       ),
       body: Column(

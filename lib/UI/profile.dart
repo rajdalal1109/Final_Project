@@ -9,6 +9,7 @@ import 'package:project/UI/setting.dart';
 import 'package:project/login.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/model/userprofile.dart';
+import 'package:project/utils/appcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 userProfile? userData;
@@ -173,12 +174,13 @@ class _ProfileState extends State<Profile> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           "Profile",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
-        surfaceTintColor: const Color.fromRGBO(255, 98, 96, 1),
+        backgroundColor: AppColors.primary,
+        surfaceTintColor: AppColors.primary,
         actions: [
           IconButton(
             onPressed: () {
@@ -205,21 +207,20 @@ class _ProfileState extends State<Profile> {
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Stack(
-          clipBehavior: Clip.none,
           children: [
             Container(
-              height: 179,
+              height: 80,
               width: 393,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(8),
                   bottomRight: Radius.circular(8),
                 ),
-                color: Color.fromRGBO(255, 98, 96, 1),
+                color: AppColors.primary,
               ),
             ),
             Positioned(
-              top: 80,
+              top: 20,
               left: 20,
               right: 20,
               child: Column(
@@ -236,16 +237,17 @@ class _ProfileState extends State<Profile> {
                       AssetImage("assets/images/girldp2.png"),
                     ),
                   const SizedBox(height: 8),
-
                   Text(
                     "${widget.name}",
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 25,
+                      color: AppColors.primary,
                     ),
                   ),
                   const SizedBox(height: 30),
                   Card(
+                    color: AppColors.secondary,
                     child: ListTile(
                       title: Text(
                         "Email",
@@ -262,6 +264,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   const SizedBox(height: 5),
                   Card(
+                    color: AppColors.secondary,
                     child: ListTile(
                       title: Text(
                         "Phone Number",
@@ -284,7 +287,8 @@ class _ProfileState extends State<Profile> {
                         MaterialPageRoute(builder: (context) => Setting()),
                       );
                     },
-                    child: const Card(
+                    child: Card(
+                      color: AppColors.secondary,
                       child: ListTile(
                         title: Text(
                           "Setting",
@@ -300,7 +304,8 @@ class _ProfileState extends State<Profile> {
                     onTap: () {
                       logout(context);
                     },
-                    child: const Card(
+                    child: Card(
+                      color: AppColors.secondary,
                       child: ListTile(
                         title: Text(
                           "Log Out",
