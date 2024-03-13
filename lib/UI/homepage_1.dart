@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:project/UI/find_bus.dart';
 import 'package:project/model/data.dart';
 import 'package:project/utils/appcolor.dart';
@@ -348,23 +349,20 @@ class _MyHomePageState extends State<HomePage> {
                               Card(
                                 color: Color.fromRGBO(255, 98, 96, 1),
                                 child: Container(
-                                  height: 130,width: 250,
+                                  height: 120,width: 262,
                                   child: Column(
                                     children: [
                                       Row(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(left: 10,top: 12),
-                                            // child: Text("Stay informed! Get real-time bus \nlocation updates to plan your journey \nefficiently. Never miss your stop again.",style: TextStyle(fontSize: 10),),
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Text("Stay updated with \nreal-time bus locations. \n\nNever miss your stop!",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400 ),),
                                           ),
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 15,right: 1),
-                                            child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(10),
-                                                child: Image.asset("assets/images/features/bus_location.jpg",width: 100,height: 100,)
-                                            ),
-                                          ),
+                                          Lottie.network("https://lottie.host/68b773b8-dbd9-4fd3-8676-eb26ade732ef/8lmoFYgxmf.json",height: 110,width: 110),
+                                          // ClipRRect(
+                                          //     borderRadius: BorderRadius.circular(10),
+                                          //     child:
+                                          // ),
                                         ],
                                       ),
                                     ],
