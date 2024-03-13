@@ -44,6 +44,7 @@ dependencies:
   icons_launcher: ^2.1.7
   dotted_line: ^3.2.2
   pinput: ^4.0.0
+  rename_app: ^1.3.2
 
 flutter_icons:
   android: true

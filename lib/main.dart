@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: "Ubuntu"),
-      title: 'Bus Buddy',
+      title: 'BusBuddy',
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: "Bus Buddy"),
+      home: MyHomePage(title: "BusBuddy"),
     );
   }
 }
