@@ -31,32 +31,8 @@ class _LogInState extends State<LogIn> {
   @override
   void initState() {
     super.initState();
-    //_initSharedPreferences();
   }
 
-  // Future<void> _initSharedPreferences() async {
-  //   prefs = await SharedPreferences.getInstance();
-  //   final userProfile = await _getUserProfile(); // Retrieve user profile
-  //   if (userProfile != null) {
-  //     setState(() {
-  //       userData = userProfile;
-  //     });
-  //   }
-  // }
-
-  // Future<void> _saveUserProfile(userProfile) async {
-  //   final userProfileJson = jsonEncode(userProfile.toJson());
-  //   await prefs.setString('userProfile', userProfileJson);
-  // }
-  //
-  // Future<userProfile?> _getUserProfile() async {
-  //   final userProfileJson = prefs.getString('userProfile');
-  //   if (userProfileJson != null) {
-  //     final userProfileMap = jsonDecode(userProfileJson);
-  //     return userProfile.fromJson(userProfileMap);
-  //   }
-  //   return null;
-  // }
 
   @override
   void dispose() {
@@ -80,15 +56,13 @@ class _LogInState extends State<LogIn> {
       print('Response body: ${response.body}');
       var responseBody = jsonDecode(response.body);
       if (responseBody['STATUS'] == true) {
+
         setState(() {
           cId = responseBody['cid'];
         });
+
         var shredPref = await SharedPreferences.getInstance();
-
         shredPref.setString(UiScreenState.keylogin, responseBody['cid']);
-
-
-
 
         Navigator.pushReplacement(
           context,
