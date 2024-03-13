@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/UI/pass-detail.dart';
+import 'package:BusBuddy/UI/pass-detail.dart';
 
 class BoardDrop extends StatefulWidget {
   const BoardDrop({super.key});

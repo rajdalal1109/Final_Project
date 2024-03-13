@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pinput/pinput.dart';
-import 'package:project/UI/bottombar.dart';
-import 'package:project/registration.dart';
+import 'package:BusBuddy/UI/bottombar.dart';
+import 'package:BusBuddy/registration.dart';
 
 class VerifyMail extends StatefulWidget {
   final String email;

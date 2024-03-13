@@ -1,4 +1,4 @@
-import 'package:project/model/userprofile.dart';
+import 'package:BusBuddy/model/userprofile.dart';
 
 class GlobalFunction {
  static UserProfile userProfile = UserProfile();

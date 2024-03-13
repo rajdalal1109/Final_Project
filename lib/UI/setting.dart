@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});

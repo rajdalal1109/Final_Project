@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project/UI/homepage_1.dart';
-import 'package:project/UI/profile.dart';
-import 'package:project/UI/ticket.dart';
-import 'package:project/model/userprofile.dart';
-import 'package:project/utils/appcolor.dart';
-import 'package:project/utils/global_function.dart';
+import 'package:BusBuddy/UI/homepage_1.dart';
+import 'package:BusBuddy/UI/profile.dart';
+import 'package:BusBuddy/UI/ticket.dart';
+import 'package:BusBuddy/model/userprofile.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
+import 'package:BusBuddy/utils/global_function.dart';
 import 'package:http/http.dart'as http;
 
 class BottoBar extends StatefulWidget {

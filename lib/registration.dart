@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:project/Auth/verify_mail.dart';
-import 'package:project/UI/bottombar.dart';
-import 'package:project/login.dart';
+import 'package:BusBuddy/Auth/verify_mail.dart';
+import 'package:BusBuddy/UI/bottombar.dart';
+import 'package:BusBuddy/login.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);

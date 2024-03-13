@@ -5,11 +5,11 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project/UI/setting.dart';
-import 'package:project/login.dart';
+import 'package:BusBuddy/UI/setting.dart';
+import 'package:BusBuddy/login.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/utils/appcolor.dart';
-import 'package:project/utils/global_function.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
+import 'package:BusBuddy/utils/global_function.dart';
 
 
 

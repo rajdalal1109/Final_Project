@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project/UI/bottombar.dart';
-import 'package:project/UI/homepage_1.dart';
-import 'package:project/login.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/UI/bottombar.dart';
+import 'package:BusBuddy/UI/homepage_1.dart';
+import 'package:BusBuddy/login.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart'as http;
 

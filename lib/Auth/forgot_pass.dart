@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/Auth/verify_otp.dart';
-import 'package:project/registration.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/Auth/verify_otp.dart';
+import 'package:BusBuddy/registration.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 class ForgotPass extends StatefulWidget {
 

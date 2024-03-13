@@ -851,9 +851,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/UI/select_seat.dart';
-import 'package:project/model/dropdown.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/UI/select_seat.dart';
+import 'package:BusBuddy/model/dropdown.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 class FindBus extends StatefulWidget {
   String? source;

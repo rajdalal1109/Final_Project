@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/UI/showtickethistory.dart';
-import 'package:project/model/tickethistorymodel.dart';
+import 'package:BusBuddy/UI/showtickethistory.dart';
+import 'package:BusBuddy/model/tickethistorymodel.dart';
 
 
 class TicketHistory extends StatefulWidget {

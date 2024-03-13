@@ -185,10 +185,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/UI/bottombar.dart';
-import 'package:project/UI/homepage_1.dart';
-import 'package:project/model/showticketmodel.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/UI/bottombar.dart';
+import 'package:BusBuddy/UI/homepage_1.dart';
+import 'package:BusBuddy/model/showticketmodel.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 class ConfirmTickets extends StatefulWidget {
   String? ticketNo;

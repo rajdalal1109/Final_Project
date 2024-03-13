@@ -179,10 +179,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project/UI/confirm_ticket.dart';
-import 'package:project/UI/showpass_details.dart';
-import 'package:project/model/seatselect.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/UI/confirm_ticket.dart';
+import 'package:BusBuddy/UI/showpass_details.dart';
+import 'package:BusBuddy/model/seatselect.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 int selectoption = 1;
 

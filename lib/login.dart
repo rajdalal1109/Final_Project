@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project/Auth/forgot_pass.dart';
-import 'package:project/UI/bottombar.dart';
-import 'package:project/UI/splash_screen.dart';
-import 'package:project/registration.dart';
+import 'package:BusBuddy/Auth/forgot_pass.dart';
+import 'package:BusBuddy/UI/bottombar.dart';
+import 'package:BusBuddy/UI/splash_screen.dart';
+import 'package:BusBuddy/registration.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/utils/appcolor.dart';
-import 'package:project/utils/global_function.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
+import 'package:BusBuddy/utils/global_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogIn extends StatefulWidget {

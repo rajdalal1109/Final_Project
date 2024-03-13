@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/Auth/forgot_pass.dart';
-import 'package:project/Auth/newpass.dart';
+import 'package:BusBuddy/Auth/forgot_pass.dart';
+import 'package:BusBuddy/Auth/newpass.dart';
 import 'package:pinput/pinput.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 class VerifyOtp extends StatefulWidget {
   final String email;

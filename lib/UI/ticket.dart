@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:project/model/tickethistorymodel.dart';
+import 'package:BusBuddy/model/tickethistorymodel.dart';
 import 'package:http/http.dart'as http;
 import 'package:intl/intl.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 class Tickets extends StatefulWidget {
   String?cId;
 

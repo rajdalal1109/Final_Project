@@ -5,10 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project/UI/find_bus.dart';
-import 'package:project/model/data.dart';
-import 'package:project/utils/appcolor.dart';
-import 'package:project/utils/global_function.dart';
+import 'package:BusBuddy/UI/find_bus.dart';
+import 'package:BusBuddy/model/data.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
+import 'package:BusBuddy/utils/global_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {

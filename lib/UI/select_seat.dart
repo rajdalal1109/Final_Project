@@ -289,10 +289,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/UI/pass-detail.dart';
-import 'package:project/model/dropdown.dart';
-import 'package:project/model/seatselect.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/UI/pass-detail.dart';
+import 'package:BusBuddy/model/dropdown.dart';
+import 'package:BusBuddy/model/seatselect.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 class SeatSelect extends StatefulWidget {
   BusDisplay? bus;

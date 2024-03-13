@@ -1,7 +1,7 @@
 //import 'package:apidemo/login.dart';
 import 'package:flutter/material.dart';
-import 'package:project/login.dart';
-import 'package:project/utils/appcolor.dart';
+import 'package:BusBuddy/login.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 class Done extends StatefulWidget {
   // const Done({super.key});
