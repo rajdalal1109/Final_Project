@@ -983,7 +983,7 @@ class _FindBusState extends State<FindBus> {
                           widget.source.toString(),
                           style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.w500),
                         ),
                         IconButton(
@@ -995,13 +995,13 @@ class _FindBusState extends State<FindBus> {
                           widget.destination.toString(),
                           style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1009,7 +1009,7 @@ class _FindBusState extends State<FindBus> {
                         const Text(
                           "Date:\t\t",
                           style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Color.fromRGBO(238, 238, 238, 1)),
                         ),
@@ -1023,17 +1023,19 @@ class _FindBusState extends State<FindBus> {
                         // Text(widget.dateInput.toString(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400,color: Color.fromRGBO(238, 238, 238, 1)),),
                       ],
                     ),
+                    SizedBox(height: 5,),
                     const Image(
-                        image: AssetImage("assets/images/find_page.png"),
-                        height: 90,
-                        width: 90),
+                        // image: AssetImage("assets/images/find_page.png"),
+                        image: AssetImage("assets/images/feature/findbus.png"),
+                        height: 100,
+                        width: 100),
                   ],
                 ),
               ),
 
               // Bus Card
               Positioned(
-                top: 230,
+                top: 245,
                 left: 20,
                 right: 20,
                 child: Container(

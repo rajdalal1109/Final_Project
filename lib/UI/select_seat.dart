@@ -563,7 +563,7 @@ class _SeatSelectState extends State<SeatSelect> {
                                   height: 50,
                                   alignment: Alignment.center,
                                   child:
-                                  Image.asset("assets/images/features/Seat.png",color: color),
+                                  Image.asset("assets/images/feature/Seat.png",color: color),
                                   // Icon(
                                   //   Icons.chair_rounded,
                                   //   color: color,

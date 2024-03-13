@@ -259,7 +259,7 @@ class _PassDeatilsState extends State<PassDeatils> {
                       size: 35,
                     ),
                     Text(
-                      "\t\t" "Passanger Deatils",
+                      "\t\t" "Traveller Information",
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600,color: AppColors.primary),
                     ),
                   ],
@@ -275,6 +275,7 @@ class _PassDeatilsState extends State<PassDeatils> {
                           print(widget.seat[index].seatNo);
                         },
                         child: Card(
+                          color: Colors.white,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -291,39 +292,47 @@ class _PassDeatilsState extends State<PassDeatils> {
                                           'SeatNo : ${widget.seat[index].seatNo}',
                                       style: TextStyle(
                                           fontSize: 15,
-                                          fontWeight: FontWeight.w700),
+                                          fontWeight: FontWeight.w700,
+                                        color: AppColors.primary,
+                                      ),
                                     ),
                                   ],
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: TextFormField(
+                                  child:
+                                  TextFormField(
                                     // For Name
                                     controller: widget.seat[index].name,
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: "Name*",
-                                      prefixIcon: Icon(Icons.person,
-                                          color: Colors.blue),
-                                      hintText: 'Name',
+                                    decoration:  InputDecoration(
+                                        filled: true,
+                                        fillColor:AppColors.secondary,
+                                        isDense: true,
+                                        labelText: "Name*",
+                                        prefixIcon: Icon(CupertinoIcons.person_alt_circle,color: AppColors.primary,size: 22,),
+                                        hintText: 'Name',
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: AppColors.secondary),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(color: AppColors.secondary),
+                                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: AppColors.secondary),
+                                        ),
+                                        disabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: AppColors.secondary),
+                                        )
                                     ),
                                     keyboardType: TextInputType.name,
                                     validator: (String? value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Name is required';
                                       }
-                                      String trimmedValue = value.trim();
-                                      if (trimmedValue.length < 2) {
-                                        return 'Name should contain at least two letters';
-                                      }
-                                      if (RegExp(r'[0-9!@#%^&*]')
-                                          .hasMatch(trimmedValue)) {
-                                        return 'Name should only contain letters';
-                                      }
-                                      return null;
+                                      return (RegExp(r'[!@#%^&*0-9]').hasMatch(value)) ? 'Please enter alphabets only' : null;
                                     },
-                                    autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                   ),
                                 ),
                                 Padding(
@@ -332,13 +341,28 @@ class _PassDeatilsState extends State<PassDeatils> {
                                   child: TextFormField(
                                     //For Age
                                     controller: widget.seat[index].age,
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
+                                    decoration: InputDecoration(
                                       labelText: "Age*",
                                       hintText: 'Age',
+                                      filled: true,
+                                      isDense: true,
+                                      fillColor: AppColors.secondary,
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: AppColors.secondary),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(color: AppColors.secondary),
+                                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: AppColors.secondary),
+                                        ),
+                                        disabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: AppColors.secondary),
+                                        )
                                       // prefixIcon: Icon(Icons.age, color: Colors.blue)
                                     ),
-                                    maxLength: 2,
+                                    maxLength: 3,
                                     keyboardType: TextInputType.number,
                                     validator: (String? value) {
                                       if (value == null || value.isEmpty) {
@@ -359,9 +383,11 @@ class _PassDeatilsState extends State<PassDeatils> {
                                   child: Row(
                                     children: <Widget>[
                                       Text(
-                                        'Gender:',
+                                        'Gender :',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                          color: AppColors.primary,
+                                        ),
                                       ),
                                       Radio(
                                           value: 'Male',
@@ -423,21 +449,23 @@ class _PassDeatilsState extends State<PassDeatils> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 50,
-                    width: 350,
+                  child:
+                  Container(
+                    width: 300,
+                    height: 40,
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(255, 98, 96, 1),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppColors.primary,
                     ),
                     child: Center(
                         child: Text(
                           "Proceed to Book",
                           style: TextStyle(
+                              fontSize: 20,
                               color: Colors.white,
-                              fontSize: 22,
                               fontWeight: FontWeight.w500),
-                        )),
+                        )
+                    ),
                   ),
                 ),
               ),

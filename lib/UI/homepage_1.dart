@@ -122,10 +122,11 @@ class _MyHomePageState extends State<HomePage> {
                             fontSize: 18,
                             fontWeight: FontWeight.w500),
                       ),
+                      SizedBox(height: 5,),
                       Image(
-                        image: AssetImage("assets/images/bus1.png"),
+                        image: AssetImage("assets/images/homepage.png"),
                         height: 100,
-                        width: 100,
+                        width: 135,
                       )
                     ],
                   ),

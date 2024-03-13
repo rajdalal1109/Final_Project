@@ -188,6 +188,7 @@ import 'package:http/http.dart' as http;
 import 'package:project/UI/bottombar.dart';
 import 'package:project/UI/homepage_1.dart';
 import 'package:project/model/showticketmodel.dart';
+import 'package:project/utils/appcolor.dart';
 
 class ConfirmTickets extends StatefulWidget {
   String? ticketNo;
@@ -224,16 +225,15 @@ class _TicketsState extends State<ConfirmTickets> {
     print('TicketNo on Confir TIcket::::${widget.ticketNo.toString()}');
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 98, 96, 1),
+        backgroundColor: AppColors.primary,
+        surfaceTintColor: AppColors.primary,
       ),
-      backgroundColor: Color.fromRGBO(255, 98, 96, 1),
       body: SafeArea(
         child: Column(
           children: [
             Container(
-              // color: Colors.redAccent,
-              color: Color.fromRGBO(255, 98, 96, 1),
-              height: MediaQuery.of(context).size.height * 0.12,
+              color: AppColors.primary,
+              height: MediaQuery.of(context).size.height * 0.15,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
@@ -246,7 +246,7 @@ class _TicketsState extends State<ConfirmTickets> {
                               fontWeight: FontWeight.w700,
                               color: Colors.white)),
                       SizedBox(width: 5),
-                      // Image.asset("assets/images/confirm.png"),
+                      Image.asset("assets/images/confirm.png"),
                       // ImageIcon(AssetImage("assets/images/confirm.png")),
                     ],
                   ),
@@ -255,12 +255,14 @@ class _TicketsState extends State<ConfirmTickets> {
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: Colors.white)),
+                          color: Colors.white)
+                  ),
                   Text("abc@gmail.com",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white)),
+                          color: Colors.white)
+                  ),
                 ],
               ),
             ),
@@ -272,12 +274,14 @@ class _TicketsState extends State<ConfirmTickets> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 30, right: 50, left: 50),
+                      padding: EdgeInsets.only(top: 30, right: 40, left: 40),
                       child: SingleChildScrollView(
                         physics: AlwaysScrollableScrollPhysics(),
                         child: Container(
-                            height: 380,
+                            height: 400,
+                            width: 500,
                             decoration: BoxDecoration(
+                              color: AppColors.secondary,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: FutureBuilder(
@@ -289,126 +293,126 @@ class _TicketsState extends State<ConfirmTickets> {
                                 } else if (snapshot.hasError) {
                                   return Text('ERROR :::${snapshot.error}');
                                 } else {
-                                  return ListView.builder(
-                                    itemBuilder: (context, index) {
-                                      final ticket = snapshot.data![index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: ListView.builder(
+                                      itemBuilder: (context, index) {
+                                        final ticket = snapshot.data![index];
 
-                                      return Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              "Bus Name : ${ticket.busname.toString()}"),
-                                          Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Source : ${ticket.start.toString()}",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                    FontWeight.w700),
-                                              ),
-                                              // IconButton(
-                                              //   icon: const Icon(Icons.swap_vert,
-                                              //       color: Colors.black),
-                                              //   onPressed: () {},
-                                              // ),
-                                              Text(
-                                                "Desination : ${ticket.end.toString()}",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                    FontWeight.w700),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          Text(
-                                              "Day : ${ticket.day.toString()}"),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                              "Arival Time : ${ticket.reportingTime.toString()}"),
-                                          Text(
-                                              "Desination Time : ${ticket.depatureTime.toString()}"),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          DottedLine(
-                                            dashLength: 5,
-                                            dashColor: Colors.black,
-                                            lineThickness: 2,
-                                            dashGapLength: 6,
-                                          ),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          Text(
-                                            "Ticket No : ${ticket.tickitno.toString()}",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          ListView.builder(
-                                            itemBuilder: (context, index) {
-                                              final passenger =
-                                                  ticket.passenger;
-                                              return Container(
-                                                height: 50,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                        "Passanger Name : ${passenger![index].name.toString()}"),
-                                                    Text(
-                                                        "Seat No : ${passenger[index].seatno.toString()}")
-                                                  ],
+                                        return Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "From : ${ticket.start.toString()}",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                      FontWeight.w700),
                                                 ),
-                                              );
-                                            },
-                                            shrinkWrap: true,
-                                            itemCount: ticket.passenger!.length,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            "Price = ${ticket.amount.toString()}",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                          Text(
-                                            "Ticket Booking Date : ${ticket.bookingdate.toString()}",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                          Text(
-                                            "Ticket Created Date : ${ticket.createddate.toString()}",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                    itemCount: snapshot.data!.length,
+                                                Text(
+                                                    "Arival Time : ${ticket.reportingTime.toString()}"),
+                                                SizedBox(
+                                                  height: 15,
+                                                ),
+                                                Text(
+                                                  "To : ${ticket.end.toString()}",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                      FontWeight.w700),
+                                                ),
+                                                Text(
+                                                    "Desination Time : ${ticket.depatureTime.toString()}"),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                                "Day : ${ticket.bookingdate.toString()},  ${ticket.day.toString()}"),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            DottedLine(
+                                              dashLength: 5,
+                                              dashColor: Colors.black,
+                                              lineThickness: 2,
+                                              dashGapLength: 6,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                                "Bus Name : ${ticket.busname.toString()} Travel"),
+                                            Text(
+                                              "Ticket No : ${ticket.tickitno.toString()}",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            ListView.builder(
+                                              itemBuilder: (context, index) {
+                                                final passenger =
+                                                    ticket.passenger;
+                                                return Container(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                          "Passanger Name : ${passenger![index].name.toString()}"),
+                                                      Text(
+                                                          "Seat No : ${passenger[index].seatno.toString()}")
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              shrinkWrap: true,
+                                              itemCount: ticket.passenger!.length,
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                              "Price = ₹${ticket.amount.toString()}",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              "Ticket Booking Date : ${ticket.bookingdate.toString()}",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            Text(
+                                              "Ticket Created Date : ${ticket.createddate.toString()}",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                      itemCount: snapshot.data!.length,
+                                    ),
                                   );
                                 }
                               },
@@ -418,7 +422,6 @@ class _TicketsState extends State<ConfirmTickets> {
                     GestureDetector(
                       onTap: () {
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottoBar()));
-
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
@@ -428,7 +431,7 @@ class _TicketsState extends State<ConfirmTickets> {
                             height: 50,
                             width: 300,
                             decoration: BoxDecoration(
-                                color: Color.fromRGBO(255, 98, 96, 1),
+                                color: AppColors.primary,
                                 borderRadius: BorderRadius.circular(8)),
                             child: const Center(
                                 child: Text(
