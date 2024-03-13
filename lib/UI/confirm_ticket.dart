@@ -180,6 +180,7 @@
 
 import 'dart:convert';
 
+import 'package:BusBuddy/utils/global_function.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -257,7 +258,7 @@ class _TicketsState extends State<ConfirmTickets> {
                           fontWeight: FontWeight.w400,
                           color: Colors.white)
                   ),
-                  Text("abc@gmail.com",
+                  Text("${GlobalFunction.userProfile.email.toString()}",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

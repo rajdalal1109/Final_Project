@@ -126,9 +126,9 @@ class _MyHomePageState extends State<HomePage> {
                             fontWeight: FontWeight.w500),
                       ),
                       Image(
-                        image: AssetImage("assets/images/bus1.png"),
-                        height: 100,
-                        width: 100,
+                        image: AssetImage("assets/images/homepage.png"),
+                        height: 120,
+                        width: 120,
                       )
                     ],
                   ),
@@ -334,11 +334,11 @@ class _MyHomePageState extends State<HomePage> {
 
               //UpComing Feature
               Padding(
-                padding: EdgeInsets.only(top: 550,left: 20),
+                padding: EdgeInsets.only(top: 530,left: 20),
                 child: Text("UpComing Features..",style: TextStyle(fontSize: 20)),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 580,left: 20),
+                padding: EdgeInsets.only(top: 560,left: 15),
                 child: SizedBox(
                   height: 350,
                   child: ListView(
@@ -348,19 +348,18 @@ class _MyHomePageState extends State<HomePage> {
                           child: Row(
                             children: [
                               Card(
-                                color: Color.fromRGBO(255, 98, 96, 1),
+                                color: AppColors.primary,
                                 child: Container(
-                                  height: 130,width: 250,
+                                  height: 140,width: 288,
                                   child: Column(
                                     children: [
                                       Row(
                                         children: [
-                                          Text("Stay updated with \nreal-time bus locations. \n\nNever miss your stop!",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400 ),),
-                                          Lottie.network("https://lottie.host/68b773b8-dbd9-4fd3-8676-eb26ade732ef/8lmoFYgxmf.json",width: 100,height: 100),
-                                          // ClipRRect(
-                                          //     borderRadius: BorderRadius.circular(10),
-                                          //     child: Image.asset("assets/images/features/bus_location.jpg",width: 100,height: 100,)
-                                          // ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: Text("Stay updated with \nreal-time bus locations. \n\nNever miss your stop!",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600,color: Colors.white),),
+                                          ),
+                                          Lottie.network("https://lottie.host/68b773b8-dbd9-4fd3-8676-eb26ade732ef/8lmoFYgxmf.json",width: 120,height: 135),
                                         ],
                                       ),
                                     ],
@@ -368,46 +367,74 @@ class _MyHomePageState extends State<HomePage> {
                                 ),
                               ),
                               Card(
+                                color: AppColors.primary,
                                 child: Container(
-                                  height: 120,width: 200,
+                                  height: 140,width: 288,
                                   child: Column(
                                     children: [
-                                      Text("data"),
-                                      Text("data"),
-                                      Text("data"),
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: Text("Every Week \nnew offer !!",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600,color: Colors.white),),
+                                          ),
+                                          Lottie.network("https://lottie.host/5f710893-1046-4f75-ab97-d94164daa537/6To9UHjuBS.json",width: 190,height: 135),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
                               ), Card(
+                                color: AppColors.primary,
                                 child: Container(
-                                  height: 120,width: 200,
+                                  height: 140,width: 288,
                                   child: Column(
                                     children: [
-                                      Text("data"),
-                                      Text("data"),
-                                      Text("data"),
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: Text("Customer \nSupport!!",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: Colors.white),),
+                                          ),
+                                          Lottie.network("https://lottie.host/a933251a-a92c-4393-822b-307bf71b0e8d/WabGNk43tW.json",width: 190,height: 135),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ), Card(
+                                color: AppColors.primary,
+                                child: Container(
+                                  height: 140,width: 288,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: Text("Secure \nPayment..",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: Colors.white),),
+                                          ),
+                                          Lottie.network("https://lottie.host/d6b8d689-8031-426b-b778-bf61d1c5234b/xTtSknlMBN.json",width: 190,height: 135),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),Card(
+                                color: AppColors.primary,
                                 child: Container(
-                                  height: 120,width: 200,
+                                  height: 140,width: 288,
                                   child: Column(
                                     children: [
-                                      Text("data"),
-                                      Text("data"),
-                                      Text("data"),
-                                    ],
-                                  ),
-                                ),
-                              ), Card(
-                                child: Container(
-                                  height: 120,width: 200,
-                                  child: Column(
-                                    children: [
-                                      Text("data"),
-                                      Text("data"),
-                                      Text("data"),
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: Text("Loading... \nfeatures\nDon't\nmiss out..",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: Colors.white),),
+                                          ),
+                                          Lottie.network("https://lottie.host/d92f4867-e6f5-43a7-9d42-1d3080fcece9/vphfGREsms.json",width: 190,height: 135),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
