@@ -31,6 +31,7 @@ class _MyHomePageState extends State<HomePage> {
   String? email;
   TextEditingController datecontroller = TextEditingController();
   late SharedPreferences prefs;
+  bool fieldsSelected = false;
 
   @override
   void initState() {
@@ -77,6 +78,7 @@ class _MyHomePageState extends State<HomePage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     print("CUTOMER ID ON HOME${GlobalFunction.userProfile.cid.toString()}");
@@ -112,7 +114,6 @@ class _MyHomePageState extends State<HomePage> {
                     children: [
                       Text(
                         "Hey ${GlobalFunction.userProfile.name.toString()} ! and ${GlobalFunction.userProfile.cid.toString()}",
-
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -247,6 +248,18 @@ class _MyHomePageState extends State<HomePage> {
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime.now(),
                                         lastDate: DateTime(2050),
+                                        keyboardType: TextInputType.datetime,
+                                        builder:(context, child) {
+                                          return Theme(
+                                              data: Theme.of(context).copyWith(
+                                                cardColor: AppColors.secondary,
+                                                colorScheme: ColorScheme.light(
+                                                    primary: AppColors.primary,
+                                                    secondary: AppColors.secondary,
+                                                   )
+                                              ),
+                                              child: child!);
+                                        },
                                       );
                                       if (pickedDate != null) {
                                         print(pickedDate);
@@ -257,8 +270,11 @@ class _MyHomePageState extends State<HomePage> {
                                         });
                                       } else {
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text("Please Select Date !!"),
+                                          SnackBar(
+                                            margin: EdgeInsets.only(bottom: 3,left: 10,right: 10),
+                                            behavior: SnackBarBehavior.floating,
+                                            content: Text("Please Select Date !!",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w600)),
+                                            backgroundColor: AppColors.secondary,
                                           ),
                                         );
                                       }
@@ -298,15 +314,24 @@ class _MyHomePageState extends State<HomePage> {
                             const EdgeInsets.only(bottom: 15, top: 15),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                AppColors.primary,
+                                backgroundColor: AppColors.primary,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.push(
+                                if (source == null || destination == null || datecontroller.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      margin: EdgeInsets.only(bottom: 3,right: 10,left: 10),
+                                      behavior: SnackBarBehavior.floating,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                      content: Text("Please select source, destination, and date.",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.black,fontSize: 15)),
+                                      backgroundColor: AppColors.secondary,
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => FindBus(
@@ -315,10 +340,16 @@ class _MyHomePageState extends State<HomePage> {
                                         datecontroller: datecontroller.text,
                                         cId: GlobalFunction.userProfile.cid.toString(),
                                       ),
-                                    ));
+                                    ),
+                                  );
+                                }
                               },
-                              child: const Text('Find Buses', style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400),),
+                              child: const Text(
+                                'Find Buses',
+                                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
+                              ),
                             ),
+
                           ),
                         ),
                       ],

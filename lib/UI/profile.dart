@@ -17,7 +17,8 @@ class Profile extends StatefulWidget {
 
   String? cId;
 
-  late SharedPreferences prefs;
+  var prefs;
+
   Profile({Key? key,this.cId}) : super(key: key);
 
   @override
@@ -27,6 +28,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final TextEditingController name = TextEditingController();
   final TextEditingController number = TextEditingController();
+  late SharedPreferences prefs;
   Uint8List? _image;
   File? selectedIMage;
 
