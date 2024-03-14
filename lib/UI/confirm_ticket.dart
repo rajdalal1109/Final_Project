@@ -203,6 +203,23 @@ class ConfirmTickets extends StatefulWidget {
 }
 
 class _TicketsState extends State<ConfirmTickets> {
+
+  mailTicket() async {
+    var res = await http.post(
+        Uri.parse(
+            'https://busbooking.bestdevelopmentteam.com/Api/ticketmail.php'),
+        body: jsonEncode({
+          "ticketno": widget.ticketNo.toString(),
+          "cid": GlobalFunction.userProfile.cid.toString()
+        }),
+        headers: {'Content-Type': 'application/json'});
+    if(res.statusCode==200){
+      var data=jsonDecode(res.body);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data['message'])));
+      print('TICKET MAIL REESPONS${res.body}');
+    }
+  }
+
   Future<List<ShowTicket>> displayTicket() async {
     var res = await http.post(
         Uri.parse('https://busbooking.bestdevelopmentteam.com/Api/tickit.php'),
@@ -424,7 +441,8 @@ class _TicketsState extends State<ConfirmTickets> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        await mailTicket();
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottoBar()));
                       },
                       child: Padding(

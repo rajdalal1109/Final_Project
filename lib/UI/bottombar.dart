@@ -40,18 +40,11 @@ class _BottoBarState extends State<BottoBar> {
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body) ;
+
       print(response.body);
-      GlobalFunction.userProfile = UserProfile.fromJson(data['userProfile']);
-      // setState(() {
-      //   name=data['userProfile']['name'];
-      //   mobile=data['userProfile']['mobile'];
-      //   email=data['userProfile']['email'];
-      //
-      //
-      //   print('NAme:${name}\nMobile: ${mobile}\n Email:${email}');
-      //
-      //
-      // });
+
+      GlobalFunction.userProfile = UserProfile.fromJson(data['UserProfile']);
+
     }
   }
   @override
@@ -60,8 +53,6 @@ class _BottoBarState extends State<BottoBar> {
 
     displayName();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
