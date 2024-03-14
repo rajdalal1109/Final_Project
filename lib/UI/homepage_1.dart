@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:BusBuddy/UI/find_bus.dart';
-import 'package:BusBuddy/model/data.dart';
+import 'package:BusBuddy/model/routes.dart';
 import 'package:BusBuddy/utils/appcolor.dart';
 import 'package:BusBuddy/utils/global_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -79,7 +79,7 @@ class _MyHomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print("CUTOMER ID ON HOME${widget.cid.toString()}");
+    print("CUTOMER ID ON HOME${GlobalFunction.userProfile.cid.toString()}");
 
     var screensize = MediaQuery.of(context).size;
     return Scaffold(
@@ -111,7 +111,7 @@ class _MyHomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       Text(
-                        "Hey ${GlobalFunction.userProfile.name.toString()} ! and ${widget.cid.toString()}",
+                        "Hey ${GlobalFunction.userProfile.name.toString()} ! and ${GlobalFunction.userProfile.cid.toString()}",
 
                         style: TextStyle(
                             fontSize: 20,
@@ -245,7 +245,7 @@ class _MyHomePageState extends State<HomePage> {
                                       final DateTime? pickedDate = await showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
-                                        firstDate: DateTime(1990),
+                                        firstDate: DateTime.now(),
                                         lastDate: DateTime(2050),
                                       );
                                       if (pickedDate != null) {
@@ -313,7 +313,7 @@ class _MyHomePageState extends State<HomePage> {
                                         source: source!.name.toString(),
                                         destination: destination!.name.toString(),
                                         datecontroller: datecontroller.text,
-                                        cId: widget.cid.toString(),
+                                        cId: GlobalFunction.userProfile.cid.toString(),
                                       ),
                                     ));
                               },
@@ -327,10 +327,10 @@ class _MyHomePageState extends State<HomePage> {
                 ),
               ),
 
-              Padding(
+        /*      Padding(
                 padding: EdgeInsets.only(top: 240,left: 250),
                 child: IconButton(onPressed: (){}, icon: Icon(Icons.swap_vert_circle_rounded),iconSize: 40,color: AppColors.primary,),
-              ),
+              ),*/
 
               //UpComing Feature
               Padding(

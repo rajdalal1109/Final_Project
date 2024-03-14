@@ -536,7 +536,7 @@
 // import 'package:flutter/widgets.dart';
 // import 'package:http/http.dart' as http;
 // import 'package:project/UI/select_seat.dart';
-// import 'package:project/model/dropdown.dart';
+// import 'package:project/model/busdisplay.dart';
 //
 // class FindBus extends StatelessWidget {
 //   String? source;
@@ -847,12 +847,13 @@
 
 import 'dart:convert';
 
+import 'package:BusBuddy/utils/global_function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:BusBuddy/UI/select_seat.dart';
-import 'package:BusBuddy/model/dropdown.dart';
+import 'package:BusBuddy/model/busdisplay.dart';
 import 'package:BusBuddy/utils/appcolor.dart';
 
 class FindBus extends StatefulWidget {
@@ -1089,7 +1090,7 @@ class _FindBusState extends State<FindBus> {
                                           end: widget.destination,
                                           price: stops.price.toString(),
                                           bus: snapshot.data![index],
-                                          cId: widget.cId.toString(),
+                                          cId: GlobalFunction.userProfile.cid.toString(),
                                         ),
                                       ));
                                   print(stops.busid.toString());

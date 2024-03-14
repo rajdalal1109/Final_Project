@@ -24,8 +24,8 @@ class _LogInState extends State<LogIn> {
   String? cId;
   final _formKey = GlobalKey<FormState>();
   bool _passVisible = false;
-  final TextEditingController _mail = TextEditingController(text: "dalalraj1109@gmail.com");
-  final TextEditingController _Password = TextEditingController(text: "Abc@123");
+  final TextEditingController _mail = TextEditingController();
+  final TextEditingController _Password = TextEditingController();
   late SharedPreferences prefs;
 
   @override
@@ -63,6 +63,7 @@ class _LogInState extends State<LogIn> {
 
         var shredPref = await SharedPreferences.getInstance();
         shredPref.setString(UiScreenState.keylogin, responseBody['cid']);
+        print("DATATA OF PREDFS:$shredPref");
 
         Navigator.pushReplacement(
           context,

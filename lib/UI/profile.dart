@@ -206,7 +206,7 @@ class _ProfileState extends State<Profile> {
           children: [
             Container(
               height: 80,
-              width: 393,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(8),
@@ -234,7 +234,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   const SizedBox(height: 8),
                   Text(
-                    "${GlobalFunction.userProfile.name}",
+                    "${GlobalFunction.userProfile.name},${GlobalFunction.userProfile.cid.toString()}",
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 25,

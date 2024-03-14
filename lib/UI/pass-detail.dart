@@ -177,6 +177,7 @@
 //    }
 //  }
 
+import 'package:BusBuddy/utils/global_function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:BusBuddy/UI/confirm_ticket.dart';
@@ -438,7 +439,7 @@ class _PassDeatilsState extends State<PassDeatils> {
                             start: widget.start,
                             end: widget.end,
                             busId: widget.busId,
-                            cId: widget.cId.toString(),
+                            cId: GlobalFunction.userProfile.cid.toString(),
                           ),
                         ));
                   } else {

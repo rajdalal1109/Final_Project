@@ -3,7 +3,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
 // import 'package:project/UI/pass-detail.dart';
-// import 'package:project/model/dropdown.dart';
+// import 'package:project/model/busdisplay.dart';
 // import 'package:project/model/seatselect.dart';
 //
 // class SeatSelect extends StatefulWidget {
@@ -285,12 +285,13 @@
 
 import 'dart:convert';
 
+import 'package:BusBuddy/utils/global_function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:BusBuddy/UI/pass-detail.dart';
-import 'package:BusBuddy/model/dropdown.dart';
+import 'package:BusBuddy/model/busdisplay.dart';
 import 'package:BusBuddy/model/seatselect.dart';
 import 'package:BusBuddy/utils/appcolor.dart';
 
@@ -747,11 +748,11 @@ class _SeatSelectState extends State<SeatSelect> {
                                                     MaterialPageRoute(
                                                       builder: (context) =>
                                                           PassDeatils(
-                                                              cId: widget.cId.toString(),
+                                                              cId: GlobalFunction.userProfile.cid.toString(),
                                                               date: widget.date,
                                                               busId: widget.busID,
                                                               start: widget.start,
-                                                              price: widget.price,
+                                                              price: totalPrice.toString(),
                                                               end: widget.end,
                                                               seat: selectSeatList
                                                           ),

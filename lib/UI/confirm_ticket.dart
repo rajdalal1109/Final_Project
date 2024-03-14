@@ -5,7 +5,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 // import 'package:project/UI/homepage_1.dart';
-// import 'package:project/model/dropdown.dart';
+// import 'package:project/model/busdisplay.dart';
 // import 'package:project/model/seatselect.dart';
 // import 'package:http/http.dart' as http;
 //
@@ -195,7 +195,7 @@ class ConfirmTickets extends StatefulWidget {
   String? ticketNo;
   String? cId;
 
-  ConfirmTickets({this.ticketNo,this.cId});
+  ConfirmTickets({this.ticketNo, this.cId});
 
   @override
   State<ConfirmTickets> createState() => _TicketsState();
@@ -218,6 +218,22 @@ class _TicketsState extends State<ConfirmTickets> {
           .toList();
     } else {
       throw ('ERRORRR');
+    }
+  }
+
+  mailTicket() async {
+    var res = await http.post(
+        Uri.parse(
+            'https://busbooking.bestdevelopmentteam.com/Api/ticketmail.php'),
+        body: jsonEncode({
+          "ticketno": widget.ticketNo.toString(),
+          "cid": GlobalFunction.userProfile.cid.toString()
+        }),
+        headers: {'Content-Type': 'application/json'});
+    if(res.statusCode==200){
+      var data=jsonDecode(res.body);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data['message'])));
+      print('TICKET MAIL REESPONS${res.body}');
     }
   }
 
@@ -256,14 +272,12 @@ class _TicketsState extends State<ConfirmTickets> {
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: Colors.white)
-                  ),
+                          color: Colors.white)),
                   Text("${GlobalFunction.userProfile.email.toString()}",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white)
-                  ),
+                          color: Colors.white)),
                 ],
               ),
             ),
@@ -290,7 +304,8 @@ class _TicketsState extends State<ConfirmTickets> {
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Center(child: CircularProgressIndicator());
+                                  return Center(
+                                      child: CircularProgressIndicator());
                                 } else if (snapshot.hasError) {
                                   return Text('ERROR :::${snapshot.error}');
                                 } else {
@@ -302,20 +317,20 @@ class _TicketsState extends State<ConfirmTickets> {
 
                                         return Column(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "From : ${ticket.start.toString()}",
                                                   style: TextStyle(
                                                       fontSize: 15,
                                                       fontWeight:
-                                                      FontWeight.w700),
+                                                          FontWeight.w700),
                                                 ),
                                                 Text(
                                                     "Arival Time : ${ticket.reportingTime.toString()}"),
@@ -327,7 +342,7 @@ class _TicketsState extends State<ConfirmTickets> {
                                                   style: TextStyle(
                                                       fontSize: 15,
                                                       fontWeight:
-                                                      FontWeight.w700),
+                                                          FontWeight.w700),
                                                 ),
                                                 Text(
                                                     "Desination Time : ${ticket.depatureTime.toString()}"),
@@ -368,8 +383,8 @@ class _TicketsState extends State<ConfirmTickets> {
                                                 return Container(
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
                                                       Text(
                                                           "Passanger Name : ${passenger![index].name.toString()}"),
@@ -380,7 +395,8 @@ class _TicketsState extends State<ConfirmTickets> {
                                                 );
                                               },
                                               shrinkWrap: true,
-                                              itemCount: ticket.passenger!.length,
+                                              itemCount:
+                                                  ticket.passenger!.length,
                                             ),
                                             SizedBox(
                                               height: 15,
@@ -420,9 +436,15 @@ class _TicketsState extends State<ConfirmTickets> {
                             )),
                       ),
                     ),
+
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottoBar()));
+                      onTap: () async{
+                            await mailTicket();
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BottoBar()));
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
@@ -436,14 +458,12 @@ class _TicketsState extends State<ConfirmTickets> {
                                 borderRadius: BorderRadius.circular(8)),
                             child: const Center(
                                 child: Text(
-                                  "Home",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600),
-                                )
-                            )
-                        ),
+                              "Home",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                            ))),
                       ),
                     ),
                   ],
