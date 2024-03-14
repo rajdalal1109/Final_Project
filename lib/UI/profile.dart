@@ -10,13 +10,14 @@ import 'package:BusBuddy/login.dart';
 import 'package:http/http.dart' as http;
 import 'package:BusBuddy/utils/appcolor.dart';
 import 'package:BusBuddy/utils/global_function.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Profile extends StatefulWidget {
 
   String? cId;
 
+  late SharedPreferences prefs;
   Profile({Key? key,this.cId}) : super(key: key);
 
   @override
@@ -31,8 +32,6 @@ class _ProfileState extends State<Profile> {
 
   String? mobile;
   String? email;
-
-
 
   void showImagePickerOption(BuildContext context) {
     showModalBottomSheet(
@@ -107,9 +106,8 @@ class _ProfileState extends State<Profile> {
       selectedIMage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
     });
-
     // Save image to local storage
-    // widget.prefs.setString('profile_image', base64Encode(_image!));
+    widget.prefs.setString('profile_image', base64Encode(_image!));
     Navigator.of(context).pop();
   }
 
@@ -122,40 +120,38 @@ class _ProfileState extends State<Profile> {
       selectedIMage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
     });
-
     // Save image to local storage
-    // widget.prefs.setString('profile_image', base64Encode(_image!));
+    widget.prefs.setString('profile_image', base64Encode(_image!));
     Navigator.of(context).pop();
   }
 
   @override
   void initState() {
     super.initState();
-    _loadImage();
-
+    // SharedPreferences.getInstance().then((prefs) {
+    //   this.prefs = prefs;
+    //   _loadImage();
+    // });
   }
 
   Future<void> _loadImage() async {
-    // String? profileImageString = widget.prefs.getString('profile_image');
-
-    // if (profileImageString != null) {
-    //   setState(() {
-    //     _image = base64Decode(profileImageString);
-    //   });
-    // }
+    String? profileImageString = widget.prefs.getString('profile_image');
+    if (profileImageString != null) {
+      setState(() {
+        _image = base64Decode(profileImageString);
+      });
+    }
   }
 
   Future<void> _deleteImage() async {
-    // widget.prefs.remove('profile_image');
+    widget.prefs.remove('profile_image');
     setState(() {
       _image = null;
     });
   }
 
-
-
   void logout(BuildContext context) async {
-    // await widget.prefs.setBool('isLoggedIn', false); // Clear login status
+    await widget.prefs.setBool('isLoggedIn', false); // Clear login status
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) => LogIn(),
     ));
@@ -164,10 +160,6 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     print('PROFILEPAGE::');
-    // print(widget.name);
-    // print(widget.email);
-    // print(widget.mobile);
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

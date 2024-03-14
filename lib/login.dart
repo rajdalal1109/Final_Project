@@ -8,7 +8,6 @@ import 'package:BusBuddy/UI/splash_screen.dart';
 import 'package:BusBuddy/registration.dart';
 import 'package:http/http.dart' as http;
 import 'package:BusBuddy/utils/appcolor.dart';
-import 'package:BusBuddy/utils/global_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogIn extends StatefulWidget {
@@ -75,14 +74,13 @@ class _LogInState extends State<LogIn> {
         );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(responseBody['message']),
+            content: Text(responseBody['message'],style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500)),
             showCloseIcon: true,
             elevation: 6,
             duration: Duration(seconds: 1),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            backgroundColor: Color.fromRGBO(255, 98, 96, 1),
-            padding: EdgeInsets.all(10),
+            backgroundColor: AppColors.secondary,
           ),
         );
         print('CUSTOMER ID::::${cId}');
@@ -92,8 +90,7 @@ class _LogInState extends State<LogIn> {
             content: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                responseBody['message'],
-                style: TextStyle(fontWeight: FontWeight.bold),
+                responseBody['message'],style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500),
               ),
             ),
             showCloseIcon: true,
@@ -101,8 +98,7 @@ class _LogInState extends State<LogIn> {
             duration: Duration(seconds: 1),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            backgroundColor: Color.fromRGBO(255, 98, 96, 1),
-            padding: EdgeInsets.all(10),
+            backgroundColor: AppColors.secondary,
           ),
         );
         Navigator.push(
@@ -227,10 +223,13 @@ class _LogInState extends State<LogIn> {
                       if (value == null || value.isEmpty) {
                         return 'Password is required';
                       }
-                      //Regular expression pattern to validate password format
-                      // if (!RegExp(r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#$%^&*]).{6,}$').hasMatch(value)) {
-                      //   return 'Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long';
-                      // }
+                      // Regular expression pattern to validate password format
+                      if (!RegExp(
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$')
+                          .hasMatch(value)) {
+                        return ('Password must contain at least one uppercase \n'
+                            'letter, one lowercase letter,\n one number, one special character, and be at least 6 characters long');
+                      }
                       return null;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -256,15 +255,19 @@ class _LogInState extends State<LogIn> {
                   SizedBox(height: 10),
                   GestureDetector(
                     onTap: () async {
-
                       if (_formKey.currentState!.validate()) { // Validate the form
                         loginSubmit(); // Submit the login
                       } else {
                         // Show a Snackbar indicating that the form fields are not valid
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text("Please fill in all the fields with valid data"),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            behavior: SnackBarBehavior.floating,
+                            content: Text("Please fill in all the fields with valid data",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500)),
                             duration: Duration(seconds: 2),
+                            elevation: 6,
+                            backgroundColor: AppColors.secondary,
+                            margin: EdgeInsets.only(bottom: 15,left: 15,right: 15),
                           ),
                         );
                       }

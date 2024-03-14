@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:BusBuddy/model/tickethistorymodel.dart';
 import 'package:http/http.dart'as http;
@@ -33,11 +32,10 @@ class _TicketsState extends State<Tickets> {
           .map((e) => TicketHistoryM.fromJson(e))
           .toList();
     } else {
-      throw ('Kya kar hai bhai');
+      throw ('Kya kar raha hai bhai');
     }
   }
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +72,7 @@ class _TicketsState extends State<Tickets> {
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text("Please Select Date !!"),
+                      content: Text("Please select a Date !!"),
                     ),
                   );
                 }
@@ -104,6 +102,7 @@ class _TicketsState extends State<Tickets> {
               ),
             ),
           ),
+          
           FutureBuilder(
             future: getTicketHistory(),
             builder: (context, snapshot) {
@@ -118,61 +117,66 @@ class _TicketsState extends State<Tickets> {
               } else if (snapshot.hasError) {
                 return Padding(
                   padding: EdgeInsets.only(top: 40),
-                  child: Text("Please Select a date !!",style: TextStyle(color: AppColors.primary,fontSize: 20,fontWeight: FontWeight.w700),),
+                  child: Text("Tickets not available on this date",style: TextStyle(color: AppColors.primary,fontSize: 20,fontWeight: FontWeight.w700),),
                 );
               } else if (snapshot.data!.isEmpty) {
-                return Text('Tickets on available on this date');
+                return Text('Tickets not available on this date');
               } else {
-                return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final tData = snapshot.data![index];
-                    return Card(
-                      elevation: 2,
-                      shadowColor: Colors.grey,
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Bus Name : ${tData.busname.toString()} Travel"),
-                            SizedBox(height: 5,),
-                            Text("From : ${tData.start.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            Text("Arrival Time : ${tData.reportingTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            SizedBox(height: 5,),
-                            Text("To : ${tData.end.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            Text("DepatureTime : ${tData.depatureTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            SizedBox(height: 5,),
-                            Text("Price : ${tData.amount.toString()}"),
-                            SizedBox(height: 2,),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: tData.passenger!.length,
-                              itemBuilder: (context, index) {
-                                final pdetail = tData.passenger![index];
-                                return Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 20),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Name:${pdetail.name.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
-                                          Text('SeatNo:${pdetail.seatno.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            )
-                          ],
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final tData = snapshot.data![index];
+                      return Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Card(
+                          elevation: 3,
+                          shadowColor: Colors.grey,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Bus Name : ${tData.busname.toString()} Travel"),
+                                SizedBox(height: 5,),
+                                Text("From : ${tData.start.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                                Text("Arrival Time : ${tData.reportingTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                                SizedBox(height: 5,),
+                                Text("To : ${tData.end.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                                Text("DepatureTime : ${tData.depatureTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                                SizedBox(height: 5,),
+                                Text("Price : ${tData.amount.toString()}"),
+                                SizedBox(height: 2,),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: tData.passenger!.length,
+                                  itemBuilder: (context, index) {
+                                    final pdetail = tData.passenger![index];
+                                    return Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 20),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Name:${pdetail.name.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
+                                              Text('SeatNo:${pdetail.seatno.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 );
               }
             },
