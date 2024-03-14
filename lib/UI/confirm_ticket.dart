@@ -194,8 +194,9 @@ import 'package:BusBuddy/utils/appcolor.dart';
 class ConfirmTickets extends StatefulWidget {
   String? ticketNo;
   String? cId;
+  String? totalPrice;
 
-  ConfirmTickets({this.ticketNo,this.cId});
+  ConfirmTickets({this.ticketNo,this.cId,this.totalPrice});
 
   @override
   State<ConfirmTickets> createState() => _TicketsState();
@@ -211,7 +212,6 @@ class _TicketsState extends State<ConfirmTickets> {
         headers: {'Content-Type': 'application/json'});
     if (res.statusCode == 200 || res.statusCode == 201) {
       print('Ticket REsponse:::::${res.body}');
-
       var data = jsonDecode(res.body);
       return (data['tickit'] as List)
           .map((e) => ShowTicket.fromJson(e))
@@ -221,9 +221,11 @@ class _TicketsState extends State<ConfirmTickets> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     print('TicketNo on Confir TIcket::::${widget.ticketNo.toString()}');
+    print('total price::::${widget.totalPrice.toString()}');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary,
@@ -387,6 +389,7 @@ class _TicketsState extends State<ConfirmTickets> {
                                             ),
                                             Text(
                                               "Price = ₹${ticket.amount.toString()}",
+                                              // "Price = ₹${widget.totalPrice.toString()}",
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w700),

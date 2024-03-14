@@ -83,6 +83,7 @@ class ShowPassenger extends StatefulWidget {
   String? end;
   String? busId;
   String? price;
+  String? totalPrice;
 
   ShowPassenger(
       {this.start,
@@ -92,7 +93,9 @@ class ShowPassenger extends StatefulWidget {
         super.key,
         required this.addPasengers,
         this.cId,
-        this.date});
+        this.date,
+        this.totalPrice,
+      });
 
   @override
   State<ShowPassenger> createState() => _ShowPassengerState();
@@ -110,8 +113,6 @@ class _ShowPassengerState extends State<ShowPassenger> {
             "gender": widget.addPasengers[index].selecctRadio,
             "age": widget.addPasengers[index].age.text,
             "seatid": widget.addPasengers[index].seatNo,
-
-
           }),
       "price": widget.price,
       "start": widget.start,
@@ -119,6 +120,7 @@ class _ShowPassengerState extends State<ShowPassenger> {
       "date": widget.date,
       "end": widget.end,
       "cid": widget.cId,
+      "totalPrice": widget.totalPrice,
     };
     print('ADDED DATA________${body}');
 
@@ -134,7 +136,7 @@ class _ShowPassengerState extends State<ShowPassenger> {
         setState(() {
           ticket = data['ticketno'];
         });
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ConfirmTickets(ticketNo: ticket.toString(),cId: widget.cId.toString(),),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ConfirmTickets(ticketNo: ticket.toString(),cId: widget.cId.toString(),totalPrice: widget.totalPrice.toString()),));
       } else {
         throw ('Error');
       }
@@ -147,6 +149,7 @@ class _ShowPassengerState extends State<ShowPassenger> {
   Widget build(BuildContext context) {
     print('CID On SUbmitPassen::::${widget.cId}');
     print('ticket On SUbmitPassen::::${ticket}');
+    print('totalPrice On SUbmitPassen::::${widget.totalPrice}');
 
     return Scaffold(
         appBar: AppBar(

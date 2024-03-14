@@ -189,6 +189,7 @@ int selectoption = 1;
 class PassDeatils extends StatefulWidget {
   List<SeatSel> seat = [];
   String? cId;
+  String? totalPrice;
   String? date;
   String? busId;
   String? start;
@@ -202,7 +203,9 @@ class PassDeatils extends StatefulWidget {
         required this.seat,
         this.cId,
         this.date,
-        this.busId});
+        this.busId,
+        this.totalPrice
+      });
 
   @override
   State<PassDeatils> createState() => _PassDeatilsState();
@@ -240,6 +243,7 @@ class _PassDeatilsState extends State<PassDeatils> {
   @override
   Widget build(BuildContext context) {
     print('CID ON ADD PASS:::${widget.cId}');
+    print('price ON ADD PASS:::${widget.totalPrice}');
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.primary,
@@ -439,6 +443,7 @@ class _PassDeatilsState extends State<PassDeatils> {
                             end: widget.end,
                             busId: widget.busId,
                             cId: widget.cId.toString(),
+                            totalPrice: widget.totalPrice.toString(),
                           ),
                         ));
                   } else {

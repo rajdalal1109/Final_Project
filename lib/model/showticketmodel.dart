@@ -9,6 +9,7 @@ class ShowTicket {
   String? depatureTime;
   String? tickitno;
   String? createddate;
+  String? totalPrice;
   List<Passenger>? passenger;
 
   ShowTicket(
@@ -22,7 +23,9 @@ class ShowTicket {
         this.depatureTime,
         this.tickitno,
         this.createddate,
-        this.passenger});
+        this.passenger,
+        this.totalPrice
+      });
 
   ShowTicket.fromJson(Map<String, dynamic> json) {
     start = json['start'];

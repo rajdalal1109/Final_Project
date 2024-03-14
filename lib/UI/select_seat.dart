@@ -338,8 +338,6 @@ class _SeatSelectState extends State<SeatSelect> {
       print(res.body);
 
       return (data['data'] as List).map((e) => BusDisplay.fromJson(e)).toList();
-
-      // return (data['data'] as List).map((e) => BusDisplay.fromJson(e)).toList();
     } else {
       throw Exception('Failed to load ');
     }
