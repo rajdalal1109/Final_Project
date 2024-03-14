@@ -128,47 +128,49 @@ class _TicketsState extends State<Tickets> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     final tData = snapshot.data![index];
-                    return Card(
-                      elevation: 2,
-                      shadowColor: Colors.grey,
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Bus Name : ${tData.busname.toString()} Travel"),
-                            SizedBox(height: 5,),
-                            Text("From : ${tData.start.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            Text("Arrival Time : ${tData.reportingTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            SizedBox(height: 5,),
-                            Text("To : ${tData.end.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            Text("DepatureTime : ${tData.depatureTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            SizedBox(height: 5,),
-                            Text("Price : ${tData.amount.toString()}"),
-                            SizedBox(height: 2,),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: tData.passenger!.length,
-                              itemBuilder: (context, index) {
-                                final pdetail = tData.passenger![index];
-                                return Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 20),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Name:${pdetail.name.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
-                                          Text('SeatNo:${pdetail.seatno.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
-                                        ],
+                    return SingleChildScrollView(
+                      child: Card(
+                        elevation: 2,
+                        shadowColor: Colors.grey,
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Bus Name : ${tData.busname.toString()} Travel"),
+                              SizedBox(height: 5,),
+                              Text("From : ${tData.start.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                              Text("Arrival Time : ${tData.reportingTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                              SizedBox(height: 5,),
+                              Text("To : ${tData.end.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                              Text("DepatureTime : ${tData.depatureTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                              SizedBox(height: 5,),
+                              Text("Price : ${tData.amount.toString()}"),
+                              SizedBox(height: 2,),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: tData.passenger!.length,
+                                itemBuilder: (context, index) {
+                                  final pdetail = tData.passenger![index];
+                                  return Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 20),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Name:${pdetail.name.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
+                                            Text('SeatNo:${pdetail.seatno.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            )
-                          ],
+                                    ],
+                                  );
+                                },
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );

@@ -25,26 +25,6 @@ class _ForgotPassState extends State<ForgotPass> {
     super.dispose();
   }
 
-  // void ForgotPass() async
-  // {
-  //   try
-  //     {
-  //       var response = await http.post(Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/forgetpwd.php"),
-  //       body: jsonEncode({"email" :_mail.text}),
-  //         headers: {'Content-Type':"application/json; charset=UTF-8" },
-  //       );
-  //       if(response.statusCode==200){
-  //         print(response.body);
-  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('otp sent')));
-  //         Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtp(email: _mail.text),));
-  //       }
-  //
-  //     }
-  //   catch(e)
-  //     {
-  //       print(e);
-  //     }
-  // }
   void ForgotPass() async {
     if (_formKey.currentState!.validate()) {
       try {

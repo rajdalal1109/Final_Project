@@ -56,14 +56,12 @@ class _LogInState extends State<LogIn> {
       print('Response body: ${response.body}');
       var responseBody = jsonDecode(response.body);
       if (responseBody['STATUS'] == true) {
-
         setState(() {
           cId = responseBody['cid'];
         });
 
         var shredPref = await SharedPreferences.getInstance();
         shredPref.setString(UiScreenState.keylogin, responseBody['cid']);
-
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -74,13 +72,12 @@ class _LogInState extends State<LogIn> {
         );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(responseBody['message']),
-            showCloseIcon: true,
+            content: Text(responseBody['message'],style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500),),
             elevation: 6,
             duration: Duration(seconds: 1),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            backgroundColor: Color.fromRGBO(255, 98, 96, 1),
+            backgroundColor: AppColors.secondary,
             padding: EdgeInsets.all(10),
           ),
         );

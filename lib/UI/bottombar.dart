@@ -40,9 +40,7 @@ class _BottoBarState extends State<BottoBar> {
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body) ;
-
       print(response.body);
-
       GlobalFunction.userProfile = UserProfile.fromJson(data['userProfile']);
       // setState(() {
       //   name=data['userProfile']['name'];
