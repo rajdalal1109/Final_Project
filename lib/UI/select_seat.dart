@@ -544,9 +544,15 @@ class _SeatSelectState extends State<SeatSelect> {
                                       !seat[index].userSelected!;
                                     } else {
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                          content: Text(
-                                              "Bas bhai kitni add krega!")));
+                                          .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: AppColors.secondary,
+                                          behavior: SnackBarBehavior.floating,
+                                          margin: EdgeInsets.only(bottom: 5,left: 10,right: 10),
+                                          elevation: 2,
+                                          content: Text("Bas bhai kitni add krega!",style: TextStyle(color: Colors.black),),
+                                          ),
+                                      );
                                     }
                                   } else {
                                     seat[index].userSelected =

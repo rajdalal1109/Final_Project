@@ -293,7 +293,7 @@ class _TicketsState extends State<ConfirmTickets> {
                       child: SingleChildScrollView(
                         physics: AlwaysScrollableScrollPhysics(),
                         child: Container(
-                            height: 400,
+                            height: 420,
                             width: 500,
                             decoration: BoxDecoration(
                               color: AppColors.secondary,

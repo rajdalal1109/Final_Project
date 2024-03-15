@@ -71,8 +71,13 @@ class _TicketsState extends State<Tickets> {
                   });
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Please select a Date !!"),
+                    SnackBar(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.only(bottom: 5,right: 10,left: 10),
+                      backgroundColor: AppColors.secondary,
+                      content: Text("Please select a Date !!",style: TextStyle(color: Colors.black,),),
                     ),
                   );
                 }
@@ -114,7 +119,7 @@ class _TicketsState extends State<Tickets> {
                     )
                   ),
                 );
-              } else if (snapshot.hasError) {
+              } else if (snapshot.hasError || snapshot.data!.isEmpty) {
                 return Padding(
                   padding: EdgeInsets.only(top: 40),
                   child: Text("Tickets not available on this date",style: TextStyle(color: AppColors.primary,fontSize: 20,fontWeight: FontWeight.w700),),
@@ -133,7 +138,7 @@ class _TicketsState extends State<Tickets> {
                         child: Card(
                           elevation: 3,
                           shadowColor: Colors.grey,
-                          color: Colors.white,
+                          color: Colors.blue.shade50,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
                             child: Column(
