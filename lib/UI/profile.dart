@@ -17,8 +17,6 @@ class Profile extends StatefulWidget {
 
   String? cId;
 
-  var prefs;
-
   Profile({Key? key,this.cId}) : super(key: key);
 
   @override
@@ -109,7 +107,7 @@ class _ProfileState extends State<Profile> {
       _image = File(returnImage.path).readAsBytesSync();
     });
     // Save image to local storage
-    widget.prefs.setString('profile_image', base64Encode(_image!));
+    // widget.prefs.setString('profile_image', base64Encode(_image!));
     Navigator.of(context).pop();
   }
 
@@ -123,7 +121,7 @@ class _ProfileState extends State<Profile> {
       _image = File(returnImage.path).readAsBytesSync();
     });
     // Save image to local storage
-    widget.prefs.setString('profile_image', base64Encode(_image!));
+    // widget.prefs.setString('profile_image', base64Encode(_image!));
     Navigator.of(context).pop();
   }
 
@@ -137,23 +135,23 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> _loadImage() async {
-    String? profileImageString = widget.prefs.getString('profile_image');
-    if (profileImageString != null) {
-      setState(() {
-        _image = base64Decode(profileImageString);
-      });
-    }
+    // String? profileImageString = widget.prefs.getString('profile_image');
+    // if (profileImageString != null) {
+    //   setState(() {
+    //     _image = base64Decode(profileImageString);
+    //   });
+    // }
   }
 
   Future<void> _deleteImage() async {
-    widget.prefs.remove('profile_image');
+    // widget.prefs.remove('profile_image');
     setState(() {
       _image = null;
     });
   }
 
   void logout(BuildContext context) async {
-    await widget.prefs.setBool('isLoggedIn', false); // Clear login status
+    // await widget.prefs.setBool('isLoggedIn', false); // Clear login status
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) => LogIn(),
     ));
