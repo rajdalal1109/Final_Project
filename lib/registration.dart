@@ -232,7 +232,7 @@ class _RegistrationState extends State<Registration> {
                       {
                         return 'Please enter an email address';
                       }
-                      if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value) || !value.contains("@gmail.com")) {
+                      if (!RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
                         return 'Format is abc123@gmail.com';
                       }
                       return null;

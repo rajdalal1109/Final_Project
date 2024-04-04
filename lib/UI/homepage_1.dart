@@ -113,7 +113,7 @@ class _MyHomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       Text(
-                        "Hey ${GlobalFunction.userProfile.name.toString()} ! and ${GlobalFunction.userProfile.cid.toString()}",
+                        "Hey ${GlobalFunction.userProfile.name.toString()} !",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -357,11 +357,6 @@ class _MyHomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-
-        /*      Padding(
-                padding: EdgeInsets.only(top: 240,left: 250),
-                child: IconButton(onPressed: (){}, icon: Icon(Icons.swap_vert_circle_rounded),iconSize: 40,color: AppColors.primary,),
-              ),*/
 
               //UpComing Feature
               Padding(

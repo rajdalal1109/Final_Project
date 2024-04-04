@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:BusBuddy/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -38,8 +39,8 @@ class _VerifyOtpState extends State<VerifyMail> {
       if (responseBody['STATUS'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Otp sent Sucessfully!!, It will expire in 2 minutes '),
-            duration: Duration(seconds: 5),
+            content: Text('You are Register Successfully!'),
+            duration: Duration(seconds: 2),
             elevation: 10,
             behavior: SnackBarBehavior.floating,
             margin: EdgeInsets.only(bottom: 50),
@@ -48,14 +49,14 @@ class _VerifyOtpState extends State<VerifyMail> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => BottoBar(),
+            builder: (context) => LogIn(),
           ),
         );
       } else if(responseBody['code'] == 0 ) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Otp Expire, Please Register again!!'),
-            duration: Duration(seconds: 5),
+            duration: Duration(seconds: 2),
             elevation: 10,
             behavior: SnackBarBehavior.floating,
             margin: EdgeInsets.only(bottom: 50),

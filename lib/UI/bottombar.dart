@@ -13,21 +13,18 @@ import 'package:http/http.dart'as http;
 class BottoBar extends StatefulWidget {
   String? cId;
 
-  BottoBar({this.cId});
+  BottoBar({super.key, this.cId});
 
   @override
   State<BottoBar> createState() => _BottoBarState();
 }
 
 class _BottoBarState extends State<BottoBar> {
-  final TextEditingController _number = TextEditingController();
-  final TextEditingController _mail = TextEditingController();
   String? name;
   String? mobile;
   String? email;
 
   int currentPageIndex = 0;
-  // late SharedPreferences prefs;
   displayName() async
   {
     final response = await http.post(Uri.parse("https://busbooking.bestdevelopmentteam.com/Api/displayuser.php"),
@@ -47,11 +44,8 @@ class _BottoBarState extends State<BottoBar> {
   @override
   void initState() {
     super.initState();
-
     displayName();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +61,7 @@ class _BottoBarState extends State<BottoBar> {
           ),
           Tickets(cId: widget.cId.toString(),),
           Profile(
-
             cId: widget.cId,
-
           ),
         ],
       ),
@@ -84,8 +76,8 @@ class _BottoBarState extends State<BottoBar> {
         selectedFontSize: 12,
         unselectedItemColor: Colors.grey,
         unselectedFontSize: 14,
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
             activeIcon: Icon(CupertinoIcons.home),
             icon: Icon(Icons.home),
             label: "Home",
@@ -96,7 +88,7 @@ class _BottoBarState extends State<BottoBar> {
             label: "My Booking",
           ),
           BottomNavigationBarItem(
-            activeIcon: const Icon(CupertinoIcons.profile_circled),
+            activeIcon: Icon(CupertinoIcons.profile_circled),
             icon: Icon(Icons.person),
             label: "Profile",
           ),
