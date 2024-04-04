@@ -6,23 +6,26 @@ class TicketHistoryM {
   String? reportingTime;
   String? depatureTime;
   String? busname;
+  String? tickitno;
   List<Passenger>? passenger;
 
   TicketHistoryM(
       {this.start,
-      this.end,
-      this.amount,
-      this.date,
-      this.reportingTime,
-      this.depatureTime,
-      this.busname,
-      this.passenger});
+        this.end,
+        this.amount,
+        this.date,
+        this.reportingTime,
+        this.depatureTime,
+        this.busname,
+        this.tickitno,
+        this.passenger});
 
   TicketHistoryM.fromJson(Map<String, dynamic> json) {
     start = json['start'];
     end = json['end'];
     amount = json['amount'];
     date = json['date'];
+    tickitno = json['tickitno'];
     reportingTime = json['ReportingTime'];
     depatureTime = json['DepatureTime'];
     busname = json['busname'];
@@ -40,6 +43,7 @@ class TicketHistoryM {
     data['end'] = this.end;
     data['amount'] = this.amount;
     data['date'] = this.date;
+    data['tickitno'] = this.tickitno;
     data['ReportingTime'] = this.reportingTime;
     data['DepatureTime'] = this.depatureTime;
     data['busname'] = this.busname;

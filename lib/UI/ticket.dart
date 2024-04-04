@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:BusBuddy/utils/global_function.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:BusBuddy/model/tickethistorymodel.dart';
@@ -55,148 +56,156 @@ class _TicketsState extends State<Tickets> {
         centerTitle: true,
         title: const Text("My Tickets",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.white)),
       ),
-      body: Column(
-
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 15,left: 8,right: 8),
-            child: TextField(
-              // Date Select
-              controller: datecontroller,
-              readOnly: true,
-              onTap: () async {
-                final DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1990),
-                  lastDate: DateTime(2050),
-                );
-                if (pickedDate != null) {
-                  print(pickedDate);
-                  String formateDate =
-                  DateFormat('dd-MM-yyyy').format(pickedDate);
-                  print(formateDate);
-                  setState(() {
-                    datecontroller.text = formateDate;
-                  });
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Please Select Date !!"),
+      body: SizedBox(
+        height: MediaQuery.sizeOf(context).height,
+        width: MediaQuery.sizeOf(context).width,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 15,left: 8,right: 8),
+                child: TextField(
+                  // Date Select
+                  controller: datecontroller,
+                  readOnly: true,
+                  onTap: () async {
+                    final DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1990),
+                      lastDate: DateTime(2050),
+                    );
+                    if (pickedDate != null) {
+                      print(pickedDate);
+                      String formateDate =
+                      DateFormat('dd-MM-yyyy').format(pickedDate);
+                      print(formateDate);
+                      setState(() {
+                        datecontroller.text = formateDate;
+                      });
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Please Select Date !!"),
+                        ),
+                      );
+                    }
+                  },
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppColors.secondary,
+                    isDense: true,
+                    // prefixIcon: Icon(Icons.date_range, color: AppColors.primary),
+                    prefixIcon: Icon(Icons.calendar_month_outlined, color: AppColors.primary),
+                    labelText: "Day*",
+                    hintText: "Select Date",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(color: AppColors.primary),
                     ),
-                  );
-                }
-              },
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: AppColors.secondary,
-                isDense: true,
-                // prefixIcon: Icon(Icons.date_range, color: AppColors.primary),
-                prefixIcon: Icon(Icons.calendar_month_outlined, color: AppColors.primary),
-                labelText: "Day*",
-                hintText: "Select Date",
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide(color: AppColors.primary),
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.primary),
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.primary),
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color:AppColors.primary),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.primary),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.primary),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color:AppColors.primary),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
 
-          FutureBuilder(
-            future: getTicketHistory(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 300),
-                  child: Center(child: CircularProgressIndicator(
-                    color: AppColors.primary,
-                  )
-                  ),
-                );
-              }
-
-              else if(datecontroller.text.isEmpty){
-                return Center(child: Text('Please Select Date',style: TextStyle(color: AppColors.primary,fontSize: 20,fontWeight: FontWeight.w700)));
-
-
-              }
-
-              else if (snapshot.hasError) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 40),
-                  child: Center(child: Text('${snapshot.error}',style: TextStyle(color: AppColors.primary,fontSize: 20,fontWeight: FontWeight.w700),)),
-                );
-              } else if (snapshot.data!.isEmpty) {
-                return Center(child: Text('Tickets are not available on this date',style: TextStyle(color: AppColors.primary,fontSize: 20,fontWeight: FontWeight.w700)));
-              } else {
-                return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final tData = snapshot.data![index];
-                    return Card(
-                      elevation: 2,
-                      shadowColor: Colors.grey,
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Bus Name : ${tData.busname} Travel"),
-                            Text("Ticket No : ${tData.tickitno}"),
-
-                            SizedBox(height: 5,),
-                            Text("From : ${tData.start.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            Text("Arrival Time : ${tData.reportingTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            SizedBox(height: 5,),
-                            Text("To : ${tData.end.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            Text("DepatureTime : ${tData.depatureTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
-                            SizedBox(height: 5,),
-                            Text("Price : ${tData.amount.toString()}"),
-                            SizedBox(height: 2,),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: tData.passenger!.length,
-                              itemBuilder: (context, index) {
-                                final pdetail = tData.passenger![index];
-                                return Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 20),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Name:${pdetail.name.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
-                                          Text('SeatNo:${pdetail.seatno.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            )
-                          ],
-                        ),
+              FutureBuilder(
+                future: getTicketHistory(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Padding(
+                      padding: EdgeInsets.only(top: 300),
+                      child: Center(child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                      )
                       ),
                     );
-                  },
-                );
-              }
-            },
+                  }
+
+                  else if(datecontroller.text.isEmpty){
+                    return Center(child: Text('Please Select Date',style: TextStyle(color: AppColors.primary,fontSize: 20,fontWeight: FontWeight.w700)));
+
+
+                  }
+
+                  else if (snapshot.hasError) {
+                    return Padding(
+                      padding: EdgeInsets.only(top: 40),
+                      child: Center(child: Text('${snapshot.error}',style: TextStyle(color: AppColors.primary,fontSize: 20,fontWeight: FontWeight.w700),)),
+                    );
+                  } else if (snapshot.data!.isEmpty) {
+                    return Center(child: Text('Tickets are not available on this date',style: TextStyle(color: AppColors.primary,fontSize: 20,fontWeight: FontWeight.w700)));
+                  } else {
+                    return SizedBox(
+                      height: MediaQuery.sizeOf(context).height,
+                      child: ListView.builder(
+
+                        itemCount: snapshot.data!.length,
+                        // shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final tData = snapshot.data![index];
+                          return Card(
+                            elevation: 2,
+                            shadowColor: Colors.grey,
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Bus Name : ${tData.busname} Travel"),
+                                  Text("Ticket No : ${tData.tickitno}"),
+                                  SizedBox(height: 5,),
+                                  Text("From : ${tData.start.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                                  Text("Arrival Time : ${tData.reportingTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                                  SizedBox(height: 5,),
+                                  Text("To : ${tData.end.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                                  Text("DepatureTime : ${tData.depatureTime.toString()}",style: TextStyle(fontWeight: FontWeight.w600),),
+                                  SizedBox(height: 5,),
+                                  Text("Price : ${tData.amount.toString()}"),
+                                  SizedBox(height: 2,),
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: tData.passenger!.length,
+                                    itemBuilder: (context, index) {
+                                      final pdetail = tData.passenger![index];
+                                      return Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 20),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text('Name:${pdetail.name.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
+                                                Text('SeatNo:${pdetail.seatno.toString()}',style: TextStyle(fontWeight: FontWeight.w600),),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
-        ],
+        ),
       ),
       /*    body: Padding(
         padding: const EdgeInsets.all(8.0),

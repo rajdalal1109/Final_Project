@@ -108,7 +108,8 @@ class _LogInState extends State<LogIn> {
           ),
         );
       }
-    } catch (e) {
+    }
+    catch (e) {
       print(e);
     }
   }
