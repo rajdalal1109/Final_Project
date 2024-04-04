@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -12,7 +11,6 @@ import 'package:BusBuddy/utils/appcolor.dart';
 class VerifyOtp extends StatefulWidget {
   final String email;
 
-  // const VerifyOtp({super.key, required this.email});
   const VerifyOtp({Key? key, required this.email}) : super(key: key);
 
   @override
@@ -96,7 +94,8 @@ class _VerifyOtpState extends State<VerifyOtp> {
         title: Text("Verify Your Email",style: TextStyle(color: AppColors.primary,fontSize: 22,fontWeight: FontWeight.w600),),
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body:
+      SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 50,left: 15, right: 15),
           child: Column(

@@ -228,8 +228,8 @@ class _LogInState extends State<LogIn> {
                       if (!RegExp(
                           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{6,}$')
                           .hasMatch(value)) {
-                        return ('Password must contain at least one uppercase \n'
-                            'letter, one lowercase letter,\n one number, one special character, and be at least 6 characters long');
+                        return ('Password must contain at least one uppercase letter, one lowercase letter,' +
+                            ' one number, one special character, and be at least 6 characters long');
                       }
                       return null;
                     },

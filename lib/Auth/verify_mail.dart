@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:pinput/pinput.dart';
 import 'package:BusBuddy/UI/bottombar.dart';
 import 'package:BusBuddy/registration.dart';
+import 'package:BusBuddy/utils/appcolor.dart';
 
 class VerifyMail extends StatefulWidget {
   final String email;
@@ -88,97 +89,58 @@ class _VerifyOtpState extends State<VerifyMail> {
 
     print(widget.email);
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 98, 96, 1),
-      //background: rgba(255, 98, 96, 1);
-      body: Center(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+      ),
+      backgroundColor: Colors.white,
+      body:
+      SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: SingleChildScrollView(
-            child: Container(
-              height: 450,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
+          padding: const EdgeInsets.only(top: 50,left: 15, right: 15),
+          child: Column(
+            children: [
+              Image.asset("assets/images/auth/forgot.png",height: 224,width: 300,),
+              const SizedBox(height: 40),
+              Text("Please Enter the verification code sent to",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: AppColors.primary),),
+              Text("${widget.email}",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: AppColors.primary),),
+              const SizedBox(height: 30),
+              Pinput(
+                length: 4,
+                defaultPinTheme: otptheme,
+                focusedPinTheme: otptheme.copyWith(
+                    decoration:otptheme.decoration!.copyWith(
+                      border: Border.all(color: AppColors.primary),
+                    )
+                ),
+                controller: _otp,
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Verification",
-                      style: TextStyle(fontSize: 35),
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  submitOtp();// Submit the login
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15,right: 15),
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 15),
+                    // width: 250,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
-                        "Enter Your 4-digit code that you received on your email."),
-                    //const Text("OTP will expire soon",style: TextStyle(color: Colors.redAccent),),
-                    const SizedBox(height: 20),
-                    Text("Email: ${widget.email}"),
-                    const SizedBox(height: 20),
-                    // TextField(
-                    //   controller: _otp,
-                    //   maxLength: 4,
-                    //   keyboardType: TextInputType.number,
-                    //   decoration: InputDecoration(
-                    //       hintText: "Enter Your OTP Here",
-                    //       border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(10),
-                    //       )),
-                    // ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 25),
-                      child: Pinput(
-                        length: 4,
-                        defaultPinTheme: otptheme,
-                        focusedPinTheme: otptheme.copyWith(
-                            decoration:otptheme.decoration!.copyWith(
-                              border: Border.all(color: Colors.redAccent.shade200),
-                            )
-                        ),
-                        controller: _otp,
+                    child: const Center(
+                      child: Text(
+                        "Send",
+                        style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    //Text("$_timer"),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: submitOtp,
-                      // _isEmailValid
-                      //     ? () {
-                      //   Navigator.of(context).push(
-                      //     MaterialPageRoute(
-                      //       builder: (context) => VerifyOtp(email: _mail.text,),
-                      //     ),
-                      //   );
-                      // }: null,
-                      child: Center(child: Text("CONTINUE")),
-                    ),
-                    // const SizedBox(height: 5),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Text("If you didn't receive a code!\t"),
-                    //     GestureDetector(
-                    //       onTap: () {
-                    //         Navigator.of(context).push(MaterialPageRoute(
-                    //           builder: (context) => ForgotPass(),
-                    //         ));
-                    //       },
-                    //       child: Text(
-                    //         "Resend",
-                    //         style: TextStyle(color: Colors.red),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+              const SizedBox(height: 10),
+            ],
           ),
         ),
       ),
